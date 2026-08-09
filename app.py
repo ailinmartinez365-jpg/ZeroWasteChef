@@ -1,4 +1,5 @@
 import streamlit as st
+from recetas import recetas
 
 st.title("🍃 ZeroWaste Chef")
 
@@ -19,6 +20,8 @@ if texto_ingredientes:
 
     for ingrediente in ingredientes:
         st.write(ingrediente)
+
+    st.write("Cantidad de recetas disponibles:", len(recetas))
 
 else:
     st.warning("Por favor, introduce al menos un ingrediente.")
