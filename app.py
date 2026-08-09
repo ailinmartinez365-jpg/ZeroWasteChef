@@ -9,6 +9,18 @@ texto_ingredientes = st.text_input(
     "¿Qué ingredientes tienes?",
     placeholder="Ejemplo: huevo, tomate, queso"
 )
+
+if texto_ingredientes:
+
+    ingredientes = texto_ingredientes.lower().split(",")
+
+    ingredientes = [ingrediente.strip() for ingrediente in ingredientes]
+
+    st.write("Tus ingredientes son:")
+
+    for ingrediente in ingredientes:
+        st.write(ingrediente)
+
     st.subheader("Recetas encontradas")
 
     resultados = []
@@ -42,19 +54,6 @@ texto_ingredientes = st.text_input(
 
         st.write(receta["nombre"])
         st.write("Coincidencia:", porcentaje, "%")
-if texto_ingredientes:
-
-    ingredientes = texto_ingredientes.lower().split(",")
-
-    ingredientes = [ingrediente.strip() for ingrediente in ingredientes]
-
-    st.write("Tus ingredientes son:")
-
-    for ingrediente in ingredientes:
-        st.write(ingrediente)
-    
-
-    st.write("Cantidad de recetas disponibles:", len(recetas))
 
 else:
     st.warning("Por favor, introduce al menos un ingrediente.")
