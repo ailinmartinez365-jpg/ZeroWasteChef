@@ -18,7 +18,7 @@ if texto_ingredientes:
     st.write("Tus ingredientes son:")
 
     for ingrediente in ingredientes:
-        st.write("🥕", ingrediente)
+        st.write(ingrediente)
 
 else:
     st.warning("Por favor, introduce al menos un ingrediente.")
