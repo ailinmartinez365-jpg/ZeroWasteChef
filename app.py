@@ -46,8 +46,7 @@ if texto_ingredientes:
         key=lambda resultado: resultado["porcentaje"],
         reverse=True
     )
-
-   for resultado in resultados:
+    for resultado in resultados:
 
     receta = resultado["receta"]
     porcentaje = resultado["porcentaje"]
