@@ -47,13 +47,20 @@ if texto_ingredientes:
         reverse=True
     )
 
-    for resultado in resultados:
+   for resultado in resultados:
 
-        receta = resultado["receta"]
-        porcentaje = resultado["porcentaje"]
+    receta = resultado["receta"]
+    porcentaje = resultado["porcentaje"]
 
-        st.write(receta["nombre"])
-        st.write("Coincidencia:", porcentaje, "%")
+    with st.container(border=True):
 
-else:
-    st.warning("Por favor, introduce al menos un ingrediente.")
+        st.subheader(receta["nombre"])
+
+        st.write("Coincidencia:", round(porcentaje), "%")
+
+        st.write("Tiempo:", receta["tiempo"], "minutos")
+
+        st.write("Nivel:", receta["nivel"])
+
+        st.button("Ver receta", key=receta["nombre"])
+    
