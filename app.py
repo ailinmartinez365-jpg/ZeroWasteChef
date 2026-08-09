@@ -20,6 +20,21 @@ if texto_ingredientes:
 
     for ingrediente in ingredientes:
         st.write(ingrediente)
+    st.subheader("Recetas encontradas")
+
+    for receta in recetas:
+
+        coincidencias = 0
+
+        for ingrediente in receta["ingredientes"]:
+
+            if ingrediente in ingredientes:
+                coincidencias += 1
+
+        porcentaje = (coincidencias / len(receta["ingredientes"])) * 100
+
+        st.write(receta["nombre"])
+        st.write("Coincidencia:", porcentaje, "%")
 
     st.write("Cantidad de recetas disponibles:", len(recetas))
 
