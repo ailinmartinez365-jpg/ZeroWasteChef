@@ -1,11 +1,6 @@
 import streamlit as st
 from recetas import recetas
 
-
-# -----------------------------------
-# CONFIGURACIÓN DE LA PÁGINA
-# -----------------------------------
-
 st.set_page_config(
     page_title="Chef Cero Residuos",
     page_icon="🍃",
@@ -13,9 +8,7 @@ st.set_page_config(
 )
 
 
-# -----------------------------------
-# TÍTULO
-# -----------------------------------
+
 
 st.title("Chef Cero Residuos")
 
@@ -24,9 +17,6 @@ st.write(
 )
 
 
-# -----------------------------------
-# BUSCADOR DE INGREDIENTES
-# -----------------------------------
 
 st.subheader("¿Qué ingredientes tienes?")
 
@@ -36,9 +26,6 @@ entrada = st.text_input(
 )
 
 
-# -----------------------------------
-# PROCESAR LOS INGREDIENTES
-# -----------------------------------
 
 ingredientes_usuario = []
 
@@ -51,9 +38,7 @@ if entrada:
     ]
 
 
-# -----------------------------------
-# BUSCAR RECETAS
-# -----------------------------------
+
 
 resultados = []
 
@@ -92,9 +77,6 @@ for receta in recetas:
         )
 
 
-# -----------------------------------
-# ORDENAR RESULTADOS
-# -----------------------------------
 
 resultados.sort(
     key=lambda resultado: resultado["porcentaje"],
@@ -102,9 +84,6 @@ resultados.sort(
 )
 
 
-# -----------------------------------
-# MOSTRAR RESULTADOS
-# -----------------------------------
 
 if ingredientes_usuario:
 
@@ -119,17 +98,13 @@ if ingredientes_usuario:
         ]
 
 
-        # -----------------------------------
-        # RECORRER LOS NIVELES
-        # -----------------------------------
-
+        
         for nivel in niveles:
 
             recetas_nivel = []
 
 
-            # Buscar recetas pertenecientes
-            # al nivel actual
+        
 
             for resultado in resultados:
 
@@ -140,10 +115,7 @@ if ingredientes_usuario:
                     recetas_nivel.append(resultado)
 
 
-            # -----------------------------------
-            # MOSTRAR EL NIVEL SI TIENE RECETAS
-            # -----------------------------------
-
+            
             if recetas_nivel:
 
                 if nivel == "Principiante":
@@ -177,10 +149,7 @@ if ingredientes_usuario:
                     )
 
 
-                # -----------------------------------
-                # MOSTRAR TARJETAS
-                # -----------------------------------
-
+                
                 columnas = st.columns(3)
 
 
@@ -279,9 +248,6 @@ if ingredientes_usuario:
         )
 
 
-# -----------------------------------
-# MENSAJE INICIAL
-# -----------------------------------
 
 else:
 
