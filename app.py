@@ -46,20 +46,67 @@ if texto_ingredientes:
         key=lambda resultado: resultado["porcentaje"],
         reverse=True
     )
-    for resultado in resultados:
+        niveles = ["Principiante", "Explorador", "Experto"]
 
-        receta = resultado["receta"]
-        porcentaje = resultado["porcentaje"]
-    
-        with st.container(border=True):
-    
-            st.subheader(receta["nombre"])
-    
-            st.write("Coincidencia:", round(porcentaje), "%")
-    
-            st.write("Tiempo:", receta["tiempo"], "minutos")
-    
-            st.write("Nivel:", receta["nivel"])
-    
-            st.button("Ver receta", key=receta["nombre"])
-        
+    for nivel in niveles:
+
+        recetas_nivel = []
+
+        for resultado in resultados:
+
+            receta = resultado["receta"]
+
+            if receta["nivel"] == nivel:
+                recetas_nivel.append(resultado)
+
+        if recetas_nivel:
+
+            st.header(nivel)
+
+            for resultado in recetas_nivel:
+
+                receta = resultado["receta"]
+                porcentaje = resultado["porcentaje"]
+
+                with st.container(border=True):
+
+                    st.subheader(receta["nombre"])
+
+                    st.write(
+                        "Coincidencia:",
+                        round(porcentaje),
+                        "%"
+                    )
+
+                    st.write(
+                        "Tiempo:",
+                        receta["tiempo"],
+                        "minutos"
+                    )
+
+                    st.write(
+                        "Nivel:",
+                        receta["nivel"]
+                    )
+
+                    if st.button(
+                        "Ver receta",
+                        key=receta["nombre"]
+                    ):
+
+                        st.write("### Ingredientes")
+
+                        for ingrediente in receta["ingredientes"]:
+                            st.write("-", ingrediente)
+
+                        st.write("### Instrucciones")
+
+                        for numero, instruccion in enumerate(
+                            receta["instrucciones"],
+                            start=1
+                        ):
+                            st.write(
+                                numero,
+                                ".",
+                                instruccion
+                            )
