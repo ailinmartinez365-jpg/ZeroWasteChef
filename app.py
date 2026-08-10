@@ -70,8 +70,13 @@ if texto_ingredientes:
 
                 with st.container(border=True):
 
-                    st.subheader(receta["nombre"])
+                    st.image(
+                        receta["imagen"],
+                        use_container_width=True
+                    )
 
+                    st.subheader(receta["nombre"])
+            
                     st.write(
                         "Coincidencia:",
                         round(porcentaje),
