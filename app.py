@@ -46,7 +46,7 @@ if texto_ingredientes:
         key=lambda resultado: resultado["porcentaje"],
         reverse=True
     )
-        niveles = ["Principiante", "Explorador", "Experto"]
+    niveles = ["Principiante", "Explorador", "Experto"]
 
     for nivel in niveles:
 
