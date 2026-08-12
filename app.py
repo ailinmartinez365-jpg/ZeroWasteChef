@@ -1,12 +1,7 @@
 import streamlit as st
 from recetas import recetas
 import os
-
-st.write("ARCHIVOS QUE STREAMLIT VE:")
-
-for archivo in os.listdir(os.path.dirname(__file__)):
-    st.write(archivo)
-
+    
 st.set_page_config(
     page_title="Chef Cero Residuos",
     page_icon="🍃",
@@ -178,10 +173,6 @@ if ingredientes_usuario:
                                 os.path.dirname(__file__),
                                 receta["imagen"]
                             )
-
-                            st.write("Ruta de imagen:", ruta_imagen)
-                            st.write("¿Existe el archivo?:", 
-                            os.path.exists(ruta_imagen))
                             
                             st.image(
                                 ruta_imagen,
