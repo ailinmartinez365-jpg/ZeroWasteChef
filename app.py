@@ -2,6 +2,11 @@ import streamlit as st
 from recetas import recetas
 import os
 
+st.write("ARCHIVOS QUE STREAMLIT VE:")
+
+for archivo in os.listdir(os.path.dirname(__file__)):
+    st.write(archivo)
+
 st.set_page_config(
     page_title="Chef Cero Residuos",
     page_icon="🍃",
