@@ -1,5 +1,6 @@
 import streamlit as st
 from recetas import recetas
+import os
 
 st.set_page_config(
     page_title="Chef Cero Residuos",
@@ -168,9 +169,13 @@ if ingredientes_usuario:
                             border=True
                         ):
 
-                            # IMAGEN
+                            ruta_imagen = os.path.join(
+                                os.path.dirname(__file__),
+                                receta["imagen"]
+                            )
+                            
                             st.image(
-                                receta["imagen"],
+                                ruta_imagen,
                                 use_container_width=True
                             )
 
