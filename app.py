@@ -178,6 +178,10 @@ if ingredientes_usuario:
                                 os.path.dirname(__file__),
                                 receta["imagen"]
                             )
+
+                            st.write("Ruta de imagen:", ruta_imagen)
+                            st.write("¿Existe el archivo?:", 
+                            os.path.exists(ruta_imagen))
                             
                             st.image(
                                 ruta_imagen,
@@ -185,13 +189,13 @@ if ingredientes_usuario:
                             )
 
 
-                            # NOMBRE
+                            
                             st.subheader(
                                 receta["nombre"]
                             )
 
 
-                            # PORCENTAJE
+                            
                             st.write(
                                 "Coincidencia:",
                                 round(porcentaje),
@@ -199,7 +203,7 @@ if ingredientes_usuario:
                             )
 
 
-                            # TIEMPO
+                            
                             st.write(
                                 "Tiempo:",
                                 receta["tiempo"],
@@ -207,21 +211,21 @@ if ingredientes_usuario:
                             )
 
 
-                            # NIVEL
+                            
                             st.write(
                                 "Nivel:",
                                 receta["nivel"]
                             )
 
 
-                            # BOTÓN
+                            
                             if st.button(
                                 "Ver receta",
                                 key="ver_" + receta["nombre"]
                             ):
 
                                 st.write(
-                                    "### Ingredientes"
+                                    
                                 )
 
 
@@ -236,7 +240,7 @@ if ingredientes_usuario:
 
 
                                 st.write(
-                                    "### Instrucciones"
+                                    
                                 )
 
 
