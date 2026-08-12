@@ -2,7 +2,7 @@ recetas = [
 
     {
         "nombre": "Huevos con tomate",
-        "imagen": "imagenes/huevos_tomate.png",
+        "imagen": "huevos_tomate.png",
         "ingredientes": ["huevo", "tomate", "sal", "aceite"],
         "tiempo": 10,
         "nivel": "Principiante",
@@ -17,7 +17,7 @@ recetas = [
 
     {
         "nombre": "Quesadillas de queso",
-        "imagen": "imagenes/quesadillas_queso.png",
+        "imagen": "quesadillas_queso.png",
         "ingredientes": ["tortilla", "queso", "aceite"],
         "tiempo": 10,
         "nivel": "Principiante",
@@ -32,7 +32,7 @@ recetas = [
 
     {
         "nombre": "Pasta con tomate",
-        "imagen": "imagenes/pasta_tomate.png",
+        "imagen": "pasta_tomate.png",
         "ingredientes": ["pasta", "tomate", "ajo", "aceite", "sal"],
         "tiempo": 20,
         "nivel": "Explorador",
@@ -47,7 +47,7 @@ recetas = [
 
     {
         "nombre": "Arroz con verduras",
-        "imagen": "imagenes/arroz_verduras.png",
+        "imagen": "arroz_verduras.png",
         "ingredientes": ["arroz", "zanahoria", "cebolla", "aceite", "sal"],
         "tiempo": 25,
         "nivel": "Explorador",
@@ -62,7 +62,7 @@ recetas = [
 
     {
         "nombre": "Pasta cremosa especial",
-        "imagen": "imagenes/pasta_cremosa.png",
+        "imagen": "pasta_cremosa.png",
         "ingredientes": ["pasta", "queso", "leche", "ajo", "mantequilla"],
         "tiempo": 35,
         "nivel": "Experto",
