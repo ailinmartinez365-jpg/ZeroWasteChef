@@ -161,7 +161,7 @@ if ingredientes_usuario:
                     receta = resultado["receta"]
 
                     porcentaje = resultado["porcentaje"]
-)
+                )
                     with columnas[posicion % 3]:
 
                         with st.container(border=True):
