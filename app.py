@@ -162,53 +162,62 @@ if ingredientes_usuario:
 
                     porcentaje = resultado["porcentaje"]
 
-
                     with columnas[posicion % 3]:
 
-                        with st.container(
-                            border=True
-                        ):
-
-                            ruta_imagen = os.path.join(
-                                os.path.dirname(__file__),
-                                receta["imagen"]
-                            )
-                            
+                        with st.container(border=True):
+                    
                             st.image(
                                 ruta_imagen,
                                 use_container_width=True
                             )
-
-
-                            
+                    
                             st.subheader(
                                 receta["nombre"]
                             )
-
-
-                            
+                    
                             st.write(
-                                "Coincidencia:",
+                                "✓",
                                 round(porcentaje),
-                                "%"
+                                "% de coincidencia"
                             )
-
-
-                            
+                    
                             st.write(
-                                "Tiempo:",
+                                "⏱️",
                                 receta["tiempo"],
                                 "minutos"
                             )
-
-
-                            
+                    
                             st.write(
                                 "Nivel:",
                                 receta["nivel"]
                             )
 
+        if st.button(
+            "Ver receta",
+            key="ver_" + receta["nombre"]
+        ):
 
+            st.write("### Ingredientes")
+
+            for ingrediente in receta["ingredientes"]:
+
+                st.write(
+                    "-",
+                    ingrediente
+                )
+
+            st.write("### Instrucciones")
+
+            for numero, instruccion in enumerate(
+                receta["instrucciones"],
+                start=1
+            ):
+
+                st.write(
+                    str(numero) + ".",
+                    instruccion
+                )
+                    
                             
                             if st.button(
                                 "Ver receta",
