@@ -1,14 +1,13 @@
 import streamlit as st
 from recetas import recetas
 import os
-    
+
+
 st.set_page_config(
     page_title="Chef Cero Residuos",
     page_icon="🍃",
     layout="wide"
 )
-
-
 
 
 st.title("Chef Cero Residuos")
@@ -27,7 +26,6 @@ entrada = st.text_input(
 )
 
 
-
 ingredientes_usuario = []
 
 if entrada:
@@ -39,10 +37,7 @@ if entrada:
     ]
 
 
-
-
 resultados = []
-
 
 for receta in recetas:
 
@@ -56,6 +51,7 @@ for receta in recetas:
     for ingrediente in ingredientes_usuario:
 
         if ingrediente in ingredientes_receta:
+
             coincidencias += 1
 
     if ingredientes_usuario:
@@ -78,12 +74,10 @@ for receta in recetas:
         )
 
 
-
 resultados.sort(
     key=lambda resultado: resultado["porcentaje"],
     reverse=True
 )
-
 
 
 if ingredientes_usuario:
@@ -99,13 +93,9 @@ if ingredientes_usuario:
         ]
 
 
-        
         for nivel in niveles:
 
             recetas_nivel = []
-
-
-        
 
             for resultado in resultados:
 
@@ -116,14 +106,12 @@ if ingredientes_usuario:
                     recetas_nivel.append(resultado)
 
 
-            
+
             if recetas_nivel:
 
                 if nivel == "Principiante":
 
-                    st.header(
-                        "Principiante"
-                    )
+                    st.header("Principiante")
 
                     st.write(
                         "Recetas rápidas y sencillas"
@@ -131,9 +119,7 @@ if ingredientes_usuario:
 
                 elif nivel == "Explorador":
 
-                    st.header(
-                        "Explorador"
-                    )
+                    st.header("Explorador")
 
                     st.write(
                         "Recetas para descubrir nuevas combinaciones"
@@ -141,16 +127,14 @@ if ingredientes_usuario:
 
                 elif nivel == "Experto":
 
-                    st.header(
-                        "Experto"
-                    )
+                    st.header("Experto")
 
                     st.write(
                         "Recetas para impresionar"
                     )
 
 
-                
+
                 columnas = st.columns(3)
 
 
@@ -161,43 +145,62 @@ if ingredientes_usuario:
                     receta = resultado["receta"]
 
                     porcentaje = resultado["porcentaje"]
-                )
-                   
-                        with columnas[posicion % 3]:
-    
-                            with st.container(border=True):
-    
-                                ruta_imagen = os.path.join(
-                                    os.path.dirname(__file__),
-                                    receta["imagen"]
-                                )
-    
-                                st.image(
-                                    ruta_imagen,
-                                    use_container_width=True
-                                )
-    
-                                st.subheader(
-                                    receta["nombre"]
-                                )
-    
-                                st.write(
-                                    "✓",
-                                    round(porcentaje),
-                                    "% de coincidencia"
-                                )
-    
-                                st.write(
-                                    "⏱️",
-                                    receta["tiempo"],
-                                    "minutos"
-                                )
-    
-                                st.write(
-                                    "Nivel:",
-                                    receta["nivel"]
-                                )
 
+
+                    with columnas[posicion % 3]:
+
+                        with st.container(border=True):
+
+                            
+
+                            ruta_imagen = os.path.join(
+                                os.path.dirname(__file__),
+                                receta["imagen"]
+                            )
+
+
+                            
+
+                            st.image(
+                                ruta_imagen,
+                                use_container_width=True
+                            )
+
+
+                            
+
+                            st.subheader(
+                                receta["nombre"]
+                            )
+
+
+                            
+
+                            st.write(
+                                "✓",
+                                round(porcentaje),
+                                "% de coincidencia"
+                            )
+
+
+                            
+
+                            st.write(
+                                "⏱️",
+                                receta["tiempo"],
+                                "minutos"
+                            )
+
+
+                            
+
+                            st.write(
+                                "Nivel:",
+                                receta["nivel"]
+                            )
+
+
+                            
                             if st.button(
                                 "Ver receta",
                                 key="ver_" + receta["nombre"]
@@ -207,6 +210,7 @@ if ingredientes_usuario:
                                     "### Ingredientes"
                                 )
 
+
                                 for ingrediente in receta[
                                     "ingredientes"
                                 ]:
@@ -215,69 +219,10 @@ if ingredientes_usuario:
                                         "-",
                                         ingrediente
                                     )
+
 
                                 st.write(
                                     "### Instrucciones"
-                                )
-
-                                for numero, instruccion in enumerate(
-                                    receta["instrucciones"],
-                                    start=1
-                                ):
-
-                                    st.write(
-                                        str(numero) + ".",
-                                        instruccion
-                        )
-        if st.button(
-            "Ver receta",
-            key="ver_" + receta["nombre"]
-        ):
-
-            st.write("### Ingredientes")
-
-            for ingrediente in receta["ingredientes"]:
-
-                st.write(
-                    "-",
-                    ingrediente
-                )
-
-            st.write("### Instrucciones")
-
-            for numero, instruccion in enumerate(
-                receta["instrucciones"],
-                start=1
-            ):
-
-                st.write(
-                    str(numero) + ".",
-                    instruccion
-                )
-                    
-                            
-                            if st.button(
-                                "Ver receta",
-                                key="ver_" + receta["nombre"]
-                            ):
-
-                                st.write(
-                                    
-                                )
-
-
-                                for ingrediente in receta[
-                                    "ingredientes"
-                                ]:
-
-                                    st.write(
-                                        "-",
-                                        ingrediente
-                                    )
-
-
-                                st.write(
-                                    
                                 )
 
 
@@ -304,4 +249,4 @@ else:
 
     st.info(
         "Escribe algunos ingredientes para comenzar."
-                            )
+                    )
