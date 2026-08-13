@@ -162,40 +162,41 @@ if ingredientes_usuario:
 
                     porcentaje = resultado["porcentaje"]
                 )
-                    with columnas[posicion % 3]:
-
-                        with st.container(border=True):
-
-                            ruta_imagen = os.path.join(
-                                os.path.dirname(__file__),
-                                receta["imagen"]
-                            )
-
-                            st.image(
-                                ruta_imagen,
-                                use_container_width=True
-                            )
-
-                            st.subheader(
-                                receta["nombre"]
-                            )
-
-                            st.write(
-                                "✓",
-                                round(porcentaje),
-                                "% de coincidencia"
-                            )
-
-                            st.write(
-                                "⏱️",
-                                receta["tiempo"],
-                                "minutos"
-                            )
-
-                            st.write(
-                                "Nivel:",
-                                receta["nivel"]
-                            )
+                   
+                        with columnas[posicion % 3]:
+    
+                            with st.container(border=True):
+    
+                                ruta_imagen = os.path.join(
+                                    os.path.dirname(__file__),
+                                    receta["imagen"]
+                                )
+    
+                                st.image(
+                                    ruta_imagen,
+                                    use_container_width=True
+                                )
+    
+                                st.subheader(
+                                    receta["nombre"]
+                                )
+    
+                                st.write(
+                                    "✓",
+                                    round(porcentaje),
+                                    "% de coincidencia"
+                                )
+    
+                                st.write(
+                                    "⏱️",
+                                    receta["tiempo"],
+                                    "minutos"
+                                )
+    
+                                st.write(
+                                    "Nivel:",
+                                    receta["nivel"]
+                                )
 
                             if st.button(
                                 "Ver receta",
