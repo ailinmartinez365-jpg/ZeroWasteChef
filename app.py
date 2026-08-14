@@ -235,13 +235,39 @@ if ingredientes_usuario:
                                 round(porcentaje),
                                 "% de coincidencia"
                             )
+                            tienes = len(ingredientes_receta) - len(faltantes)
+
                             st.write(
                                 "Tienes",
-                                len(ingredientes_receta) - len(faltantes),
+                                tienes,
                                 "de",
                                 len(ingredientes_receta),
                                 "ingredientes"
                             )
+
+                            if porcentaje == 100:
+
+                                st.success(
+                                    "¡Tienes todos los ingredientes!"
+                                )
+                            
+                            elif porcentaje >= 75:
+                            
+                                st.info(
+                                    "¡Casi tienes todo!"
+                                )
+                            
+                            elif porcentaje >= 50:
+                            
+                                st.warning(
+                                    "Te faltan algunos ingredientes."
+                                )
+                            
+                            else:
+                            
+                                st.write(
+                                    "Necesitas varios ingredientes."
+                                )
                             if faltantes:
 
                                 st.write(
