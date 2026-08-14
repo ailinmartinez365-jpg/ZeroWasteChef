@@ -35,6 +35,16 @@ filtro_tiempo = st.selectbox(
     ]
 )
 
+filtro_nivel = st.selectbox(
+    "¿Qué nivel buscas?",
+    [
+        "Todos",
+        "Principiante",
+        "Explorador",
+        "Experto"
+    ]
+)
+
 ingredientes_usuario = []
 
 if entrada:
@@ -65,6 +75,11 @@ for receta in recetas:
         if receta["tiempo"] < 30:
             continue
 
+    if filtro_nivel != "Todos":
+
+        if receta["nivel"] != filtro_nivel:
+
+            continue
 
     ingredientes_receta = [
         ingrediente.lower()
