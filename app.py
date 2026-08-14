@@ -107,22 +107,22 @@ for receta in recetas:
     
     if porcentaje > 0:
 
-    faltantes = []
-
-    for ingrediente in ingredientes_receta:
-
-        if ingrediente not in ingredientes_usuario:
-
-            faltantes.append(ingrediente)
-
-
-    resultados.append(
-        {
-            "receta": receta,
-            "porcentaje": porcentaje,
-            "faltantes": faltantes
-        }
-    )
+        faltantes = []
+    
+        for ingrediente in ingredientes_receta:
+    
+            if ingrediente not in ingredientes_usuario:
+    
+                faltantes.append(ingrediente)
+    
+    
+        resultados.append(
+            {
+                "receta": receta,
+                "porcentaje": porcentaje,
+                "faltantes": faltantes
+            }
+        )
 
 
 resultados.sort(
