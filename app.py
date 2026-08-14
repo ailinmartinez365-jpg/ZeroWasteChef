@@ -103,15 +103,26 @@ for receta in recetas:
     else:
 
         porcentaje = 0
-
+    
+    
     if porcentaje > 0:
 
-        resultados.append(
-            {
-                "receta": receta,
-                "porcentaje": porcentaje
-            }
-        )
+    faltantes = []
+
+    for ingrediente in ingredientes_receta:
+
+        if ingrediente not in ingredientes_usuario:
+
+            faltantes.append(ingrediente)
+
+
+    resultados.append(
+        {
+            "receta": receta,
+            "porcentaje": porcentaje,
+            "faltantes": faltantes
+        }
+    )
 
 
 resultados.sort(
@@ -185,7 +196,10 @@ if ingredientes_usuario:
                     receta = resultado["receta"]
 
                     porcentaje = resultado["porcentaje"]
+                    
+                    faltantes = resultado["faltantes"]
 
+                    ingredientes_receta = receta["ingredientes"]
 
                     with columnas[posicion % 3]:
 
@@ -215,14 +229,31 @@ if ingredientes_usuario:
 
 
                             
-
+                            
                             st.write(
                                 "✓",
                                 round(porcentaje),
                                 "% de coincidencia"
                             )
+                            st.write(
+                                "Tienes",
+                                len(ingredientes_receta) - len(faltantes),
+                                "de",
+                                len(ingredientes_receta),
+                                "ingredientes"
+                            )
+                            if faltantes:
 
-
+                                st.write(
+                                    "🛒 Te faltan:",
+                                    ", ".join(faltantes)
+                                )
+                            
+                            else:
+                            
+                                st.write(
+                                    "🎉 ¡Tienes todos los ingredientes!"
+                                )
                             
 
                             st.write(
