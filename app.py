@@ -25,6 +25,15 @@ entrada = st.text_input(
     placeholder="Ejemplo: huevo, tomate, queso"
 )
 
+filtro_tiempo = st.selectbox(
+    "¿Cuánto tiempo tienes?",
+    [
+        "Todos",
+        "10 minutos",
+        "20 minutos",
+        "30+ minutos"
+    ]
+)
 
 ingredientes_usuario = []
 
@@ -40,6 +49,22 @@ if entrada:
 resultados = []
 
 for receta in recetas:
+
+    if filtro_tiempo == "10 minutos":
+
+        if receta["tiempo"] > 10:
+            continue
+
+    elif filtro_tiempo == "20 minutos":
+
+        if receta["tiempo"] > 20:
+            continue
+
+    elif filtro_tiempo == "30+ minutos":
+
+        if receta["tiempo"] < 30:
+            continue
+
 
     ingredientes_receta = [
         ingrediente.lower()
