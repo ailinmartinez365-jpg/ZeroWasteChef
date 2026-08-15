@@ -296,45 +296,45 @@ if ingredientes_usuario:
                                 receta["nivel"]
                             )
                                 
-                                if st.button(
-                                    
-                                    "Ver receta",
-                                    key="ver_" + receta["nombre"]
+                            if st.button(
+                                 
+                                "Ver receta",
+                                key="ver_" + receta["nombre"]
+                            ):
+                            
+                                st.divider()
+                            
+                                st.subheader(
+                                    "🍳 " + receta["nombre"]
+                                )
+                            
+                                st.write(
+                                    "### Ingredientes"
+                                )
+                            
+                                for ingrediente in receta["ingredientes"]:
+                            
+                                    st.write(
+                                        "•",
+                                        ingrediente
+                                    )
+                            
+                                st.write(
+                                    "### Preparación"
+                                )
+                            
+                                for numero, instruccion in enumerate(
+                                    receta["instrucciones"],
+                                    start=1
                                 ):
-                                
-                                    st.divider()
-                                
-                                    st.subheader(
-                                        "🍳 " + receta["nombre"]
-                                    )
-                                
+                            
                                     st.write(
-                                        "### Ingredientes"
+                                        str(numero) + ".",
+                                        instruccion
                                     )
-                                
-                                    for ingrediente in receta["ingredientes"]:
-                                
-                                        st.write(
-                                            "•",
-                                            ingrediente
-                                        )
-                                
-                                    st.write(
-                                        "### Preparación"
-                                    )
-                                
-                                    for numero, instruccion in enumerate(
-                                        receta["instrucciones"],
-                                        start=1
-                                    ):
-                                
-                                        st.write(
-                                            str(numero) + ".",
-                                            instruccion
-                                        )
-                                
-                                    st.divider()
-
+                            
+                                st.divider()   
+                                    
 
     else:
 
