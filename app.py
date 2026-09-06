@@ -266,7 +266,6 @@ if entrada:
     ingredientes_usuario = list(
         dict.fromkeys(ingredientes_usuario)
     )
-
 resultados = []
 
 
@@ -321,20 +320,20 @@ for receta in recetas:
             coincidencias += 1
 
 
-    # CALCULAR PORCENTAJE
+    # SI NO HAY INGREDIENTES, NO CONTINUAR
 
-    if ingredientes_receta:
-
-        porcentaje = (
-            coincidencias / len(ingredientes_receta)
-        ) * 100
-
-    else:
-
-        porcentaje = 0
+    if not ingredientes_receta:
+        continue
 
 
-    # CALCULAR INGREDIENTES FALTANTES
+    # PORCENTAJE DE INGREDIENTES QUE TIENE EL USUARIO
+
+    porcentaje = (
+        coincidencias / len(ingredientes_receta)
+    ) * 100
+
+
+    # INGREDIENTES FALTANTES
 
     faltantes = []
 
@@ -345,60 +344,90 @@ for receta in recetas:
             faltantes.append(ingrediente)
 
 
-    # SOLO MOSTRAR RECETAS CON AL MENOS UNA COINCIDENCIA
+    # SOLO MOSTRAR RECETAS CON COINCIDENCIAS
 
-    if porcentaje > 0:
-
-
-        # 1. Coincidencia de ingredientes
-        puntos_coincidencia = porcentaje * 0.70
+    if coincidencias > 0:
 
 
-        # 2. Tiempo de preparación
-        puntos_tiempo = max(
-            0,
-            20 - (receta["tiempo"] / 2)
-        )
+        # 1. COINCIDENCIA DE INGREDIENTES
+        puntos_coincidencia = porcentaje * 0.65
 
 
-        # 3. Cantidad de ingredientes faltantes
-        puntos_faltantes = max(
-            0,
-            10 - (len(faltantes) * 2)
-        )
+        # 2. CANTIDAD DE INGREDIENTES FALTANTES
+        if len(faltantes) == 0:
 
+            puntos_faltantes = 20
 
-        # 4. Nivel de dificultad
-        if receta["nivel"] == "Principiante":
+        elif len(faltantes) == 1:
 
-            puntos_nivel = 10
+            puntos_faltantes = 15
 
-        elif receta["nivel"] == "Explorador":
+        elif len(faltantes) == 2:
 
-            puntos_nivel = 7
+            puntos_faltantes = 10
+
+        elif len(faltantes) == 3:
+
+            puntos_faltantes = 5
 
         else:
 
+            puntos_faltantes = 0
+
+
+        # 3. TIEMPO DE PREPARACIÓN
+
+        if receta["tiempo"] <= 10:
+
+            puntos_tiempo = 10
+
+        elif receta["tiempo"] <= 20:
+
+            puntos_tiempo = 8
+
+        elif receta["tiempo"] <= 30:
+
+            puntos_tiempo = 5
+
+        else:
+
+            puntos_tiempo = 2
+
+
+        # 4. NIVEL DE DIFICULTAD
+
+        if receta["nivel"] == "Principiante":
+
             puntos_nivel = 5
 
+        elif receta["nivel"] == "Explorador":
 
-        # PUNTUACIÓN FINAL
+            puntos_nivel = 4
+
+        else:
+
+            puntos_nivel = 3
+
+
+        # PUNTUACIÓN TOTAL
 
         puntuacion = (
             puntos_coincidencia
-            + puntos_tiempo
             + puntos_faltantes
+            + puntos_tiempo
             + puntos_nivel
         )
 
 
-        # Limitar la puntuación a 100
+        # ASEGURAR QUE ESTÉ ENTRE 0 Y 100
 
-        puntuacion = min(
-            100,
-            round(puntuacion)
+        puntuacion = max(
+            0,
+            min(100, round(puntuacion))
         )
 
+
+        # GUARDAR RESULTADO
 
         resultados.append(
             {
@@ -413,7 +442,12 @@ for receta in recetas:
 
 
 resultados.sort(
-    key=lambda resultado: resultado["puntuacion"],
+    key=lambda resultado: (
+        resultado["puntuacion"],
+        resultado["porcentaje"],
+        resultado["coincidencias"],
+        -resultado["receta"]["tiempo"]
+    ),
     reverse=True
 )
 
