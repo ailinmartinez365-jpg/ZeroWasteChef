@@ -267,11 +267,12 @@ if entrada:
         dict.fromkeys(ingredientes_usuario)
     )
 
-
 resultados = []
 
 
 for receta in recetas:
+
+    # FILTRO DE TIEMPO
 
     if filtro_tiempo == "10 minutos":
 
@@ -289,11 +290,15 @@ for receta in recetas:
             continue
 
 
+    # FILTRO DE NIVEL
+
     if filtro_nivel != "Todos":
 
         if receta["nivel"] != filtro_nivel:
             continue
 
+
+    # NORMALIZAR INGREDIENTES DE LA RECETA
 
     ingredientes_receta = [
         normalizar_ingrediente(ingrediente)
@@ -305,6 +310,8 @@ for receta in recetas:
     )
 
 
+    # CALCULAR COINCIDENCIAS
+
     coincidencias = 0
 
     for ingrediente in ingredientes_usuario:
@@ -313,6 +320,8 @@ for receta in recetas:
 
             coincidencias += 1
 
+
+    # CALCULAR PORCENTAJE
 
     if ingredientes_receta:
 
@@ -325,15 +334,70 @@ for receta in recetas:
         porcentaje = 0
 
 
+    # CALCULAR INGREDIENTES FALTANTES
+
+    faltantes = []
+
+    for ingrediente in ingredientes_receta:
+
+        if ingrediente not in ingredientes_usuario:
+
+            faltantes.append(ingrediente)
+
+
+    # SOLO MOSTRAR RECETAS CON AL MENOS UNA COINCIDENCIA
+
     if porcentaje > 0:
 
-        faltantes = []
 
-        for ingrediente in ingredientes_receta:
+        # 1. Coincidencia de ingredientes
+        puntos_coincidencia = porcentaje * 0.70
 
-            if ingrediente not in ingredientes_usuario:
 
-                faltantes.append(ingrediente)
+        # 2. Tiempo de preparación
+        puntos_tiempo = max(
+            0,
+            20 - (receta["tiempo"] / 2)
+        )
+
+
+        # 3. Cantidad de ingredientes faltantes
+        puntos_faltantes = max(
+            0,
+            10 - (len(faltantes) * 2)
+        )
+
+
+        # 4. Nivel de dificultad
+        if receta["nivel"] == "Principiante":
+
+            puntos_nivel = 10
+
+        elif receta["nivel"] == "Explorador":
+
+            puntos_nivel = 7
+
+        else:
+
+            puntos_nivel = 5
+
+
+        # PUNTUACIÓN FINAL
+
+        puntuacion = (
+            puntos_coincidencia
+            + puntos_tiempo
+            + puntos_faltantes
+            + puntos_nivel
+        )
+
+
+        # Limitar la puntuación a 100
+
+        puntuacion = min(
+            100,
+            round(puntuacion)
+        )
 
 
         resultados.append(
@@ -341,16 +405,15 @@ for receta in recetas:
                 "receta": receta,
                 "porcentaje": porcentaje,
                 "faltantes": faltantes,
-                "coincidencias": coincidencias
+                "coincidencias": coincidencias,
+                "puntuacion": puntuacion
             }
         )
 
 
+
 resultados.sort(
-    key=lambda resultado: (
-        resultado["porcentaje"],
-        -resultado["receta"]["tiempo"]
-    ),
+    key=lambda resultado: resultado["puntuacion"],
     reverse=True
 )
 
