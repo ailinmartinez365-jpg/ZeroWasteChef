@@ -11,7 +11,30 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+def normalizar_ingrediente(ingrediente):
 
+    ingrediente = ingrediente.strip().lower()
+
+    equivalencias = {
+        "jitomate": "tomate",
+        "jitomates": "tomate",
+        "tomates": "tomate",
+        "huevos": "huevo",
+        "tortillas": "tortilla",
+        "quesos": "queso",
+        "cebollas": "cebolla",
+        "papas": "papa",
+        "patatas": "papa",
+        "zanahorias": "zanahoria"
+    }
+
+    if ingrediente in equivalencias:
+        return equivalencias[ingrediente]
+
+    if ingrediente.endswith("s") and len(ingrediente) > 3:
+        ingrediente = ingrediente[:-1]
+
+    return ingrediente
 
 st.markdown(
     """
@@ -230,19 +253,19 @@ with columna_nivel:
         ]
     )
 
-
-
 ingredientes_usuario = []
-
 
 if entrada:
 
     ingredientes_usuario = [
-        ingrediente.strip().lower()
+        normalizar_ingrediente(ingrediente)
         for ingrediente in entrada.split(",")
         if ingrediente.strip()
     ]
 
+    ingredientes_usuario = list(
+        dict.fromkeys(ingredientes_usuario)
+    )
 
 
 resultados = []
@@ -273,13 +296,16 @@ for receta in recetas:
 
 
     ingredientes_receta = [
-        ingrediente.lower()
+        normalizar_ingrediente(ingrediente)
         for ingrediente in receta["ingredientes"]
     ]
 
+    ingredientes_receta = list(
+        dict.fromkeys(ingredientes_receta)
+    )
+
 
     coincidencias = 0
-
 
     for ingrediente in ingredientes_usuario:
 
@@ -288,7 +314,7 @@ for receta in recetas:
             coincidencias += 1
 
 
-    if ingredientes_usuario:
+    if ingredientes_receta:
 
         porcentaje = (
             coincidencias / len(ingredientes_receta)
@@ -303,7 +329,6 @@ for receta in recetas:
 
         faltantes = []
 
-
         for ingrediente in ingredientes_receta:
 
             if ingrediente not in ingredientes_usuario:
@@ -315,16 +340,21 @@ for receta in recetas:
             {
                 "receta": receta,
                 "porcentaje": porcentaje,
-                "faltantes": faltantes
+                "faltantes": faltantes,
+                "coincidencias": coincidencias
             }
         )
 
 
-
 resultados.sort(
-    key=lambda resultado: resultado["porcentaje"],
+    key=lambda resultado: (
+        resultado["porcentaje"],
+        -resultado["receta"]["tiempo"]
+    ),
     reverse=True
 )
+
+
 
 
 
