@@ -15,24 +15,96 @@ def normalizar_ingrediente(ingrediente):
 
     ingrediente = ingrediente.strip().lower()
 
+    # Eliminar cantidades comunes
+
+    palabras = ingrediente.split()
+
+    palabras_ignoradas = [
+        "un",
+        "una",
+        "unos",
+        "unas",
+        "el",
+        "la",
+        "los",
+        "las",
+        "de",
+        "del",
+        "gramos",
+        "gramo",
+        "kg",
+        "kilo",
+        "kilos",
+        "ml",
+        "litro",
+        "litros",
+        "taza",
+        "tazas",
+        "cucharada",
+        "cucharadas",
+        "cucharadita",
+        "cucharaditas"
+    ]
+
+    palabras_limpias = []
+
+    for palabra in palabras:
+
+        palabra_limpia = palabra.strip(".,;:")
+
+        if palabra_limpia.isdigit():
+            continue
+
+        if palabra_limpia not in palabras_ignoradas:
+            palabras_limpias.append(palabra_limpia)
+
+
+    ingrediente = " ".join(palabras_limpias)
+
+
+    # Equivalencias
+
     equivalencias = {
+
         "jitomate": "tomate",
         "jitomates": "tomate",
         "tomates": "tomate",
+
         "huevos": "huevo",
+
         "tortillas": "tortilla",
+
         "quesos": "queso",
+
         "cebollas": "cebolla",
+
         "papas": "papa",
         "patatas": "papa",
-        "zanahorias": "zanahoria"
+
+        "zanahorias": "zanahoria",
+
+        "aceites": "aceite",
+
+        "chiles": "chile",
+
+        "limones": "limon",
+        "limón": "limon",
+
+        "ajos": "ajo"
     }
 
+
     if ingrediente in equivalencias:
+
         return equivalencias[ingrediente]
 
+
+    # Plural simple
+
     if ingrediente.endswith("s") and len(ingrediente) > 3:
+
         ingrediente = ingrediente[:-1]
+
 
     return ingrediente
 
