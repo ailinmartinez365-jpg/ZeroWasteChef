@@ -75,7 +75,7 @@ recetas = [
             "Mezcla hasta obtener una salsa cremosa."
         ]
     }
-    
+
     {
         "nombre": "Rollitos crujientes de ramen y queso",
         "imagen": "imagenes/ramen_roll_crispy.png",
@@ -172,3 +172,5 @@ recetas = [
     }
 
 ]
+    
+    
