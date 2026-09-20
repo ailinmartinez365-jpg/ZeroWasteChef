@@ -392,17 +392,17 @@ for receta in recetas:
 
     coincidencias = 0
 
-   for ingrediente in ingredientes_usuario:
+    for ingrediente in ingredientes_usuario:
 
-    for ingrediente_receta in ingredientes_receta:
+        for ingrediente_receta in ingredientes_receta:
 
-        if (
-            ingrediente == ingrediente_receta
-            or ingrediente in ingrediente_receta.split()
-        ):
+            if (
+                ingrediente == ingrediente_receta
+                or ingrediente in ingrediente_receta.split()
+            ):
 
-            coincidencias += 1
-            break
+                coincidencias += 1
+                break
 
 
     # SI NO HAY INGREDIENTES, NO CONTINUAR
