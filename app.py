@@ -1,4 +1,4 @@
-  import streamlit as st
+import streamlit as st
 import recetas as modulo_recetas
 import os
 
