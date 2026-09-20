@@ -1,8 +1,12 @@
 import streamlit as st
-from recetas import recetas
-st.write("TOTAL:", len(recetas))
-st.write("RECETAS CARGADAS:", [r["nombre"] for r in recetas])
+import recetas as modulo_recetas
 import os
+
+recetas = modulo_recetas.recetas
+st.write("ARCHIVO QUE ESTÁ USANDO:", modulo_recetas.__file__)
+st.write("TOTAL DE RECETAS:", len(recetas))
+st.write("PRIMERA:", recetas[0]["nombre"])
+st.write("ÚLTIMA:", recetas[-1]["nombre"])
 
 
 
