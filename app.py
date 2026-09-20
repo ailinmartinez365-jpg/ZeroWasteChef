@@ -337,7 +337,6 @@ if entrada:
     )
 resultados = []
 
-
 for receta in recetas:
 
     # FILTRO DE TIEMPO
