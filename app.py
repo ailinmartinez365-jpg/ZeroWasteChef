@@ -369,3 +369,513 @@ if ingredientes_usuario:
         elif filtro_tiempo == "20 minutos":
 
             if receta["tiempo"] > 20:
+                continue
+
+        elif filtro_tiempo == "30+ minutos":
+
+            if receta["tiempo"] < 30:
+                continue
+
+
+        # ----------------------------------------------------
+        # FILTRO DE NIVEL
+        # ----------------------------------------------------
+
+        if filtro_nivel != "Todos":
+
+            if receta["nivel"] != filtro_nivel:
+                continue
+
+
+        # ----------------------------------------------------
+        # NORMALIZAR INGREDIENTES DE LA RECETA
+        # ----------------------------------------------------
+
+        ingredientes_receta = [
+            normalizar_ingrediente(ingrediente)
+            for ingrediente in receta["ingredientes"]
+        ]
+
+        ingredientes_receta = list(
+            dict.fromkeys(ingredientes_receta)
+        )
+
+
+        # ----------------------------------------------------
+        # CALCULAR COINCIDENCIAS
+        # ----------------------------------------------------
+
+        coincidencias = 0
+
+        for ingrediente in ingredientes_usuario:
+
+            for ingrediente_receta in ingredientes_receta:
+
+                if (
+                    ingrediente == ingrediente_receta
+                    or ingrediente in ingrediente_receta.split()
+                ):
+
+                    coincidencias += 1
+                    break
+
+
+        # ----------------------------------------------------
+        # SI NO HAY INGREDIENTES
+        # ----------------------------------------------------
+
+        if not ingredientes_receta:
+            continue
+
+
+        # ----------------------------------------------------
+        # PORCENTAJE
+        # ----------------------------------------------------
+
+        porcentaje = (
+            coincidencias / len(ingredientes_receta)
+        ) * 100
+
+
+        # ----------------------------------------------------
+        # INGREDIENTES FALTANTES
+        # ----------------------------------------------------
+
+        faltantes = []
+
+        for ingrediente in ingredientes_receta:
+
+            if ingrediente not in ingredientes_usuario:
+
+                faltantes.append(ingrediente)
+
+
+        # ----------------------------------------------------
+        # SOLO MOSTRAR SI HAY COINCIDENCIAS
+        # ----------------------------------------------------
+
+        if coincidencias > 0:
+
+            # 1. Coincidencia de ingredientes
+            puntos_coincidencia = porcentaje * 0.65
+
+
+            # 2. Ingredientes faltantes
+            if len(faltantes) == 0:
+
+                puntos_faltantes = 20
+
+            elif len(faltantes) == 1:
+
+                puntos_faltantes = 15
+
+            elif len(faltantes) == 2:
+
+                puntos_faltantes = 10
+
+            elif len(faltantes) == 3:
+
+                puntos_faltantes = 5
+
+            else:
+
+                puntos_faltantes = 0
+
+
+            # 3. Tiempo de preparación
+            if receta["tiempo"] <= 10:
+
+                puntos_tiempo = 10
+
+            elif receta["tiempo"] <= 20:
+
+                puntos_tiempo = 8
+
+            elif receta["tiempo"] <= 30:
+
+                puntos_tiempo = 5
+
+            else:
+
+                puntos_tiempo = 2
+
+
+            # 4. Nivel de dificultad
+            if receta["nivel"] == "Principiante":
+
+                puntos_nivel = 5
+
+            elif receta["nivel"] == "Explorador":
+
+                puntos_nivel = 4
+
+            else:
+
+                puntos_nivel = 3
+
+
+            # ------------------------------------------------
+            # PUNTUACIÓN TOTAL
+            # ------------------------------------------------
+
+            puntuacion = (
+                puntos_coincidencia
+                + puntos_faltantes
+                + puntos_tiempo
+                + puntos_nivel
+            )
+
+
+            # Asegurar entre 0 y 100
+            puntuacion = max(
+                0,
+                min(100, round(puntuacion))
+            )
+
+
+            # ------------------------------------------------
+            # GUARDAR RESULTADO
+            # ------------------------------------------------
+
+            resultados.append(
+                {
+                    "receta": receta,
+                    "porcentaje": porcentaje,
+                    "faltantes": faltantes,
+                    "coincidencias": coincidencias,
+                    "puntuacion": puntuacion
+                }
+            )
+
+
+# ============================================================
+# ORDENAR RESULTADOS
+# ============================================================
+
+resultados.sort(
+    key=lambda resultado: (
+        resultado["puntuacion"],
+        resultado["porcentaje"],
+        resultado["coincidencias"],
+        -resultado["receta"]["tiempo"]
+    ),
+    reverse=True
+)
+
+
+# ============================================================
+# MOSTRAR RESULTADOS
+# ============================================================
+
+if ingredientes_usuario:
+
+    st.markdown(
+        '<div class="linea"></div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="titulo-resultados">Recetas encontradas</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="descripcion-resultados">'
+        'Resultados ordenados según los ingredientes disponibles.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+
+    if resultados:
+
+        niveles = [
+            "Principiante",
+            "Intermedio",
+            "Explorador",
+            "Experto"
+        ]
+
+
+        for nivel in niveles:
+
+            recetas_nivel = []
+
+
+            for resultado in resultados:
+
+                receta = resultado["receta"]
+
+                if receta["nivel"] == nivel:
+
+                    recetas_nivel.append(resultado)
+
+
+            if recetas_nivel:
+
+                st.markdown(
+                    '<div class="linea"></div>',
+                    unsafe_allow_html=True
+                )
+
+
+                # --------------------------------------------
+                # TÍTULO DEL NIVEL
+                # --------------------------------------------
+
+                if nivel == "Principiante":
+
+                    st.subheader("Principiante")
+
+                    st.write(
+                        "Recetas sencillas para comenzar."
+                    )
+
+
+                elif nivel == "Intermedio":
+
+                    st.subheader("Intermedio")
+
+                    st.write(
+                        "Recetas para desarrollar nuevas habilidades."
+                    )
+
+
+                elif nivel == "Explorador":
+
+                    st.subheader("Explorador")
+
+                    st.write(
+                        "Recetas para descubrir nuevas combinaciones."
+                    )
+
+
+                elif nivel == "Experto":
+
+                    st.subheader("Experto")
+
+                    st.write(
+                        "Recetas para experimentar y crear."
+                    )
+
+
+                # --------------------------------------------
+                # COLUMNAS
+                # --------------------------------------------
+
+                columnas = st.columns(3)
+
+
+                for posicion, resultado in enumerate(
+                    recetas_nivel
+                ):
+
+                    receta = resultado["receta"]
+
+                    porcentaje = resultado["porcentaje"]
+
+                    faltantes = resultado["faltantes"]
+
+                    ingredientes_receta = receta["ingredientes"]
+
+
+                    with columnas[posicion % 3]:
+
+                        with st.container(border=True):
+
+                            # --------------------------------
+                            # IMAGEN
+                            # --------------------------------
+
+                            ruta_imagen = os.path.join(
+                                os.path.dirname(__file__),
+                                receta["imagen"]
+                            )
+
+
+                            if os.path.exists(ruta_imagen):
+
+                                st.image(
+                                    ruta_imagen,
+                                    use_container_width=True
+                                )
+
+
+                            # --------------------------------
+                            # NOMBRE
+                            # --------------------------------
+
+                            st.subheader(
+                                receta["nombre"]
+                            )
+
+
+                            # --------------------------------
+                            # COINCIDENCIA
+                            # --------------------------------
+
+                            st.write(
+                                round(porcentaje),
+                                "% de coincidencia"
+                            )
+
+
+                            # --------------------------------
+                            # INGREDIENTES
+                            # --------------------------------
+
+                            tienes = (
+                                len(ingredientes_receta)
+                                - len(faltantes)
+                            )
+
+
+                            st.write(
+                                "Tienes",
+                                tienes,
+                                "de",
+                                len(ingredientes_receta),
+                                "ingredientes"
+                            )
+
+
+                            # --------------------------------
+                            # MENSAJE
+                            # --------------------------------
+
+                            if porcentaje == 100:
+
+                                st.success(
+                                    "Tienes todos los ingredientes."
+                                )
+
+                            elif porcentaje >= 75:
+
+                                st.info(
+                                    "Casi tienes todo."
+                                )
+
+                            elif porcentaje >= 50:
+
+                                st.warning(
+                                    "Faltan algunos ingredientes."
+                                )
+
+                            else:
+
+                                st.write(
+                                    "Necesitas varios ingredientes."
+                                )
+
+
+                            # --------------------------------
+                            # FALTANTES
+                            # --------------------------------
+
+                            if faltantes:
+
+                                st.write(
+                                    "Te faltan:",
+                                    ", ".join(faltantes)
+                                )
+
+
+                            # --------------------------------
+                            # TIEMPO
+                            # --------------------------------
+
+                            st.write(
+                                "Tiempo:",
+                                receta["tiempo"],
+                                "minutos"
+                            )
+
+
+                            # --------------------------------
+                            # NIVEL
+                            # --------------------------------
+
+                            st.write(
+                                "Nivel:",
+                                receta["nivel"]
+                            )
+
+
+                            # --------------------------------
+                            # BOTÓN VER RECETA
+                            # --------------------------------
+
+                            if st.button(
+                                "Ver receta",
+                                key="ver_" + receta["nombre"]
+                            ):
+
+                                st.divider()
+
+                                st.subheader(
+                                    receta["nombre"]
+                                )
+
+                                st.write(
+                                    "Ingredientes"
+                                )
+
+
+                                for ingrediente in receta["ingredientes"]:
+
+                                    st.write(
+                                        "•",
+                                        ingrediente
+                                    )
+
+
+                                st.write(
+                                    "Preparación"
+                                )
+
+
+                                for numero, instruccion in enumerate(
+                                    receta["instrucciones"],
+                                    start=1
+                                ):
+
+                                    st.write(
+                                        str(numero) + ".",
+                                        instruccion
+                                    )
+
+
+                                st.divider()
+
+
+    else:
+
+        st.warning(
+            "No encontramos recetas que coincidan "
+            "con tus ingredientes."
+        )
+
+
+# ============================================================
+# SIN INGREDIENTES
+# ============================================================
+
+else:
+
+    st.info(
+        "Escribe algunos ingredientes para comenzar."
+    )
+
+
+# ============================================================
+# PIE DE PÁGINA
+# ============================================================
+
+st.markdown(
+    """
+    <div class="footer">
+        CHEF CERO RESIDUOS · Aprovechamiento de alimentos
+    </div>
+    """,
+    unsafe_allow_html=True
+)
