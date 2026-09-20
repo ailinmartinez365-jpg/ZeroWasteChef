@@ -748,22 +748,22 @@ recetas = [
         "nombre": "Balsas de pavo al yogurt",
         "imagen": "imagenes/balsas_pavo_yogurt.png",
         "ingredientes": [
-            "pollo", "pan integral", "yogurt natural",
+            "pavo", "pan integral", "yogurt natural",
             "queso crema", "cebolla", "mostaza",
             "aceitunas", "mantequilla", "crema",
             "harina", "caldo de pollo", "pimienta"
         ],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Bocadillos de pollo con una mezcla cremosa de yogurt y queso.",
+        "descripcion": "Bocadillos de pavo con una mezcla cremosa de yogurt y queso.",
         "instrucciones": [
-            "Cocina el pollo y córtalo en trozos pequeños.",
+            "Cocina el pavo y córtalo en trozos pequeños.",
             "Mezcla yogurt natural, queso crema y mostaza.",
             "Agrega cebolla y aceitunas picadas.",
-            "Incorpora el pollo y mezcla.",
+            "Incorpora el pavo y mezcla.",
             "Forma pequeñas bases o balsas con pan integral.",
             "Prepara una salsa con mantequilla, harina, crema y caldo de pollo.",
-            "Sirve el pollo sobre el pan y acompaña con la salsa."
+            "Sirve el pavo sobre el pan y acompaña con la salsa."
         ]
     },
 
@@ -879,507 +879,433 @@ recetas = [
             "Sirve caliente."
         ]
     },
-    
+
     {
         "nombre": "Copas Bimbo",
         "imagen": "imagenes/copas_bimbo.png",
         "ingredientes": [
-            "1 panqué con nueces Bimbo",
-            "300 g de zarzamoras bien lavadas y desinfectadas",
-            "1/2 taza de crema espesa",
-            "1/2 taza de azúcar",
-            "1 cucharadita de vainilla",
-            "1 queso crema chico",
-            "4 cucharadas de licor de naranja"
+            "panqué", "zarzamora", "crema", "azúcar",
+            "vainilla", "queso crema", "licor de naranja"
         ],
         "tiempo": 15,
         "nivel": "Principiante",
         "descripcion": "Un postre cremoso e individual montado en capas con panqué, crema dulce y zarzamoras.",
         "instrucciones": [
-            "Lícue el queso crema, la crema, el azúcar, la vainilla y el licor de naranja.",
-            "En cada copa coloque una rebanada de panqué, después ponga las zarzamoras.",
+            "Licúa el queso crema, la crema, el azúcar, la vainilla y el licor de naranja.",
+            "En cada copa coloque una rebanada de panqué y después ponga las zarzamoras.",
             "Báñelas con la salsa y repita el proceso hasta terminar.",
             "Adorne con zarzamoras y hojitas.",
             "Refrigere antes de servir."
         ]
     },
+
     {
         "nombre": "Mousse de Chocolate a la Francesa",
         "imagen": "imagenes/mousse_chocolate_francesa.png",
         "ingredientes": [
-            "2 tablillas de chocolate Ibarra",
-            "1 copa de Grand Marnier o licor de naranja al gusto",
-            "1 queso crema grande"
+            "chocolate", "licor de naranja", "queso crema",
+            "hierbabuena"
         ],
         "tiempo": 15,
         "nivel": "Principiante",
-        "descripcion": "Un suave y elegante mousse de chocolate con toque cítrico de licor.",
+        "descripcion": "Un suave y elegante mousse de chocolate con toque cítrico.",
         "instrucciones": [
-            "Se derrite el chocolate a baño maría y se licúa bien con el queso y el licor.",
-            "Se pone en copas individuales.",
-            "Adorne con 2 hojitas de hierbabuena o alguna flor.",
-            "Refrigere un rato antes de servir."
+            "Derrite el chocolate a baño María.",
+            "Licúa el chocolate con el queso crema y el licor de naranja.",
+            "Coloca la mezcla en copas individuales.",
+            "Adorna con hierbabuena.",
+            "Refrigera antes de servir."
         ]
     },
+
     {
         "nombre": "Galletas a la Naranja",
         "imagen": "imagenes/galletas_naranja.png",
         "ingredientes": [
-            "1/4 kg de manteca",
-            "1/2 kg de harina",
-            "1 1/2 taza de azúcar",
-            "2 cucharaditas de royal",
-            "2 huevos",
-            "Ralladura de una naranja",
-            "Jugo de una naranja",
-            "3/4 de taza de azúcar (para espolvorear)",
-            "Canela en polvo (para espolvorear)"
+            "manteca", "harina", "azúcar", "polvo para hornear",
+            "huevo", "naranja", "canela"
         ],
         "tiempo": 30,
         "nivel": "Explorador",
         "descripcion": "Tradicionales galletas horneadas con un toque cítrico y aromático a naranja y canela.",
         "instrucciones": [
-            "Bata y acreme la manteca con el azúcar.",
-            "Agregue los huevos y la ralladura. Añada la harina y mezcle con la yema de los dedos.",
-            "Poco a poco vaya poniéndole el jugo hasta obtener una masa suave.",
-            "Extienda con un rodillo y corte las galletas; colóquelas en una charola engrasada.",
-            "Hornee de 9 a 10 minutos o hasta que empiecen a dorar.",
-            "Al sacarlas, espolvoree con canela y azúcar mezcladas."
+            "Bate y acrema la manteca con el azúcar.",
+            "Agrega los huevos y la ralladura de naranja.",
+            "Añade la harina y mezcla con los dedos.",
+            "Poco a poco agrega el jugo de naranja hasta obtener una masa suave.",
+            "Extiende con un rodillo y corta las galletas.",
+            "Colócalas en una charola engrasada.",
+            "Hornea de 9 a 10 minutos o hasta que empiecen a dorar.",
+            "Al sacarlas, espolvorea con canela y azúcar."
         ]
     },
+
     {
         "nombre": "Panqué Nevado",
         "imagen": "imagenes/panque_nevado.png",
         "ingredientes": [
-            "1 panqué de nuez Bimbo",
-            "2 tazas de azúcar",
-            "1 cucharadita de vainilla",
-            "1/2 taza de agua",
-            "4 cucharadas de brandy",
-            "1/2 taza de almendras peladas, finamente picadas",
-            "3/4 de taza de nuez finamente picada",
-            "1/2 taza de nata o queso cottage",
-            "1 clara de huevo",
-            "Azúcar para espolvorear",
-            "Mantequilla (la necesaria)",
-            "Canela en polvo (al gusto)"
+            "panqué", "azúcar", "vainilla", "agua", "brandy",
+            "almendra", "nuez", "nata", "queso cottage",
+            "clara de huevo", "mantequilla", "canela"
         ],
         "tiempo": 60,
         "nivel": "Explorador",
         "descripcion": "Panqué bañado en almíbar y frutos secos, cubierto con un merengue horneado.",
         "instrucciones": [
-            "Ponga a calentar 3/4 de taza de azúcar con media taza de agua y mueva continuamente. Agregue la vainilla y deje hervir hasta que esté a punto de miel.",
-            "Añada la nata o el queso a la preparación anterior.",
-            "En un molde chico previamente engrasado, coloque una cama de panqué y báñelo con la mitad de la miel con nata; agregue un poco de brandy y espolvoree la almendra y la nuez.",
-            "Bata la clara a punto de turrón con un poco de azúcar y cubra el panqué formando picos.",
-            "Espolvoree un poco de azúcar y canela.",
-            "Hornee a 250°C durante 40 minutos aproximadamente o hasta que dore el merengue al gusto.",
-            "Apague el horno y sirva inmediatamente."
+            "Calienta 3/4 de taza de azúcar con media taza de agua y mueve continuamente.",
+            "Agrega la vainilla y deja hervir hasta que tenga consistencia de miel.",
+            "Añade la nata o el queso cottage a la preparación anterior.",
+            "En un molde previamente engrasado, coloca una cama de panqué y báñalo con la mitad de la miel con nata.",
+            "Agrega un poco de brandy y espolvorea la almendra y la nuez.",
+            "Bate la clara a punto de turrón con un poco de azúcar y cubre el panqué formando picos.",
+            "Espolvorea azúcar y canela.",
+            "Hornea a 250 °C durante aproximadamente 40 minutos o hasta que dore el merengue.",
+            "Apaga el horno y sirve."
         ]
     },
+
     {
         "nombre": "Chocolatines",
         "imagen": "imagenes/chocolatines.png",
         "ingredientes": [
-            "1 paquete de chocolate amargo",
-            "1/2 taza de mantequilla",
-            "4 huevos",
-            "1/4 de cucharadita de sal",
-            "2 tazas de azúcar",
-            "1 cucharadita de vainilla",
-            "1 taza de harina cernida",
-            "1 taza de nuez picada",
-            "1 queso crema chico",
-            "3 tablillas de chocolate semidulce (cubierta)",
-            "3 cucharadas de mantequilla (cubierta)",
-            "Nueces enteras (cubierta)"
+            "chocolate amargo", "mantequilla", "huevo", "sal",
+            "azúcar", "vainilla", "harina", "nuez",
+            "queso crema", "chocolate semidulce"
         ],
         "tiempo": 45,
         "nivel": "Explorador",
         "descripcion": "Cuadritos esponjosos de chocolate y nuez cubiertos con un delicioso glaseado de chocolate.",
         "instrucciones": [
-            "Derrita el chocolate con la mantequilla a baño maría.",
-            "Mientras tanto, bata los huevos con el azúcar y la sal hasta que se mezclen bien y aclaren.",
-            "Cuando el chocolate esté tibio, incorpórelo a los huevos.",
-            "Agregue el queso en trocitos, la harina y la nuez, y bata de nuevo.",
-            "Coloque la mezcla en una charola engrasada y enharinada, y extiéndala bien.",
-            "Hornee a 200°C durante unos 25 minutos aproximadamente.",
-            "Para la cubierta: Derrita la mantequilla y el chocolate semidulce a baño maría hasta que espese.",
-            "Ya frío el pan, córtelo en cuadros, úntelo con la cubierta de chocolate y adorne con nueces."
+            "Derrite el chocolate con la mantequilla a baño María.",
+            "Bate los huevos con el azúcar y la sal hasta que se mezclen bien.",
+            "Cuando el chocolate esté tibio, incorpóralo a los huevos.",
+            "Agrega el queso crema en trocitos, la harina y la nuez.",
+            "Coloca la mezcla en una charola engrasada y enharinada.",
+            "Hornea a 200 °C durante aproximadamente 25 minutos.",
+            "Para la cubierta, derrite la mantequilla y el chocolate semidulce a baño María.",
+            "Cuando el pan esté frío, córtalo en cuadros, úntalo con la cubierta y adorna con nueces."
         ]
     },
+
     {
         "nombre": "Pastel de Zanahoria",
         "imagen": "imagenes/pastel_zanahoria.png",
         "ingredientes": [
-            "1 1/2 taza de azúcar granulada",
-            "1/2 taza de azúcar moscabada",
-            "1 1/2 taza de aceite vegetal",
-            "2 tazas de harina cernida",
-            "1 1/2 cucharadita de polvo para hornear",
-            "2 cucharadas de canela",
-            "1 cucharadita de bicarbonato de sodio",
-            "1 cucharadita de sal",
-            "5 huevos",
-            "2 1/2 tazas de zanahoria rallada",
-            "1 taza de nueces picadas",
-            "1 cucharada de harina",
-            "1 cucharada de ralladura de limón",
-            "1 queso crema grande (betún)",
-            "1 barra de mantequilla (betún)",
-            "2 tazas de azúcar glass (betún)"
+            "azúcar", "azúcar moscabada", "aceite vegetal",
+            "harina", "polvo para hornear", "canela",
+            "bicarbonato de sodio", "sal", "huevo",
+            "zanahoria", "nuez", "limón",
+            "queso crema", "mantequilla", "azúcar glass"
         ],
         "tiempo": 80,
         "nivel": "Explorador",
         "descripcion": "El clásico pastel de zanahoria especiado cubierto con un cremoso betún de queso.",
         "instrucciones": [
-            "Precaliente el horno a 180°C y unte con mantequilla el molde.",
-            "Bata las dos clases de azúcar y el aceite en un tazón. En otro tazón cierna la harina, el polvo para hornear, el bicarbonato, la canela y la sal. Incorpórelos a la mezcla.",
-            "Agregue uno por uno los huevos sin dejar de batir.",
-            "Espolvoree la cucharada de harina sobre las nueces. Integre las zanahorias, las nueces y la ralladura de limón a la pasta.",
-            "Vacíe al molde y hornee de 60 a 70 minutos aproximadamente. Déjelo reposar 5 minutos antes de desmoldar.",
-            "Para el betún: Bata el queso crema, la mantequilla y el azúcar glass, y cubra el pastel ya frío."
+            "Precalienta el horno a 180 °C y unta con mantequilla el molde.",
+            "Bate las dos clases de azúcar y el aceite.",
+            "En otro recipiente cierne la harina, el polvo para hornear, el bicarbonato, la canela y la sal.",
+            "Incorpora los ingredientes secos a la mezcla.",
+            "Agrega los huevos uno por uno sin dejar de batir.",
+            "Espolvorea harina sobre las nueces.",
+            "Integra las zanahorias, las nueces y la ralladura de limón.",
+            "Vierte en el molde y hornea de 60 a 70 minutos.",
+            "Para el betún, bate el queso crema, la mantequilla y el azúcar glass.",
+            "Cubre el pastel cuando esté completamente frío."
         ]
     },
+
     {
         "nombre": "Copas de Durazno",
         "imagen": "imagenes/copas_durazno.png",
         "ingredientes": [
-            "6 duraznos maduros pelados y sin hueso (o de lata)",
-            "3/4 de taza de azúcar",
-            "1/2 taza de crema dulce",
-            "1 sobre de grenetina"
+            "durazno", "azúcar", "crema", "grenetina", "agua"
         ],
         "tiempo": 20,
         "nivel": "Principiante",
         "descripcion": "Un postre refrescante de crema de durazno servido en copas individuales.",
         "instrucciones": [
-            "Pele cinco duraznos y póngalos a hervir con azúcar hasta que estén suaves (si usa de lata, omita este hervor).",
-            "Licúelos con un poco de azúcar si es necesario.",
-            "Agregue la crema y el sobre de grenetina previamente disuelto en agua.",
-            "Vierta la mezcla en copas.",
-            "Adorne con el durazno restante cortado en gajitos y una hojita dulce.",
-            "Refrigere hasta que cuaje."
+            "Pela cinco duraznos y ponlos a hervir con azúcar hasta que estén suaves.",
+            "Si utilizas duraznos de lata, puedes omitir este paso.",
+            "Licúa los duraznos con un poco de azúcar si es necesario.",
+            "Agrega la crema y la grenetina previamente disuelta en agua.",
+            "Vierte la mezcla en copas.",
+            "Adorna con el durazno restante cortado en gajos.",
+            "Refrigera hasta que cuaje."
         ]
     },
+
     {
         "nombre": "Pie de Peras",
         "imagen": "imagenes/pie_peras.png",
         "ingredientes": [
-            "2 tazas de vino tinto",
-            "3/4 de taza de azúcar",
-            "1 raja de canela",
-            "5 peras",
-            "1 taza de nata o queso cottage",
-            "3 cucharadas de azúcar morena",
-            "1 cucharadita de vainilla",
-            "1/2 taza de mermelada de durazno",
-            "1 1/4 de taza de harina (para la pasta)",
-            "1 pizca de sal (para la pasta)",
-            "5 cucharadas de azúcar (para la pasta)",
-            "1 1/2 barras de mantequilla (para la pasta)",
-            "1 huevo (para la pasta)",
-            "2 cucharadas de agua (para la pasta)"
+            "vino tinto", "azúcar", "canela", "pera",
+            "nata", "queso cottage", "azúcar morena",
+            "vainilla", "mermelada de durazno", "harina",
+            "sal", "mantequilla", "huevo", "agua"
         ],
         "tiempo": 60,
         "nivel": "Experto",
         "descripcion": "Tarta crujiente rellena de queso dulce y peras pochadas al vino tinto.",
         "instrucciones": [
-            "Para el relleno: Ponga a hervir el vino, el azúcar, la canela y 1/2 taza de agua. Pele las peras, partalas por la mitad y retira las semillas. Hiervalas 15 minutos en el vino. Retire del fuego y refrigere.",
-            "Para la pasta: Incorpore la harina, la sal y el azúcar. Mezcle la mantequilla en cuadritos usando un tenedor hasta formar una mezcla arenosa. Agregue el huevo y el agua hasta integrar.",
-            "Extienda la masa con rodillo y colóquela sobre un molde para pie previamente engrasado.",
-            "Hornee la base a 200°C hasta que se cueza y dore.",
-            "Mezcle la nata o queso con el azúcar morena y la vainilla.",
-            "Sobre la base horneada ponga la crema de queso, acomode las peras y barnice con la mermelada de durazno derretida."
+            "Para el relleno, hierve el vino, el azúcar, la canela y media taza de agua.",
+            "Pela las peras, pártelas por la mitad y retira las semillas.",
+            "Hiérvelas durante 15 minutos en el vino. Retira del fuego y refrigera.",
+            "Para la pasta, incorpora la harina, la sal y el azúcar.",
+            "Agrega la mantequilla en cubitos y mezcla hasta formar una preparación arenosa.",
+            "Añade el huevo y el agua hasta integrar.",
+            "Extiende la masa con un rodillo y colócala sobre un molde para pie previamente engrasado.",
+            "Hornea la base a 200 °C hasta que esté cocida y dorada.",
+            "Mezcla la nata o el queso cottage con el azúcar morena y la vainilla.",
+            "Sobre la base horneada coloca la crema de queso, acomoda las peras y barniza con la mermelada de durazno derretida."
         ]
     },
+
     {
         "nombre": "Madalenas con Fresas",
         "imagen": "imagenes/madalenas_fresas.png",
         "ingredientes": [
-            "36 fresas limpias y desinfectadas",
-            "12 madalenas",
-            "1/2 barra de mantequilla",
-            "1/2 taza de ron",
-            "1/2 taza de azúcar"
+            "fresa", "madalena", "mantequilla", "ron", "azúcar"
         ],
         "tiempo": 15,
         "nivel": "Principiante",
         "descripcion": "Madalenas y fresas bañadas en un jarabe caliente de mantequilla y ron.",
         "instrucciones": [
-            "Se derrite la mantequilla a fuego lento.",
-            "Se retira del fuego y se agrega el azúcar hasta que se disuelva.",
-            "Vierta el ron.",
-            "Se vuelve a poner a fuego hasta que caliente (sin llegar a ebullición).",
-            "En un platito se acomodan 2 madalenas y 8 fresas.",
-            "Báñelas con la salsa caliente y sirva inmediatamente."
+            "Derrite la mantequilla a fuego lento.",
+            "Retira del fuego y agrega el azúcar hasta que se disuelva.",
+            "Vierte el ron.",
+            "Vuelve a poner a fuego bajo hasta que caliente sin llegar a ebullición.",
+            "Acomoda dos madalenas y ocho fresas en cada plato.",
+            "Báñalas con la salsa caliente y sirve inmediatamente."
         ]
     },
+
     {
         "nombre": "Hot Cake Tropical",
         "imagen": "imagenes/hot_cake_tropical.png",
         "ingredientes": [
-            "1 paquete de harina para Hot Cakes",
-            "2 cucharadas de mantequilla",
-            "1 huevo",
-            "Leche (la necesaria)",
-            "Fresas, kiwi o fruta de la estación",
-            "100 g de queso cottage",
-            "Miel de abeja (al gusto)",
-            "Mantequilla extra para la sartén"
+            "harina para hot cakes", "mantequilla", "huevo",
+            "leche", "fresa", "kiwi", "fruta",
+            "queso cottage", "miel"
         ],
         "tiempo": 20,
         "nivel": "Principiante",
         "descripcion": "Hot cakes esponjosos acompañados de frutas frescas, queso cottage y miel.",
         "instrucciones": [
-            "Prepare una pasta mezclando la harina, la mantequilla, el huevo y la leche necesaria hasta integrar perfectamente.",
-            "En una sartén con mantequilla, vierta un cucharón de la mezcla y mueva para esparcir y dorar parejo.",
-            "Sirva los hot cakes en platos, acomode las frutas escogidas y un poco de queso cottage encima.",
-            "Bañe con miel de abeja y adorne con fruta fresca."
+            "Mezcla la harina, la mantequilla, el huevo y la leche necesaria hasta integrar perfectamente.",
+            "En una sartén con mantequilla, vierte un cucharón de la mezcla.",
+            "Cocina hasta que esté dorado por ambos lados.",
+            "Sirve los hot cakes y agrega las frutas y el queso cottage.",
+            "Baña con miel y adorna con fruta fresca."
         ]
     },
+
     {
         "nombre": "Pan Francés",
         "imagen": "imagenes/pan_frances.png",
         "ingredientes": [
-            "8 rebanadas de Pan Blanco Bimbo",
-            "1/4 de taza de nuez picada",
-            "3 huevos",
-            "2 cucharadas de coulant o licor de naranja",
-            "1/2 taza de azúcar morena",
-            "2 cucharadas de canela molida",
-            "2 cucharadas de leche",
-            "Raspadura de media naranja",
-            "Aceite (el suficiente para freír)"
+            "pan blanco", "nuez", "huevo", "licor de naranja",
+            "azúcar morena", "canela", "leche", "naranja", "aceite"
         ],
         "tiempo": 15,
         "nivel": "Principiante",
         "descripcion": "Pan francés aromatizado con licor y ralladura de naranja, empanizado en azúcar y canela.",
         "instrucciones": [
-            "Bata bien los huevos con un tenedor y agregue la leche, el licor y la raspadura de naranja.",
-            "Corte las rebanadas de pan en círculos y sumérjalos en la mezcla de huevo.",
-            "En una sartén con aceite caliente, dore el pan por ambos lados y colóquelo sobre papel absorbente.",
-            "Espolvoree con la canela y el azúcar mezcladas previamente.",
-            "Añada la nuez picada, sirva y adorne con gajos y raspadura de naranja."
+            "Bate los huevos con un tenedor y agrega la leche, el licor y la ralladura de naranja.",
+            "Corta las rebanadas de pan en círculos y sumérgelas en la mezcla de huevo.",
+            "En una sartén con aceite caliente, dora el pan por ambos lados.",
+            "Colócalo sobre papel absorbente.",
+            "Espolvorea con la canela y el azúcar previamente mezcladas.",
+            "Añade la nuez picada y sirve."
         ]
     },
+
     {
         "nombre": "Yogurt Completo",
         "imagen": "imagenes/yogurt_completo.png",
         "ingredientes": [
-            "1 1/2 taza de granola",
-            "2 tazas de yogurt natural",
-            "1 taza de fresas",
-            "1 pera en rebanadas",
-            "1 plátano rebanado",
-            "Miel de maple (al gusto)"
+            "granola", "yogurt natural", "fresa",
+            "pera", "plátano", "miel de maple"
         ],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "Parfait fresco montado en capas de yogurt, granola y variedad de frutas de estación.",
+        "descripcion": "Parfait fresco montado en capas de yogurt, granola y variedad de frutas.",
         "instrucciones": [
-            "Ponga en varias copas una capa de granola, una de yogurt y frutas rebanadas (fresas y peras).",
-            "Coloque otra capa idéntica de yogurt con las frutas encima.",
-            "Adorne con fruta fresca de temporada y bañe con miel de maple al gusto."
+            "Coloca en varias copas una capa de granola, una de yogurt y frutas rebanadas.",
+            "Coloca otra capa de yogurt con las frutas.",
+            "Adorna con fruta fresca de temporada.",
+            "Agrega miel de maple al gusto."
         ]
     },
+
     {
         "nombre": "Arroz con Leche Tradicional",
         "imagen": "imagenes/arroz_con_leche_tradicional.png",
         "ingredientes": [
-            "4 1/2 tazas de agua",
-            "1 raja de canela",
-            "1 taza de arroz (remojado en agua caliente por 20 min y escurrido)",
-            "1 lata de Leche Condensada LA LECHERA®",
-            "1 lata de Leche Evaporada CARNATION® CLAVEL®",
-            "1/2 taza de pasas",
-            "1 cucharada de canela molida"
+            "agua", "canela", "arroz", "leche condensada",
+            "leche evaporada", "pasas"
         ],
         "tiempo": 60,
         "nivel": "Principiante",
         "descripcion": "Clásico postre cremoso de arroz aromatizado con canela y endulzado con leche condensada.",
         "instrucciones": [
-            "En una olla, calienta el agua junto con la raja de canela hasta que suelte el hervor.",
-            "Agrega el arroz escurrido y cocina a fuego medio durante 15 minutos o hasta que esté tierno.",
-            "Vierte la Leche Condensada, la Leche Evaporada y las pasas.",
-            "Mezcla bien y cocina a fuego bajo durante 20 a 25 minutos, moviendo ocasionalmente hasta que espese.",
-            "Sirva tibio o frío espolvoreado con la canela molida."
+            "Calienta el agua junto con la canela hasta que hierva.",
+            "Agrega el arroz previamente remojado y escurrido.",
+            "Cocina a fuego medio durante 15 minutos o hasta que esté tierno.",
+            "Vierte la leche condensada, la leche evaporada y las pasas.",
+            "Cocina a fuego bajo durante 20 a 25 minutos, moviendo ocasionalmente hasta que espese.",
+            "Sirve tibio o frío y espolvorea con canela."
         ]
     },
+
     {
         "nombre": "Arroz con Leche Choco Cereza",
         "imagen": "imagenes/arroz_choco_cereza.png",
         "ingredientes": [
-            "4 1/2 tazas de agua",
-            "1 raja de canela",
-            "1 taza de arroz (remojado en agua caliente por 20 min y escurrido)",
-            "1 lata de leche condensada",
-            "1 lata de leche evaporada",
-            "1 barra de chocolate amargo troceado (150 g)",
-            "10 cerezas rojas en almíbar, picadas",
-            "Crema batida, cerezas y hojas de menta (para decorar)"
+            "agua", "canela", "arroz", "leche condensada",
+            "leche evaporada", "chocolate amargo", "cereza",
+            "crema batida", "menta"
         ],
         "tiempo": 55,
         "nivel": "Principiante",
-        "descripcion": "Variación gourmet del arroz con leche tradicional con chocolate amargo fundido y cerezas.",
+        "descripcion": "Variación del arroz con leche tradicional con chocolate amargo y cerezas.",
         "instrucciones": [
             "Calienta el agua con la canela en una olla hasta hervir.",
-            "Agrega el arroz escurrido y cocina a fuego alto durante 20 minutos hasta que esté suave.",
+            "Agrega el arroz previamente remojado y escurrido.",
+            "Cocina hasta que esté suave.",
             "Incorpora la leche condensada, la leche evaporada y el chocolate amargo troceado.",
-            "Mezcla bien y cocina a fuego bajo durante 15 minutos más hasta que espese ligeramente.",
-            "Retira del fuego, añade las cerezas picadas y mezcla suavemente.",
-            "Deja enfriar y sirva tibio o a temperatura ambiente.",
-            "Decora cada porción con crema batida, cerezas en almíbar y hojas de menta."
+            "Cocina a fuego bajo hasta que espese ligeramente.",
+            "Retira del fuego y añade las cerezas picadas.",
+            "Deja enfriar.",
+            "Decora cada porción con crema batida, cerezas y hojas de menta."
         ]
     },
+
     {
         "nombre": "Donas de Avena",
         "imagen": "imagenes/donas_avena.png",
         "ingredientes": [
-            "1 1/2 tazas de bebida vegetal de avena sabor vainilla",
-            "2 huevos",
-            "1 taza de harina para hot cakes",
-            "1/2 taza de hojuelas de avena",
-            "1 cucharada de canela molida",
-            "Aceite en aerosol",
-            "1/2 barra de chocolate amargo (75 g)"
+            "bebida vegetal de avena", "huevo", "harina para hot cakes",
+            "avena", "canela", "aceite", "chocolate amargo"
         ],
         "tiempo": 30,
         "nivel": "Principiante",
-        "descripcion": "Donas horneadas nutritivas a base de avena con cobertura de chocolate amargo.",
+        "descripcion": "Donas horneadas a base de avena con cobertura de chocolate amargo.",
         "instrucciones": [
-            "Licúa la bebida de avena, los huevos, la harina, las hojuelas de avena y la canela hasta obtener una masa homogénea.",
-            "Rocía aceite en aerosol sobre un molde para donas.",
-            "Vierte la mezcla en el molde llenando a 3/4 de su capacidad.",
-            "Hornee a 180°C durante 20 minutos hasta que estén firmes y cocidas.",
+            "Licúa la bebida de avena, los huevos, la harina, la avena y la canela hasta obtener una masa homogénea.",
+            "Rocía aceite sobre un molde para donas.",
+            "Vierte la mezcla en el molde llenando tres cuartas partes de su capacidad.",
+            "Hornea a 180 °C durante 20 minutos hasta que estén firmes y cocidas.",
             "Funde el chocolate amargo a baño María.",
-            "Desmolda las donas frías y decora la parte superior con el chocolate fundido."
+            "Desmolda las donas cuando estén frías y decora con el chocolate fundido."
         ]
     },
+
     {
         "nombre": "Gelatina de Mazapán",
         "imagen": "imagenes/gelatina_mazapan.png",
         "ingredientes": [
-            "1 Lata de Leche Condensada LA LECHERA®",
-            "1 Lata de Leche Evaporada CARNATION® CLAVEL®",
-            "1 Lata de Media Crema NESTLÉ®",
-            "3 Tazas de agua",
-            "6 Mazapanes (28 g c/u)",
-            "3 Sobres de grenetina (7 g c/u)",
-            "1 Taza de fresas desinfectadas"
+            "leche condensada", "leche evaporada", "media crema",
+            "agua", "mazapán", "grenetina", "fresa"
         ],
         "tiempo": 20,
         "nivel": "Principiante",
         "descripcion": "Gelatina cremosa preparada con mazapán tradicional de cacahuate y fresas frescas.",
         "instrucciones": [
-            "Hidrata la grenetina en 1/2 taza de agua y disuélvela a baño María.",
-            "Licúa la Leche Evaporada, Leche Condensada, Media Crema, las 3 tazas de agua y 5 mazapanes.",
+            "Hidrata la grenetina en media taza de agua y disuélvela a baño María.",
+            "Licúa la leche evaporada, la leche condensada, la media crema, el agua y cinco mazapanes.",
             "Con la licuadora encendida, agrega poco a poco la grenetina disuelta.",
             "Vierte en un molde para gelatina previamente engrasado.",
             "Refrigera hasta que cuaje por completo.",
-            "Desmolda y decora con el mazapán restante espolvoreado y las fresas."
+            "Desmolda y decora con el mazapán restante y las fresas."
         ]
     },
+
     {
         "nombre": "Pay de Mango",
         "imagen": "imagenes/pay_mango.png",
         "ingredientes": [
-            "30 Galletas Marías molidas",
-            "1 Barra de mantequilla derretida (90 g)",
-            "1 Lata de Leche Condensada LA LECHERA®",
-            "3 Mangos",
-            "1 1/2 Sobres de grenetina (7 g c/u)"
+            "galletas Marías", "mantequilla", "leche condensada",
+            "mango", "grenetina", "agua"
         ],
         "tiempo": 25,
         "nivel": "Principiante",
         "descripcion": "Pay de mango frío sin horno sobre una crujiente base de galleta María.",
         "instrucciones": [
-            "Hidrata la grenetina en 1/4 taza de agua y disuélvela a baño María.",
-            "Para la base: Mezcla las galletas molidas con la mantequilla, cúbre la base y bordes de un molde para pay y refrigera 10 minutos.",
-            "Para el relleno: Licúa la Leche Condensada con la pulpa de los mangos y, con la licuadora encendida, añade la grenetina.",
+            "Hidrata la grenetina en un cuarto de taza de agua y disuélvela a baño María.",
+            "Para la base, mezcla las galletas molidas con la mantequilla.",
+            "Cubre la base y los bordes de un molde para pay y refrigera durante 10 minutos.",
+            "Para el relleno, licúa la leche condensada con la pulpa de los mangos.",
+            "Con la licuadora encendida, añade la grenetina.",
             "Vierte el relleno sobre la base de galleta.",
             "Refrigera hasta que cuaje por completo."
         ]
     },
+
     {
         "nombre": "Pastel Imposible de Moka",
         "imagen": "imagenes/pastel_imposible_moka.png",
         "ingredientes": [
-            "1 Taza de cajeta",
-            "2 Latas de Leche Evaporada",
-            "8 Huevos",
-            "1 Taza de aceite vegetal",
-            "1 Paquete de harina para pastel de chocolate (232 g)",
-            "3 Cucharadas de café soluble",
-            "1 Lata de Leche Condensada",
-            "3 Cucharadas de esencia de nuez",
-            "1 Taza de fresas cortadas en cuartos",
-            "1/4 De taza de nuez picada"
+            "cajeta", "leche evaporada", "huevo",
+            "aceite vegetal", "harina para pastel de chocolate",
+            "café soluble", "leche condensada",
+            "esencia de nuez", "fresa", "nuez"
         ],
         "tiempo": 110,
         "nivel": "Experto",
-        "descripcion": "Espectacular combinación horneada a baño María de pastel de chocolate al café y flan de nuez.",
+        "descripcion": "Combinación horneada a baño María de pastel de chocolate al café y flan de nuez.",
         "instrucciones": [
-            "Cubre el fondo y paredes de un molde engrasado y enharinado con la cajeta.",
-            "Licúa 1 lata de Leche Evaporada con 3 huevos, el aceite, la harina de chocolate y el café soluble.",
-            "Para el flan: Licúa la Leche Condensada, 1 lata de Leche Evaporada, 5 huevos y la esencia de nuez.",
-            "Vacía en el molde primero la mezcla de pastel y luego, con ayuda de una cuchara, vierte poco a poco la del flan.",
-            "Cubre con papel aluminio y hornea a 180°C a baño María durante 1 hora y media.",
-            "Deja enfriar, desmolda, refrigera 1 hora y decora con las fresas y la nuez."
+            "Cubre el fondo y las paredes de un molde engrasado y enharinado con cajeta.",
+            "Licúa una lata de leche evaporada con tres huevos, el aceite, la harina de chocolate y el café soluble.",
+            "Para el flan, licúa la leche condensada, una lata de leche evaporada, cinco huevos y la esencia de nuez.",
+            "Vierte primero la mezcla de pastel y después la mezcla de flan.",
+            "Cubre con papel aluminio y hornea a 180 °C a baño María durante aproximadamente una hora y media.",
+            "Deja enfriar, desmolda, refrigera y decora con las fresas y la nuez."
         ]
     },
+
     {
         "nombre": "Brownie Cookies and Cream",
         "imagen": "imagenes/brownie_cookies_cream.png",
         "ingredientes": [
-            "160 g de chocolate amargo 85%",
-            "1 Barra de mantequilla fundida (90 g)",
-            "1/2 Taza de Leche Condensada",
-            "2 Cucharadas de cocoa",
-            "1 Cucharadita de polvo para hornear",
-            "3/4 Taza de harina de trigo cernida",
-            "3 Huevos",
-            "1 Barra de chocolate blanco fundido",
-            "1 Paquete de galletas de chocolate con relleno troceadas"
+            "chocolate amargo", "mantequilla", "leche condensada",
+            "cocoa", "polvo para hornear", "harina", "huevo",
+            "chocolate blanco", "galletas de chocolate"
         ],
         "tiempo": 40,
         "nivel": "Explorador",
-        "descripcion": "Brownie denso de chocolate decorado con hilos de chocolate blanco y galletas troceadas.",
+        "descripcion": "Brownie denso de chocolate decorado con chocolate blanco y galletas troceadas.",
         "instrucciones": [
-            "Mezcla el chocolate amargo con la mantequilla, la Leche Condensada, la cocoa, el polvo para hornear, la harina y los huevos hasta integrar.",
+            "Mezcla el chocolate amargo con la mantequilla, la leche condensada, la cocoa, el polvo para hornear, la harina y los huevos.",
             "Vierte la mezcla en un molde cuadrado cubierto con papel encerado.",
-            "Hornee a 180°C durante 25 a 30 minutos y deje enfriar.",
-            "Decora la superficie con el chocolate blanco fundido y las galletas troceadas.",
+            "Hornea a 180 °C durante 25 a 30 minutos y deja enfriar.",
+            "Decora la superficie con chocolate blanco fundido y galletas troceadas.",
             "Desmolda y corta en cuadros."
         ]
     },
+
     {
         "nombre": "Brownie Cheesecake con Caramelo",
         "imagen": "imagenes/brownie_cheesecake_caramelo.png",
         "ingredientes": [
-            "1 3/4 Taza de azúcar refinada",
-            "1 Lata de Media Crema caliente",
-            "160 g de chocolate amargo 85%",
-            "1 Barra de mantequilla fundida (90 g) + 2 cucharadas extra",
-            "2 Cucharadas de cocoa",
-            "1 Cucharadita de polvo para hornear",
-            "3/4 De taza de harina de trigo cernida",
-            "4 Huevos",
-            "1 Paquete de queso crema (190 g)",
-            "1/4 De taza de Leche Condensada",
-            "1 Cucharadita de esencia de vainilla",
-            "1 Taza de nuez entera"
+            "azúcar", "media crema", "chocolate amargo",
+            "mantequilla", "cocoa", "polvo para hornear",
+            "harina", "huevo", "queso crema",
+            "leche condensada", "vainilla", "nuez"
         ],
         "tiempo": 55,
         "nivel": "Experto",
         "descripcion": "Combinación marmoleada de brownie de chocolate con cheesecake horneado y salsa de caramelo.",
         "instrucciones": [
-            "Para el caramelo: Derrita 3/4 de taza de azúcar a fuego medio. Añada poco a poco la Media Crema caliente y 2 cucharadas de mantequilla hasta integrar.",
-            "Para el brownie: Mezcla el chocolate amargo con la barra de mantequilla, 1 taza de azúcar, la cocoa, el polvo para hornear, la harina y 3 huevos. Reserva 1/3 y vierta el resto en un refractario cuadrado con papel encerado.",
-            "Para el cheesecake: Bate el queso crema con la Leche Condensada, la vainilla y 1 huevo.",
-            "Vierte el cheesecake sobre la base de brownie. Cubre con el resto de la mezcla de brownie reservada y marmolea con un palillo.",
-            "Hornee a 180°C durante 30 a 35 minutos. Deja enfriar y desmolda.",
-            "Decora con la salsa de caramelo y las nueces enteras."
+            "Para el caramelo, derrite el azúcar a fuego medio.",
+            "Añade poco a poco la media crema caliente y la mantequilla hasta integrar.",
+            "Para el brownie, mezcla el chocolate amargo con la mantequilla, el azúcar, la cocoa, el polvo para hornear, la harina y los huevos.",
+            "Reserva una parte de la mezcla y vierte el resto en un refractario cuadrado con papel encerado.",
+            "Para el cheesecake, bate el queso crema con la leche condensada, la vainilla y el huevo.",
+            "Vierte el cheesecake sobre la base de brownie.",
+            "Cubre con el resto de la mezcla de brownie y marmolea con un palillo.",
+            "Hornea a 180 °C durante 30 a 35 minutos.",
+            "Deja enfriar y desmolda.",
+            "Decora con la salsa de caramelo y las nueces."
         ]
     }
 ]
