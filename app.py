@@ -1,7 +1,7 @@
 import streamlit as st
 from recetas import recetas
-st.write("TOTAL DE RECETAS:", len(recetas))
-st.write("PRIMERAS RECETAS:", [r["nombre"] for r in recetas[:10]])
+st.write("TOTAL:", len(recetas))
+st.write("RECETAS CARGADAS:", [r["nombre"] for r in recetas])
 import os
 
 
