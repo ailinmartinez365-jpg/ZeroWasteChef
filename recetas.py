@@ -878,12 +878,8 @@ recetas = [
             "Cocina hasta que el pollo esté completamente cocido y la salsa espese.",
             "Sirve caliente."
         ]
-    }
-
-]
-
-
-recetas = [
+    },
+    
     {
         "nombre": "Copas Bimbo",
         "imagen": "imagenes/copas_bimbo.png",
