@@ -104,7 +104,7 @@ recetas = [
             "Incorpora el tocino y sirve caliente."
         ]
     },
-
+    
     {
         "nombre": "Tiras de sandwich dorado a la francesa",
         "imagen": "imagenes/tiras_sandwich_francesa.png",
@@ -124,7 +124,7 @@ recetas = [
             "Derrite mantequilla en una sartén y dora los rollos por todos sus lados."
         ]
     },
-
+    
     {
         "nombre": "Bocadillos de pollo",
         "imagen": "imagenes/bocadillos_pollo.png",
