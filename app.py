@@ -1,5 +1,7 @@
 import streamlit as st
 from recetas import recetas
+st.write("TOTAL DE RECETAS:", len(recetas))
+st.write("PRIMERAS RECETAS:", [r["nombre"] for r in recetas[:10]])
 import os
 
 
@@ -108,15 +110,7 @@ def normalizar_ingrediente(ingrediente):
 
     return ingrediente
     
-    # Plural simple
-
-    if ingrediente.endswith("s") and len(ingrediente) > 3:
-
-        ingrediente = ingrediente[:-1]
-
-
-    return ingrediente
-
+    
 st.markdown(
     """
     <style>
