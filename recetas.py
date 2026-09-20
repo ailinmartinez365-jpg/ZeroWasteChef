@@ -879,7 +879,7 @@ recetas = [
             "Sirve caliente."
         ]
     },
-
+    
     {
         "nombre": "Copas Bimbo",
         "imagen": "imagenes/copas_bimbo.png",
