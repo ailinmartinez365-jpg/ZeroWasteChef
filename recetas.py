@@ -1,9 +1,4 @@
 recetas = [
-
-    # ============================================================
-    # RECETAS ORIGINALES
-    # ============================================================
-
     {
         "nombre": "Huevos con tomate",
         "imagen": "imagenes/huevos_tomate.png",
@@ -88,11 +83,6 @@ recetas = [
             "Mezcla y cocina hasta que todo esté bien caliente."
         ]
     },
-
-
-    # ============================================================
-    # NIVEL 1
-    # ============================================================
 
     {
         "nombre": "Puré de papa cremoso con tocino",
@@ -550,11 +540,6 @@ recetas = [
             "Corta en porciones pequeñas y sirve."
         ]
     },
-
-
-    # ============================================================
-    # NIVEL 2
-    # ============================================================
 
     {
         "nombre": "Rollitos crujientes de ramen y queso",
