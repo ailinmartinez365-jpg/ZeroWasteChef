@@ -897,6 +897,10 @@ recetas = [
 
 ]
 
+    # ============================================================
+    # POSTRES
+    # ============================================================
+
 recetas = [
     {
         "nombre": "Copas Bimbo",
@@ -954,7 +958,7 @@ recetas = [
             "Canela en polvo (para espolvorear)"
         ],
         "tiempo": 30,
-        "nivel": "Intermedio",
+        "nivel": "Explorador",
         "descripcion": "Tradicionales galletas horneadas con un toque cítrico y aromático a naranja y canela.",
         "instrucciones": [
             "Bata y acreme la manteca con el azúcar.",
@@ -983,7 +987,7 @@ recetas = [
             "Canela en polvo (al gusto)"
         ],
         "tiempo": 60,
-        "nivel": "Intermedio",
+        "nivel": "Explorador",
         "descripcion": "Panqué bañado en almíbar y frutos secos, cubierto con un merengue horneado.",
         "instrucciones": [
             "Ponga a calentar 3/4 de taza de azúcar con media taza de agua y mueva continuamente. Agregue la vainilla y deje hervir hasta que esté a punto de miel.",
@@ -1013,7 +1017,7 @@ recetas = [
             "Nueces enteras (cubierta)"
         ],
         "tiempo": 45,
-        "nivel": "Intermedio",
+        "nivel": "Explorador",
         "descripcion": "Cuadritos esponjosos de chocolate y nuez cubiertos con un delicioso glaseado de chocolate.",
         "instrucciones": [
             "Derrita el chocolate con la mantequilla a baño maría.",
@@ -1048,7 +1052,7 @@ recetas = [
             "2 tazas de azúcar glass (betún)"
         ],
         "tiempo": 80,
-        "nivel": "Intermedio",
+        "nivel": "Explorador",
         "descripcion": "El clásico pastel de zanahoria especiado cubierto con un cremoso betún de queso.",
         "instrucciones": [
             "Precaliente el horno a 180°C y unte con mantequilla el molde.",
@@ -1100,7 +1104,7 @@ recetas = [
             "2 cucharadas de agua (para la pasta)"
         ],
         "tiempo": 60,
-        "nivel": "Avanzado",
+        "nivel": "Experto",
         "descripcion": "Tarta crujiente rellena de queso dulce y peras pochadas al vino tinto.",
         "instrucciones": [
             "Para el relleno: Ponga a hervir el vino, el azúcar, la canela y 1/2 taza de agua. Pele las peras, partalas por la mitad y retira las semillas. Hiervalas 15 minutos en el vino. Retire del fuego y refrigere.",
@@ -1278,9 +1282,9 @@ recetas = [
         "nombre": "Gelatina de Mazapán",
         "imagen": "imagenes/gelatina_mazapan.png",
         "ingredientes": [
-            "1 Lata de Leche Condensada",
-            "1 Lata de Leche Evaporada",
-            "1 Lata de Media Crema",
+            "1 Lata de Leche Condensada LA LECHERA®",
+            "1 Lata de Leche Evaporada CARNATION® CLAVEL®",
+            "1 Lata de Media Crema NESTLÉ®",
             "3 Tazas de agua",
             "6 Mazapanes (28 g c/u)",
             "3 Sobres de grenetina (7 g c/u)",
@@ -1304,7 +1308,7 @@ recetas = [
         "ingredientes": [
             "30 Galletas Marías molidas",
             "1 Barra de mantequilla derretida (90 g)",
-            "1 Lata de Leche Condensada",
+            "1 Lata de Leche Condensada LA LECHERA®",
             "3 Mangos",
             "1 1/2 Sobres de grenetina (7 g c/u)"
         ],
@@ -1335,7 +1339,7 @@ recetas = [
             "1/4 De taza de nuez picada"
         ],
         "tiempo": 110,
-        "nivel": "Avanzado",
+        "nivel": "Experto",
         "descripcion": "Espectacular combinación horneada a baño María de pastel de chocolate al café y flan de nuez.",
         "instrucciones": [
             "Cubre el fondo y paredes de un molde engrasado y enharinado con la cajeta.",
@@ -1361,7 +1365,7 @@ recetas = [
             "1 Paquete de galletas de chocolate con relleno troceadas"
         ],
         "tiempo": 40,
-        "nivel": "Intermedio",
+        "nivel": "Explorador",
         "descripcion": "Brownie denso de chocolate decorado con hilos de chocolate blanco y galletas troceadas.",
         "instrucciones": [
             "Mezcla el chocolate amargo con la mantequilla, la Leche Condensada, la cocoa, el polvo para hornear, la harina y los huevos hasta integrar.",
@@ -1389,7 +1393,7 @@ recetas = [
             "1 Taza de nuez entera"
         ],
         "tiempo": 55,
-        "nivel": "Avanzado",
+        "nivel": "Experto",
         "descripcion": "Combinación marmoleada de brownie de chocolate con cheesecake horneado y salsa de caramelo.",
         "instrucciones": [
             "Para el caramelo: Derrita 3/4 de taza de azúcar a fuego medio. Añada poco a poco la Media Crema caliente y 2 cucharadas de mantequilla hasta integrar.",
