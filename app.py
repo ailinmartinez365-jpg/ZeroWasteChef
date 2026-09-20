@@ -15,55 +15,52 @@ def normalizar_ingrediente(ingrediente):
 
     ingrediente = ingrediente.strip().lower()
 
-    # Eliminar cantidades comunes
+    # Quitar signos básicos
+    ingrediente = ingrediente.replace(",", "")
+    ingrediente = ingrediente.replace(".", "")
 
     palabras = ingrediente.split()
 
     palabras_ignoradas = [
-        "un",
-        "una",
-        "unos",
-        "unas",
-        "el",
-        "la",
-        "los",
-        "las",
-        "de",
-        "del",
-        "gramos",
-        "gramo",
-        "kg",
-        "kilo",
-        "kilos",
+        "un", "una", "unos", "unas",
+        "el", "la", "los", "las",
+        "de", "del",
+        "gramos", "gramo",
+        "kg", "kilo", "kilos",
+        "g",
         "ml",
-        "litro",
-        "litros",
-        "taza",
-        "tazas",
-        "cucharada",
-        "cucharadas",
-        "cucharadita",
-        "cucharaditas"
+        "litro", "litros",
+        "taza", "tazas",
+        "cucharada", "cucharadas",
+        "cucharadita", "cucharaditas",
+        "barra", "barras",
+        "paquete", "paquetes",
+        "lata", "latas",
+        "sobre", "sobres",
+        "pieza", "piezas"
     ]
 
     palabras_limpias = []
 
     for palabra in palabras:
 
-        palabra_limpia = palabra.strip(".,;:")
+        palabra_limpia = palabra.strip(".,;:()")
 
+        # Eliminar cantidades como:
+        # 1, 2, 3
+        # 1/2, 1/4, 1 1/2
         if palabra_limpia.isdigit():
+            continue
+
+        if "/" in palabra_limpia:
             continue
 
         if palabra_limpia not in palabras_ignoradas:
             palabras_limpias.append(palabra_limpia)
 
-
     ingrediente = " ".join(palabras_limpias)
 
-
     # Equivalencias
-
     equivalencias = {
 
         "jitomate": "tomate",
@@ -90,15 +87,27 @@ def normalizar_ingrediente(ingrediente):
         "limones": "limon",
         "limón": "limon",
 
-        "ajos": "ajo"
+        "ajos": "ajo",
+
+        "mangos": "mango",
+        "fresas": "fresa",
+        "peras": "pera",
+        "duraznos": "durazno",
+        "cerezas": "cereza",
+        "nueces": "nuez",
+        "almendras": "almendra",
+        "galletas": "galleta"
     }
 
-
     if ingrediente in equivalencias:
-
         return equivalencias[ingrediente]
 
+    # Plural simple
+    if ingrediente.endswith("s") and len(ingrediente) > 3:
+        ingrediente = ingrediente[:-1]
 
+    return ingrediente
+    
     # Plural simple
 
     if ingrediente.endswith("s") and len(ingrediente) > 3:
@@ -313,17 +322,15 @@ with columna_tiempo:
     )
 
 
-with columna_nivel:
-
-    filtro_nivel = st.selectbox(
-        "Nivel de dificultad",
-        [
-            "Todos",
-            "Principiante",
-            "Explorador",
-            "Experto"
-        ]
-    )
+filtro_nivel = st.selectbox(
+    "Nivel de dificultad",
+    [
+        "Todos",
+        "Principiante",
+        "Explorador",
+        "Experto"
+    ]
+)
 
 ingredientes_usuario = []
 
@@ -385,11 +392,17 @@ for receta in recetas:
 
     coincidencias = 0
 
-    for ingrediente in ingredientes_usuario:
+   for ingrediente in ingredientes_usuario:
 
-        if ingrediente in ingredientes_receta:
+    for ingrediente_receta in ingredientes_receta:
+
+        if (
+            ingrediente == ingrediente_receta
+            or ingrediente in ingrediente_receta.split()
+        ):
 
             coincidencias += 1
+            break
 
 
     # SI NO HAY INGREDIENTES, NO CONTINUAR
