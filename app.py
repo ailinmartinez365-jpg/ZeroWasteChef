@@ -337,8 +337,6 @@ if entrada:
     )
 resultados = []
 
-for receta in recetas:
-
     # FILTRO DE TIEMPO
 
     if filtro_tiempo == "10 minutos":
