@@ -21,7 +21,7 @@ if "receta_seleccionada" not in st.session_state:
     st.session_state.receta_seleccionada = None
 
 # ============================================================
-# NORMALIZAR INGREDIENTES (CON CACHÉ)
+# NORMALIZAR INGREDIENTES
 # ============================================================
 
 @st.cache_data
@@ -68,7 +68,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS Y CURSOR PERSONALIZADO
+# CSS PARA CARRUSEL ESTILO NETFLIX Y CURSOR PERSONALIZADO
 # ============================================================
 
 st.markdown(
@@ -83,7 +83,7 @@ st.markdown(
     }
 
     .block-container {
-        max-width: 1200px;
+        max-width: 1250px;
         padding-top: 35px;
         padding-bottom: 60px;
     }
@@ -105,7 +105,6 @@ st.markdown(
         font-size: 18px;
         color: #59645C;
         margin-top: 0;
-        letter-spacing: 0.3px;
     }
 
     .linea {
@@ -119,12 +118,6 @@ st.markdown(
         margin-bottom: 25px;
     }
 
-    .seccion-busqueda h2 {
-        font-size: 28px;
-        color: #26352B;
-        margin-bottom: 8px;
-    }
-
     div[data-testid="stTextInput"] input {
         border: 1px solid #C9C2B5;
         border-radius: 12px;
@@ -133,11 +126,42 @@ st.markdown(
         font-size: 16px;
     }
 
+    /* ESTILOS DEL CARRUSEL TIPO NETFLIX */
+    .carrusel-netflix {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 18px;
+        padding: 10px 5px 20px 5px;
+    }
+
+    /* Ocultar o estilizar la barra de desplazamiento */
+    .carrusel-netflix::-webkit-scrollbar {
+        height: 8px;
+    }
+    .carrusel-netflix::-webkit-scrollbar-thumb {
+        background-color: #C9C2B5;
+        border-radius: 10px;
+    }
+
+    .tarjeta-netflix {
+        flex: 0 0 240px; /* Ancho fijo para cada tarjeta en el carrusel */
+        background-color: #FFFFFF;
+        border: 1px solid #DED8CC;
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
     .stButton > button {
         border-radius: 10px;
         background-color: #536B59;
         color: white;
         font-weight: 600;
+        width: 100%;
     }
 
     .stButton > button:hover {
@@ -150,7 +174,7 @@ st.markdown(
 )
 
 # ============================================================
-# MODAL/POPUP PARA VER RECETA DETALLADA
+# MODAL PARA MOSTRAR DETALLES
 # ============================================================
 
 @st.dialog("Detalles de la Receta")
@@ -164,13 +188,11 @@ def mostrar_modal_receta(receta):
     st.caption(receta.get("descripcion", ""))
 
     st.divider()
-
     st.subheader("🛒 Ingredientes")
     for ing in receta["ingredientes"]:
         st.write(f"• {ing.capitalize()}")
 
     st.divider()
-
     st.subheader("👩‍🍳 Instrucciones de Preparación")
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
@@ -186,7 +208,6 @@ def mostrar_modal_receta(receta):
             st.rerun()
 
 
-# Abrir modal si hay una receta seleccionada en el session_state
 if st.session_state.receta_seleccionada:
     mostrar_modal_receta(st.session_state.receta_seleccionada)
     st.session_state.receta_seleccionada = None
@@ -309,48 +330,46 @@ with tab_buscador:
                 recetas_nivel = [res for res in resultados if res["receta"]["nivel"] == nivel]
 
                 if recetas_nivel:
-                    st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
                     st.subheader(f"📌 {nivel}")
 
-                    # Crear el carrusel horizontal mediante contenedor expandible/deslizable
-                    carrusel_cols = st.columns(len(recetas_nivel))
+                    # CARRUSEL HORIZONTAL ESTILO NETFLIX
+                    # Usamos columnas nativas con scroll habilitado mediante un contenedor de Streamlit
+                    cols = st.columns(len(recetas_nivel))
+                    
+                    for idx, res in enumerate(recetas_nivel):
+                        receta = res["receta"]
+                        porcentaje = res["porcentaje"]
+                        faltantes = res["faltantes"]
 
-                    # Para evitar que se comprima si hay muchas, usamos columnas de ancho controlado
-                    with st.container():
-                        cols = st.columns(min(len(recetas_nivel), 4))
-                        for idx, res in enumerate(recetas_nivel):
-                            receta = res["receta"]
-                            porcentaje = res["porcentaje"]
-                            faltantes = res["faltantes"]
+                        with cols[idx]:
+                            with st.container(border=True):
+                                ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
+                                if os.path.exists(ruta_imagen):
+                                    st.image(ruta_imagen, use_container_width=True)
 
-                            with cols[idx % len(cols)]:
-                                with st.container(border=True):
-                                    ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
-                                    if os.path.exists(ruta_imagen):
-                                        st.image(ruta_imagen, use_container_width=True)
+                                st.subheader(receta["nombre"])
+                                
+                                if porcentaje == 100:
+                                    st.success("🟢 100% Match")
+                                elif porcentaje >= 75:
+                                    st.info(f"🟡 {round(porcentaje)}% Match")
+                                else:
+                                    st.warning(f"🟠 {round(porcentaje)}% Match")
 
-                                    st.subheader(receta["nombre"])
-                                    
-                                    if porcentaje == 100:
-                                        st.success("🟢 100% Match")
-                                    elif porcentaje >= 75:
-                                        st.info(f"🟡 {round(porcentaje)}% Match")
-                                    else:
-                                        st.warning(f"🟠 {round(porcentaje)}% Match")
+                                st.caption(f"⏱️ {receta['tiempo']} min")
 
-                                    st.caption(f"⏱️ {receta['tiempo']} min")
+                                if faltantes:
+                                    st.caption(f"**Te falta:** {', '.join(faltantes)}")
+                                else:
+                                    st.caption("✨ **¡Tienes todo!**")
 
-                                    if faltantes:
-                                        st.caption(f"**Te falta:** {', '.join(faltantes)}")
-                                    else:
-                                        st.caption("✨ **¡Tienes todo!**")
+                                if st.button("Ver receta", key=f"btn_{nivel}_{receta['nombre']}"):
+                                    st.session_state.receta_seleccionada = receta
+                                    st.rerun()
 
-                                    if st.button("Ver receta", key=f"btn_{nivel}_{receta['nombre']}"):
-                                        st.session_state.receta_seleccionada = receta
-                                        st.rerun()
+                    st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
-
 
 # ============================================================
 # TAB DE FAVORITOS
@@ -360,10 +379,9 @@ with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
         fav_recetas = [r for r in recetas if r["nombre"] in st.session_state.favoritos]
-        
-        cols_fav = st.columns(3)
+        cols_fav = st.columns(min(len(fav_recetas), 3))
         for idx, receta in enumerate(fav_recetas):
-            with cols_fav[idx % 3]:
+            with cols_fav[idx % len(cols_fav)]:
                 with st.container(border=True):
                     ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
                     if os.path.exists(ruta_imagen):
@@ -375,5 +393,5 @@ with tab_favoritos:
                         st.session_state.receta_seleccionada = receta
                         st.rerun()
     else:
-        st.info("Aún no has guardado recetas favoritas. ¡Explora en el buscador y haz clic en 'Guardar en Favoritos'!")
-    
+        st.info("Aún no has guardado recetas favoritas.")
+                
