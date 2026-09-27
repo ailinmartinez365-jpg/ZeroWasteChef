@@ -2,7 +2,6 @@ import streamlit as st
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
-import json
 
 # Configuración de página
 st.set_page_config(
@@ -15,7 +14,7 @@ st.set_page_config(
 # Cargar base de datos
 recetas = modulo_recetas.recetas
 
-# Inicializar estado para Favoritos y Receta Seleccionada
+# Inicializar estado para Favoritos
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
@@ -77,7 +76,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS DE LA APLICACIÓN Y CURSOR
+# ESTILOS GENERALES
 # ============================================================
 
 st.markdown(
@@ -153,7 +152,7 @@ st.markdown(
 
 
 # ============================================================
-# FUNCION PARA GENERAR EL CARRUSEL NETFLIX 100% CLICKEABLE
+# CARRUSEL HORIZONTAL UNIFORME Y MINIMALISTA
 # ============================================================
 
 def renderizar_carrusel_netflix(lista_items):
@@ -161,19 +160,27 @@ def renderizar_carrusel_netflix(lista_items):
     for item in lista_items:
         receta = item["receta"]
         porcentaje = round(item["porcentaje"])
-        faltantes = item["faltantes"]
 
         badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
-        badge_texto = f"🟢 {porcentaje}% Match" if porcentaje == 100 else f"🟡 {porcentaje}% Match" if porcentaje >= 75 else f"🟠 {porcentaje}% Match"
+        badge_texto = f"{porcentaje}% Match"
 
-        faltan_str = f"Faltan: {', '.join(faltantes)}" if faltantes else "✨ ¡Tienes todo!"
+        # Manejo de imagen
+        ruta_img = receta.get("imagen", "")
+        if os.path.exists(os.path.join(os.path.dirname(__file__), ruta_img)):
+            img_html = f'<img src="{ruta_img}" class="card-img" alt="{receta["nombre"]}"/>'
+        else:
+            img_html = '<div class="card-img-placeholder">🍳</div>'
 
         tarjetas_html += f"""
         <div class="card-netflix" onclick="seleccionarReceta('{receta['nombre']}')">
-            <div class="badge" style="background-color: {badge_color};">{badge_texto}</div>
-            <h4>{receta['nombre']}</h4>
-            <p class="info">⏱️ {receta['tiempo']} min</p>
-            <p class="faltantes">{faltan_str}</p>
+            <div class="img-container">
+                {img_html}
+                <div class="badge" style="background-color: {badge_color};">{badge_texto}</div>
+            </div>
+            <div class="card-body">
+                <h4>{receta['nombre']}</h4>
+                <p class="info">⏱️ {receta['tiempo']} min</p>
+            </div>
         </div>
         """
 
@@ -197,65 +204,94 @@ def renderizar_carrusel_netflix(lista_items):
             -webkit-overflow-scrolling: touch;
         }}
         .carrusel-container::-webkit-scrollbar {{
-            height: 8px;
+            height: 6px;
         }}
         .carrusel-container::-webkit-scrollbar-thumb {{
             background-color: #C9C2B5;
             border-radius: 10px;
         }}
+
+        /* TARJETAS DE TAMAÑO EXACTO Y UNIFORME */
         .card-netflix {{
-            flex: 0 0 220px;
-            height: 180px;
+            flex: 0 0 200px;
+            width: 200px;
+            height: 240px;
             background-color: #FFFFFF;
             border: 1px solid #DED8CC;
-            border-radius: 16px;
-            padding: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            box-sizing: border-box;
             user-select: none;
+            box-sizing: border-box;
         }}
         .card-netflix:hover {{
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.12);
             border-color: #536B59;
         }}
+
+        /* CONTENEDOR DE IMAGEN */
+        .img-container {{
+            width: 100%;
+            height: 130px;
+            position: relative;
+            background-color: #EFECE6;
+        }}
+        .card-img {{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }}
+        .card-img-placeholder {{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            background-color: #E4DFC3;
+        }}
+
+        /* BADGE */
         .badge {{
-            display: inline-block;
-            align-self: flex-start;
-            padding: 4px 8px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 3px 8px;
             border-radius: 6px;
             font-size: 11px;
             font-weight: bold;
             color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }}
-        .card-netflix h4 {{
-            margin: 8px 0 4px 0;
-            font-size: 16px;
+
+        /* CUERPO DE LA TARJETA */
+        .card-body {{
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }}
+        .card-body h4 {{
+            margin: 0;
+            font-size: 15px;
             color: #26352B;
-            line-height: 1.2;
+            line-height: 1.25;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }}
         .info {{
-            margin: 0;
+            margin: 6px 0 0 0;
             font-size: 12px;
             color: #666;
-            font-weight: 500;
-        }}
-        .faltantes {{
-            margin: 0;
-            font-size: 11px;
-            color: #888;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-weight: 600;
         }}
     </style>
     </head>
@@ -276,7 +312,7 @@ def renderizar_carrusel_netflix(lista_items):
     </html>
     """
 
-    components.html(html_code, height=220)
+    components.html(html_code, height=270)
 
 
 # ============================================================
@@ -440,7 +476,6 @@ with tab_buscador:
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-                    # Renderiza el carrusel horizontal interactivo estilo Netflix
                     renderizar_carrusel_netflix(recetas_nivel)
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
@@ -470,4 +505,3 @@ with tab_favoritos:
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
-    
