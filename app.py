@@ -65,7 +65,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS Y CURSOR PERSONALIZADO
+# ESTILOS, CURSOR PERSONALIZADO Y CSS PARA CARRUSEL
 # ============================================================
 
 st.markdown(
@@ -142,6 +142,63 @@ st.markdown(
         background-color: #3F5545;
         color: white;
     }
+
+    /* ESTILOS DEL CARRUSEL EN CSS */
+    .carrusel-contenedor {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding: 10px 5px;
+        scroll-behavior: smooth;
+    }
+
+    .carrusel-contenedor::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .carrusel-contenedor::-webkit-scrollbar-thumb {
+        background-color: #C9C2B5;
+        border-radius: 10px;
+    }
+
+    .tarjeta-carrusel {
+        min-width: 260px;
+        max-width: 260px;
+        background-color: #FFFFFF;
+        border: 1px solid #DED8CC;
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        flex-shrink: 0;
+    }
+
+    .tarjeta-carrusel img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .tarjeta-carrusel h4 {
+        color: #26352B;
+        margin: 10px 0 4px 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .badge-coincidencia {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        margin-top: 5px;
+    }
+
+    .bg-excelente { background-color: #28a745; }
+    .bg-bueno { background-color: #17a2b8; }
+    .bg-medio { background-color: #ffc107; color: #333; }
     </style>
     """,
     unsafe_allow_html=True
@@ -153,7 +210,6 @@ st.markdown(
 
 @st.dialog("Detalles de la Receta")
 def mostrar_modal_receta(receta):
-    # Imagen
     ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
     if os.path.exists(ruta_imagen):
         st.image(ruta_imagen, use_container_width=True)
@@ -174,7 +230,6 @@ def mostrar_modal_receta(receta):
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
 
-    # Guardar / Quitar de Favoritos
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
         if st.button("❤️ Quitar de Favoritos"):
@@ -202,11 +257,9 @@ st.markdown(
 
 st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
 
-# Tabs para navegar entre el Buscador y Favoritos
 tab_buscador, tab_favoritos = st.tabs(["🔍 Buscador Inteligente", f"❤️ Mis Favoritos ({len(st.session_state.favoritos)})"])
 
 with tab_buscador:
-    # SECCIÓN DE BÚSQUEDA
     st.markdown(
         """
         <div class="seccion-busqueda">
@@ -223,7 +276,6 @@ with tab_buscador:
         label_visibility="collapsed"
     )
 
-    # FILTROS
     columna_tiempo, columna_nivel = st.columns(2)
 
     with columna_tiempo:
@@ -238,7 +290,6 @@ with tab_buscador:
             ["Todos", "Principiante", "Intermedio", "Explorador", "Experto"]
         )
 
-    # INGREDIENTES USUARIO
     ingredientes_usuario = []
     if entrada:
         ingredientes_usuario = [
@@ -247,12 +298,10 @@ with tab_buscador:
         ]
         ingredientes_usuario = list(dict.fromkeys(ingredientes_usuario))
 
-    # BÚSQUEDA Y ALGORITMO DE MATCH
     resultados = []
 
     if ingredientes_usuario:
         for receta in recetas:
-            # Filtros
             if filtro_tiempo == "10 minutos" and receta["tiempo"] > 10:
                 continue
             elif filtro_tiempo == "20 minutos" and receta["tiempo"] > 20:
@@ -263,11 +312,9 @@ with tab_buscador:
             if filtro_nivel != "Todos" and receta["nivel"] != filtro_nivel:
                 continue
 
-            # Normalizar de receta
             ingredientes_receta = [normalizar_ingrediente(ing) for ing in receta["ingredientes"]]
             ingredientes_receta = list(dict.fromkeys(ingredientes_receta))
 
-            # Coincidencias
             coincidencias = 0
             for ing_user in ingredientes_usuario:
                 for ing_receta in ingredientes_receta:
@@ -281,7 +328,6 @@ with tab_buscador:
             porcentaje = (coincidencias / len(ingredientes_receta)) * 100
             faltantes = [ing for ing in ingredientes_receta if ing not in ingredientes_usuario]
 
-            # Puntuación para ordenamiento
             puntos_coincidencia = porcentaje * 0.65
             puntos_faltantes = max(0, 20 - (len(faltantes) * 5))
             puntos_tiempo = 10 if receta["tiempo"] <= 10 else (8 if receta["tiempo"] <= 20 else 5)
@@ -302,12 +348,40 @@ with tab_buscador:
             reverse=True
         )
 
-        # DESPLIEGUE DE RESULTADOS
         st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
         st.markdown(f"### 🍽️ Recetas encontradas ({len(resultados)})")
 
         if resultados:
-            # Renderizado por columnas/grid de 3
+            # ============================================================
+            # CARRUSEL DE MEJORES COINCIDENCIAS (TOP RECOMENDADAS)
+            # ============================================================
+            st.markdown("#### 🔥 Recomendaciones Destacadas (Desliza hacia los lados ➔)")
+
+            top_recetas = resultados[:6]  # Tomamos las 6 mejores opciones para el carrusel
+            
+            carrusel_html = '<div class="carrusel-contenedor">'
+            for item in top_recetas:
+                receta = item["receta"]
+                pct = round(item["porcentaje"])
+                
+                clase_badge = "bg-excelente" if pct >= 90 else ("bg-bueno" if pct >= 70 else "bg-medio")
+                
+                carrusel_html += f"""
+                <div class="tarjeta-carrusel">
+                    <h4>{receta['nombre']}</h4>
+                    <span class="badge-coincidencia {clase_badge}">{pct}% Match</span>
+                    <p style="font-size: 13px; color: #555; margin-top: 6px;">⏱️ {receta['tiempo']} min | 📈 {receta['nivel']}</p>
+                </div>
+                """
+            carrusel_html += '</div>'
+            
+            st.markdown(carrusel_html, unsafe_allow_html=True)
+            st.write("") # Espaciador
+
+            # ============================================================
+            # GRID GENERAL DE TODAS LAS RECETAS (TARJETAS COMPLETA)
+            # ============================================================
+            st.markdown("#### 📋 Todas las opciones disponibles")
             cols = st.columns(3)
             for idx, res in enumerate(resultados):
                 receta = res["receta"]
@@ -322,7 +396,6 @@ with tab_buscador:
 
                         st.subheader(receta["nombre"])
                         
-                        # Badges de %
                         if porcentaje == 100:
                             st.success("🟢 100% Coincidencia")
                         elif porcentaje >= 75:
@@ -366,4 +439,4 @@ with tab_favoritos:
                         mostrar_modal_receta(receta)
     else:
         st.info("Aún no has guardado recetas favoritas. ¡Explora en el buscador y haz clic en 'Guardar en Favoritos'!")
-        
+    
