@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
+import urllib.parse
 
 # Configuración de página
 st.set_page_config(
@@ -18,7 +19,7 @@ recetas = modulo_recetas.recetas
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
-# Detectar clic desde el carrusel HTML
+# Detectar clic desde el carrusel HTML a través de parámetros de URL
 query_params = st.query_params
 if "receta_clic" in query_params:
     nombre_receta = query_params["receta_clic"]
@@ -152,7 +153,7 @@ st.markdown(
 
 
 # ============================================================
-# CARRUSEL HORIZONTAL CON FLECHAS DE NAVEGACIÓN
+# CARRUSEL HORIZONTAL CON FLECHAS Y REDIRECCIÓN FUNCIONAL
 # ============================================================
 
 def renderizar_carrusel_netflix(lista_items, id_carrusel):
@@ -171,8 +172,11 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
         else:
             img_html = '<div class="card-img-placeholder">🍳</div>'
 
+        # Nombre codificado para pasar de manera segura en la URL
+        nombre_escapado = urllib.parse.quote(receta['nombre'])
+
         tarjetas_html += f"""
-        <div class="card-netflix" onclick="seleccionarReceta('{receta['nombre']}')">
+        <div class="card-netflix" onclick="seleccionarReceta('{nombre_escapado}')">
             <div class="img-container">
                 {img_html}
                 <div class="badge" style="background-color: {badge_color};">{badge_texto}</div>
@@ -348,11 +352,9 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             carrusel.scrollBy({{ left: distancia, behavior: 'smooth' }});
         }}
 
-        function seleccionarReceta(nombre) {{
-            window.parent.postMessage({{
-                type: 'streamlit:setQueryParams',
-                queryParams: {{ receta_clic: nombre }}
-            }}, '*');
+        function seleccionarReceta(nombreCodificado) {{
+            // Redirección directa y segura en la ventana principal de Streamlit
+            window.top.location.href = '?receta_clic=' + nombreCodificado;
         }}
         </script>
     </body>
@@ -552,4 +554,4 @@ with tab_favoritos:
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
-        
+    
