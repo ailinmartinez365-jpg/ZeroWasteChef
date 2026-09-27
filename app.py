@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
 import urllib.parse
+import base64
 
 # Configuración de página
 st.set_page_config(
@@ -28,6 +29,20 @@ if "receta_clic" in query_params:
         if r["nombre"] == nombre_receta:
             st.session_state.receta_modal = r
             break
+
+# Función auxiliar para convertir imágenes locales a Base64 para el iframe
+def obtener_base64_imagen(ruta_relativa):
+    ruta_abs = os.path.join(os.path.dirname(__file__), ruta_relativa)
+    if os.path.exists(ruta_abs):
+        try:
+            with open(ruta_abs, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode()
+                ext = ruta_relativa.split(".")[-1].lower()
+                mime_type = "jpeg" if ext in ["jpg", "jpeg"] else ext
+                return f"data:image/{mime_type};base64,{encoded_string}"
+        except Exception:
+            return None
+    return None
 
 # ============================================================
 # NORMALIZAR INGREDIENTES
@@ -153,7 +168,7 @@ st.markdown(
 
 
 # ============================================================
-# CARRUSEL HORIZONTAL REAL CON NAVEGACIÓN Y CLIC FUNCIONAL
+# CARRUSEL HORIZONTAL CON IMÁGENES EN BASE64
 # ============================================================
 
 def renderizar_carrusel_netflix(lista_items, id_carrusel):
@@ -165,16 +180,15 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
         badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
         badge_texto = f"{porcentaje}% Match"
 
-        # Manejo de imagen
-        ruta_img = receta.get("imagen", "")
-        if os.path.exists(os.path.join(os.path.dirname(__file__), ruta_img)):
-            img_html = f'<img src="{ruta_img}" class="card-img" alt="{receta["nombre"]}"/>'
+        # Conversión de imagen a Base64
+        src_img = obtener_base64_imagen(receta.get("imagen", ""))
+        if src_img:
+            img_html = f'<img src="{src_img}" class="card-img" alt="{receta["nombre"]}"/>'
         else:
             img_html = '<div class="card-img-placeholder">🍳</div>'
 
         nombre_escapado = urllib.parse.quote(receta['nombre'])
 
-        # Usamos la etiqueta <a> con target="_top" para forzar el evento a nivel de la app principal de Streamlit
         tarjetas_html += f"""
         <a href="?receta_clic={nombre_escapado}" target="_top" class="card-netflix">
             <div class="img-container">
@@ -222,7 +236,6 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             border-radius: 10px;
         }}
 
-        /* BOTONES DE FLECHA NAV */
         .btn-nav {{
             position: absolute;
             top: 42%;
@@ -253,7 +266,6 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             right: 2px;
         }}
 
-        /* TARJETAS DE TAMAÑO EXACTO Y UNIFORME */
         .card-netflix {{
             flex: 0 0 200px;
             width: 200px;
@@ -277,7 +289,6 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             border-color: #536B59;
         }}
 
-        /* CONTENEDOR DE IMAGEN */
         .img-container {{
             width: 100%;
             height: 130px;
@@ -299,7 +310,6 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             background-color: #E4DFC3;
         }}
 
-        /* BADGE */
         .badge {{
             position: absolute;
             top: 8px;
@@ -312,7 +322,6 @@ def renderizar_carrusel_netflix(lista_items, id_carrusel):
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }}
 
-        /* CUERPO DE LA TARJETA */
         .card-body {{
             padding: 10px;
             display: flex;
@@ -522,7 +531,6 @@ with tab_buscador:
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-                    # Renderizamos de nuevo el carrusel horizontal interactivo con flechas
                     renderizar_carrusel_netflix(recetas_nivel, f"carrusel_{i}")
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
