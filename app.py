@@ -191,3 +191,7 @@ def normalizar_ingrediente(ingrediente):
         return equivalencias[ingrediente]
 
     if ingrediente.endswith("s") and len(ingrediente) > 3:
+        ingrediente = ingrediente[:-1]
+
+    return ingrediente
+    
