@@ -152,10 +152,10 @@ st.markdown(
 
 
 # ============================================================
-# CARRUSEL HORIZONTAL UNIFORME Y MINIMALISTA
+# CARRUSEL HORIZONTAL CON FLECHAS DE NAVEGACIÓN
 # ============================================================
 
-def renderizar_carrusel_netflix(lista_items):
+def renderizar_carrusel_netflix(lista_items, id_carrusel):
     tarjetas_html = ""
     for item in lista_items:
         receta = item["receta"]
@@ -195,13 +195,20 @@ def renderizar_carrusel_netflix(lista_items):
             background-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }}
+        .carrusel-wrapper {{
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }}
         .carrusel-container {{
             display: flex;
             overflow-x: auto;
             gap: 16px;
-            padding: 10px 5px 20px 5px;
+            padding: 10px 40px 20px 40px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            width: 100%;
         }}
         .carrusel-container::-webkit-scrollbar {{
             height: 6px;
@@ -209,6 +216,37 @@ def renderizar_carrusel_netflix(lista_items):
         .carrusel-container::-webkit-scrollbar-thumb {{
             background-color: #C9C2B5;
             border-radius: 10px;
+        }}
+
+        /* BOTONES DE FLECHA NAV */
+        .btn-nav {{
+            position: absolute;
+            top: 42%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background-color: rgba(83, 107, 89, 0.85);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }}
+        .btn-nav:hover {{
+            background-color: rgba(63, 85, 69, 1);
+            transform: translateY(-50%) scale(1.1);
+        }}
+        .btn-left {{
+            left: 2px;
+        }}
+        .btn-right {{
+            right: 2px;
         }}
 
         /* TARJETAS DE TAMAÑO EXACTO Y UNIFORME */
@@ -296,11 +334,20 @@ def renderizar_carrusel_netflix(lista_items):
     </style>
     </head>
     <body>
-        <div class="carrusel-container">
-            {tarjetas_html}
+        <div class="carrusel-wrapper">
+            <button class="btn-nav btn-left" onclick="moverCarrusel(-300)">❮</button>
+            <div class="carrusel-container" id="{id_carrusel}">
+                {tarjetas_html}
+            </div>
+            <button class="btn-nav btn-right" onclick="moverCarrusel(300)">❯</button>
         </div>
 
         <script>
+        function moverCarrusel(distancia) {{
+            const carrusel = document.getElementById('{id_carrusel}');
+            carrusel.scrollBy({{ left: distancia, behavior: 'smooth' }});
+        }}
+
         function seleccionarReceta(nombre) {{
             window.parent.postMessage({{
                 type: 'streamlit:setQueryParams',
@@ -471,12 +518,12 @@ with tab_buscador:
         if resultados:
             niveles = ["Principiante", "Intermedio", "Explorador", "Experto"]
 
-            for nivel in niveles:
+            for i, nivel in enumerate(niveles):
                 recetas_nivel = [res for res in resultados if res["receta"]["nivel"] == nivel]
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-                    renderizar_carrusel_netflix(recetas_nivel)
+                    renderizar_carrusel_netflix(recetas_nivel, f"carrusel_{i}")
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
 
@@ -505,3 +552,4 @@ with tab_favoritos:
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
+        
