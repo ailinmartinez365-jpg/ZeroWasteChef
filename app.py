@@ -1,6 +1,8 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
+import json
 
 # Configuración de página
 st.set_page_config(
@@ -17,8 +19,15 @@ recetas = modulo_recetas.recetas
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
-if "receta_seleccionada" not in st.session_state:
-    st.session_state.receta_seleccionada = None
+# Detectar clic desde el carrusel HTML
+query_params = st.query_params
+if "receta_clic" in query_params:
+    nombre_receta = query_params["receta_clic"]
+    st.query_params.clear()
+    for r in recetas:
+        if r["nombre"] == nombre_receta:
+            st.session_state.receta_seleccionada = r
+            break
 
 # ============================================================
 # NORMALIZAR INGREDIENTES
@@ -68,7 +77,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# CSS PARA CARRUSEL ESTILO NETFLIX Y CURSOR PERSONALIZADO
+# ESTILOS DE LA APLICACIÓN Y CURSOR
 # ============================================================
 
 st.markdown(
@@ -126,42 +135,11 @@ st.markdown(
         font-size: 16px;
     }
 
-    /* ESTILOS DEL CARRUSEL TIPO NETFLIX */
-    .carrusel-netflix {
-        display: flex;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        gap: 18px;
-        padding: 10px 5px 20px 5px;
-    }
-
-    /* Ocultar o estilizar la barra de desplazamiento */
-    .carrusel-netflix::-webkit-scrollbar {
-        height: 8px;
-    }
-    .carrusel-netflix::-webkit-scrollbar-thumb {
-        background-color: #C9C2B5;
-        border-radius: 10px;
-    }
-
-    .tarjeta-netflix {
-        flex: 0 0 240px; /* Ancho fijo para cada tarjeta en el carrusel */
-        background-color: #FFFFFF;
-        border: 1px solid #DED8CC;
-        border-radius: 16px;
-        padding: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
     .stButton > button {
         border-radius: 10px;
         background-color: #536B59;
         color: white;
         font-weight: 600;
-        width: 100%;
     }
 
     .stButton > button:hover {
@@ -173,8 +151,136 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
 # ============================================================
-# MODAL PARA MOSTRAR DETALLES
+# FUNCION PARA GENERAR EL CARRUSEL NETFLIX 100% CLICKEABLE
+# ============================================================
+
+def renderizar_carrusel_netflix(lista_items):
+    tarjetas_html = ""
+    for item in lista_items:
+        receta = item["receta"]
+        porcentaje = round(item["porcentaje"])
+        faltantes = item["faltantes"]
+
+        badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
+        badge_texto = f"🟢 {porcentaje}% Match" if porcentaje == 100 else f"🟡 {porcentaje}% Match" if porcentaje >= 75 else f"🟠 {porcentaje}% Match"
+
+        faltan_str = f"Faltan: {', '.join(faltantes)}" if faltantes else "✨ ¡Tienes todo!"
+
+        tarjetas_html += f"""
+        <div class="card-netflix" onclick="seleccionarReceta('{receta['nombre']}')">
+            <div class="badge" style="background-color: {badge_color};">{badge_texto}</div>
+            <h4>{receta['nombre']}</h4>
+            <p class="info">⏱️ {receta['tiempo']} min</p>
+            <p class="faltantes">{faltan_str}</p>
+        </div>
+        """
+
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+        body {{
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }}
+        .carrusel-container {{
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            padding: 10px 5px 20px 5px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }}
+        .carrusel-container::-webkit-scrollbar {{
+            height: 8px;
+        }}
+        .carrusel-container::-webkit-scrollbar-thumb {{
+            background-color: #C9C2B5;
+            border-radius: 10px;
+        }}
+        .card-netflix {{
+            flex: 0 0 220px;
+            height: 180px;
+            background-color: #FFFFFF;
+            border: 1px solid #DED8CC;
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            user-select: none;
+        }}
+        .card-netflix:hover {{
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+            border-color: #536B59;
+        }}
+        .badge {{
+            display: inline-block;
+            align-self: flex-start;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+        }}
+        .card-netflix h4 {{
+            margin: 8px 0 4px 0;
+            font-size: 16px;
+            color: #26352B;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }}
+        .info {{
+            margin: 0;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }}
+        .faltantes {{
+            margin: 0;
+            font-size: 11px;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+    </style>
+    </head>
+    <body>
+        <div class="carrusel-container">
+            {tarjetas_html}
+        </div>
+
+        <script>
+        function seleccionarReceta(nombre) {{
+            window.parent.postMessage({{
+                type: 'streamlit:setQueryParams',
+                queryParams: {{ receta_clic: nombre }}
+            }}, '*');
+        }}
+        </script>
+    </body>
+    </html>
+    """
+
+    components.html(html_code, height=220)
+
+
+# ============================================================
+# MODAL/POPUP PARA VER RECETA DETALLADA
 # ============================================================
 
 @st.dialog("Detalles de la Receta")
@@ -188,11 +294,13 @@ def mostrar_modal_receta(receta):
     st.caption(receta.get("descripcion", ""))
 
     st.divider()
+
     st.subheader("🛒 Ingredientes")
     for ing in receta["ingredientes"]:
         st.write(f"• {ing.capitalize()}")
 
     st.divider()
+
     st.subheader("👩‍🍳 Instrucciones de Preparación")
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
@@ -208,7 +316,8 @@ def mostrar_modal_receta(receta):
             st.rerun()
 
 
-if st.session_state.receta_seleccionada:
+# Abrir modal si hay una receta seleccionada
+if "receta_seleccionada" in st.session_state and st.session_state.receta_seleccionada:
     mostrar_modal_receta(st.session_state.receta_seleccionada)
     st.session_state.receta_seleccionada = None
 
@@ -321,7 +430,7 @@ with tab_buscador:
         )
 
         st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
-        st.markdown(f"### 🍽️ Recetas encontradas ({len(resultados)})")
+        st.markdown(f"### 🍽️ Resultados ({len(resultados)})")
 
         if resultados:
             niveles = ["Principiante", "Intermedio", "Explorador", "Experto"]
@@ -331,45 +440,11 @@ with tab_buscador:
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-
-                    # CARRUSEL HORIZONTAL ESTILO NETFLIX
-                    # Usamos columnas nativas con scroll habilitado mediante un contenedor de Streamlit
-                    cols = st.columns(len(recetas_nivel))
-                    
-                    for idx, res in enumerate(recetas_nivel):
-                        receta = res["receta"]
-                        porcentaje = res["porcentaje"]
-                        faltantes = res["faltantes"]
-
-                        with cols[idx]:
-                            with st.container(border=True):
-                                ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
-                                if os.path.exists(ruta_imagen):
-                                    st.image(ruta_imagen, use_container_width=True)
-
-                                st.subheader(receta["nombre"])
-                                
-                                if porcentaje == 100:
-                                    st.success("🟢 100% Match")
-                                elif porcentaje >= 75:
-                                    st.info(f"🟡 {round(porcentaje)}% Match")
-                                else:
-                                    st.warning(f"🟠 {round(porcentaje)}% Match")
-
-                                st.caption(f"⏱️ {receta['tiempo']} min")
-
-                                if faltantes:
-                                    st.caption(f"**Te falta:** {', '.join(faltantes)}")
-                                else:
-                                    st.caption("✨ **¡Tienes todo!**")
-
-                                if st.button("Ver receta", key=f"btn_{nivel}_{receta['nombre']}"):
-                                    st.session_state.receta_seleccionada = receta
-                                    st.rerun()
-
-                    st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
+                    # Renderiza el carrusel horizontal interactivo estilo Netflix
+                    renderizar_carrusel_netflix(recetas_nivel)
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
+
 
 # ============================================================
 # TAB DE FAVORITOS
@@ -379,9 +454,10 @@ with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
         fav_recetas = [r for r in recetas if r["nombre"] in st.session_state.favoritos]
-        cols_fav = st.columns(min(len(fav_recetas), 3))
+        
+        cols_fav = st.columns(3)
         for idx, receta in enumerate(fav_recetas):
-            with cols_fav[idx % len(cols_fav)]:
+            with cols_fav[idx % 3]:
                 with st.container(border=True):
                     ruta_imagen = os.path.join(os.path.dirname(__file__), receta["imagen"])
                     if os.path.exists(ruta_imagen):
@@ -394,4 +470,4 @@ with tab_favoritos:
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
-                
+    
