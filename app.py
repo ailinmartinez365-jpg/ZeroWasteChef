@@ -166,13 +166,13 @@ st.markdown(
         color: #D7D0C2;
     }
 
-    /* ESTILO ENCABEZADO MENÚ */
-    .menu-header {
+    /* ESTILO ENCABEZADO DE SECCIONES */
+    .section-header {
         text-align: center;
         padding: 20px 0;
         margin-bottom: 20px;
     }
-    .menu-header h1 {
+    .section-header h1 {
         font-family: 'Georgia', serif;
         font-size: 40px;
         font-weight: bold;
@@ -182,17 +182,7 @@ st.markdown(
         margin: 0;
     }
 
-    /* TARJETAS CON BORDE NEGRO RECTANGULAR PARA EL MENÚ */
-    .card-menu {
-        border: 3px solid #000000 !important;
-        border-radius: 0px !important;
-        background-color: #FFFFFF;
-        padding: 15px;
-        margin-bottom: 20px;
-        box-shadow: 4px 4px 0px #000000;
-    }
-
-    /* Estilos para las tarjetas de la grilla del Buscador */
+    /* Estilos para las tarjetas de la grilla */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #FFFFFF;
         border-radius: 12px;
@@ -270,7 +260,7 @@ def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
                     st.rerun()
 
 
-def mostrar_menu_categoria(categoria_nombre, subcategoria=None):
+def mostrar_categoria(categoria_nombre, subcategoria=None):
     """Muestra las recetas filtrando por categoría principal y opcionalmente por subcategoría."""
     recetas_filtradas = []
     
@@ -284,12 +274,12 @@ def mostrar_menu_categoria(categoria_nombre, subcategoria=None):
             recetas_filtradas.append({"receta": r})
     
     if recetas_filtradas:
-        mostrar_grilla_recetas(recetas_filtradas, f"menu_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
+        mostrar_grilla_recetas(recetas_filtradas, f"cat_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
     else:
         etiqueta = f"{categoria_nombre} > {subcategoria}" if subcategoria else categoria_nombre
         st.info(f"Aún no hay recetas registradas en '{etiqueta}'. Muestrario de prueba:")
         recetas_demo = [{"receta": r} for r in recetas[:6]]
-        mostrar_grilla_recetas(recetas_demo, f"menu_demo_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
+        mostrar_grilla_recetas(recetas_demo, f"demo_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
 
 
 # ============================================================
@@ -342,10 +332,14 @@ if st.session_state.receta_modal:
 
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
-tab_inicio, tab_menu, tab_buscador, tab_favoritos = st.tabs([
+# Pestañas principales
+tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_favoritos = st.tabs([
     "🏠 Inicio", 
     "📖 Menú",
     "🔍 Buscador", 
+    "👨‍👩‍👧‍👦 Familia",
+    "🍂 Temporada",
+    "🎨 Diseño",
     f"❤️ Favoritos ({num_favoritos})"
 ])
 
@@ -365,63 +359,41 @@ with tab_inicio:
     )
 
 # ------------------------------------------------------------
-# 2. PESTAÑA DE MENÚ (FIEL A LAS DIAPOSITIVAS)
+# 2. PESTAÑA DE MENÚ
 # ------------------------------------------------------------
 with tab_menu:
     st.markdown(
         """
-        <div class="menu-header">
+        <div class="section-header">
             <h1>CHEF CERO RESIDUOS</h1>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    tab_comida, tab_postres, tab_extras, tab_familia, tab_bebidas = st.tabs([
-        "Comida", "Postres", "Extras", "Familia", "Bebidas"
+    tab_comida, tab_postres, tab_extras, tab_bebidas = st.tabs([
+        "Comida", "Postres", "Extras", "Bebidas"
     ])
 
     with tab_comida:
-        mostrar_menu_categoria("Comida")
+        mostrar_categoria("Comida")
 
     with tab_postres:
-        mostrar_menu_categoria("Postres")
+        mostrar_categoria("Postres")
 
-    # SUB-SECCIÓN DE EXTRAS
     with tab_extras:
         tab_botanas, tab_fit, tab_otros = st.tabs([
             "Botanas", "Fit", "Otros"
         ])
-        
         with tab_botanas:
-            mostrar_menu_categoria("Extras", "Botanas")
-            
+            mostrar_categoria("Extras", "Botanas")
         with tab_fit:
-            mostrar_menu_categoria("Extras", "Fit")
-            
+            mostrar_categoria("Extras", "Fit")
         with tab_otros:
-            mostrar_menu_categoria("Extras", "Otros")
-
-    # SUB-SECCIÓN DE FAMILIA: EN FAMILIA | NIÑOS | PARA PEQUES | LONCHE
-    with tab_familia:
-        tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
-            "En familia", "Niños", "Para peques", "Lonche"
-        ])
-
-        with tab_en_familia:
-            mostrar_menu_categoria("Familia", "En familia")
-
-        with tab_ninos:
-            mostrar_menu_categoria("Familia", "Niños")
-
-        with tab_para_peques:
-            mostrar_menu_categoria("Familia", "Para peques")
-
-        with tab_lonche:
-            mostrar_menu_categoria("Familia", "Lonche")
+            mostrar_categoria("Extras", "Otros")
 
     with tab_bebidas:
-        mostrar_menu_categoria("Bebidas")
+        mostrar_categoria("Bebidas")
 
 # ------------------------------------------------------------
 # 3. PESTAÑA DEL BUSCADOR
@@ -489,7 +461,64 @@ with tab_buscador:
             st.info("No se encontraron recetas con esos filtros.")
 
 # ------------------------------------------------------------
-# 4. PESTAÑA DE FAVORITOS
+# 4. PESTAÑA FAMILIA
+# ------------------------------------------------------------
+with tab_familia:
+    st.markdown(
+        """
+        <div class="section-header">
+            <h1>CHEF CERO RESIDUOS</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
+        "En familia", "Niños", "Para peques", "Lonche"
+    ])
+
+    with tab_en_familia:
+        mostrar_categoria("Familia", "En familia")
+
+    with tab_ninos:
+        mostrar_categoria("Familia", "Niños")
+
+    with tab_para_peques:
+        mostrar_categoria("Familia", "Para peques")
+
+    with tab_lonche:
+        mostrar_categoria("Familia", "Lonche")
+
+# ------------------------------------------------------------
+# 5. PESTAÑA TEMPORADA
+# ------------------------------------------------------------
+with tab_temporada:
+    st.markdown(
+        """
+        <div class="section-header">
+            <h1>CHEF CERO RESIDUOS</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.info("Sección Temporada en desarrollo.")
+
+# ------------------------------------------------------------
+# 6. PESTAÑA DISEÑO
+# ------------------------------------------------------------
+with tab_diseno:
+    st.markdown(
+        """
+        <div class="section-header">
+            <h1>CHEF CERO RESIDUOS</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.info("Sección Diseño en desarrollo.")
+
+# ------------------------------------------------------------
+# 7. PESTAÑA DE FAVORITOS
 # ------------------------------------------------------------
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
@@ -498,4 +527,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-        
+    
