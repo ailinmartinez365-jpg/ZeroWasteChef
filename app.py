@@ -108,47 +108,63 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y PORTADA
+# ESTILOS CSS GENERALES Y PANTALLA COMPLETA
 # ============================================================
 
 st.markdown(
     """
     <style>
+    /* Fondo general */
     .stApp { background-color: #F5F1E8; }
-    .block-container { max-width: 1200px; padding-top: 20px; padding-bottom: 60px; }
     
-    /* PANTALLA DE INICIO FIEL A LA DIAPOSITIVA */
-    .hero-container {
+    /* Eliminar márgenes por defecto de Streamlit */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 0rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        max-width: 100% !important;
+    }
+
+    /* PANTALLA DE INICIO A PANTALLA COMPLETA (HERO FULLSCREEN) */
+    .hero-fullscreen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        padding: 100px 20px;
+        min-height: calc(85vh - 50px);
         background-color: #26352B;
-        border-radius: 20px;
+        border-radius: 16px;
         color: #F5F1E8;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        padding: 40px 20px;
+        margin-top: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     
     .hero-title {
         font-family: 'Georgia', serif;
-        font-size: 54px;
-        font-weight: bold;
-        letter-spacing: 3px;
-        margin-bottom: 50px;
+        font-size: 58px;
+        font-weight: 700;
+        letter-spacing: 4px;
+        margin-bottom: 60px;
         color: #F5F1E8;
         text-transform: uppercase;
-        line-height: 1.2;
+        line-height: 1.25;
     }
     
     .hero-slogan {
         font-family: 'Georgia', serif;
-        font-size: 36px;
-        margin-bottom: 50px;
+        font-size: 38px;
+        margin-bottom: 60px;
         color: #E2DDD0;
     }
     
     .hero-subtitle {
         font-family: 'Georgia', serif;
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 300;
+        letter-spacing: 1px;
         color: #D7D0C2;
     }
 
@@ -285,12 +301,12 @@ tab_inicio, tab_buscador, tab_favoritos = st.tabs([
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA EXACTA A LA DIAPOSITIVA)
+# 1. PESTAÑA DE INICIO (PORTADA EN PANTALLA COMPLETA)
 # ------------------------------------------------------------
 with tab_inicio:
     st.markdown(
         """
-        <div class="hero-container">
+        <div class="hero-fullscreen">
             <div class="hero-title">CHEF CERO<br>RESIDUOS</div>
             <div class="hero-slogan">No solo cocines.</div>
             <div class="hero-subtitle">Aprovecha, descubre y comparte.</div>
