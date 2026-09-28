@@ -21,6 +21,9 @@ if "favoritos" not in st.session_state:
 if "receta_modal" not in st.session_state:
     st.session_state.receta_modal = None
 
+if "ingredientes_usuario" not in st.session_state:
+    st.session_state.ingredientes_usuario = []
+
 
 # ============================================================
 # NORMALIZAR INGREDIENTES
@@ -58,7 +61,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y CORRECCIÓN DE COLORES
+# ESTILOS CSS GENERALES
 # ============================================================
 
 st.markdown(
@@ -71,7 +74,6 @@ st.markdown(
     .marca p { font-size: 16px; color: #59645C; margin-top: 0; }
     .linea { height: 1px; background-color: #D7D0C2; margin: 20px 0; }
     
-    /* Estilos para las tarjetas de la grilla */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #FFFFFF;
         border-radius: 12px;
@@ -98,7 +100,6 @@ st.markdown(
     }
     .stButton > button:hover { background-color: #3F5545; color: white; }
 
-    /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) PARA EVITAR TEXTO EN ROJO */
     button[data-baseweb="tab"] {
         color: #26352B !important;
         font-weight: 600;
@@ -114,11 +115,11 @@ st.markdown(
 
 
 # ============================================================
-# RENDERIZADOR EN REJILLA/GRILLA (3 COLUMNAS)
+# RENDERIZADOR EN GRILLA
 # ============================================================
 
 def mostrar_grilla_recetas(lista_items, prefijo_key):
-    cols = st.columns(3) # 3 tarjetas por fila
+    cols = st.columns(3)
     
     for idx, item in enumerate(lista_items):
         receta = item["receta"]
@@ -127,14 +128,12 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
 
         with cols[idx % 3]:
             with st.container(border=True):
-                # Imagen
                 ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
                 if os.path.exists(ruta_imagen):
                     st.image(ruta_imagen, use_container_width=True)
                 else:
                     st.write("🍳")
 
-                # Match
                 st.markdown(
                     f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
                     unsafe_allow_html=True
@@ -143,14 +142,13 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
                 st.subheader(receta["nombre"])
                 st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
 
-                # Botón ver receta nativo
                 if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
                     st.session_state.receta_modal = receta
                     st.rerun()
 
 
 # ============================================================
-# MODAL DE RECETA
+# MODAL DE RECETA CON LISTA DE COMPRAS
 # ============================================================
 
 @st.dialog("Detalles de la Receta")
@@ -166,8 +164,41 @@ def mostrar_modal_receta(receta):
     st.divider()
 
     st.subheader("🛒 Ingredientes")
+    
+    # Calcular ingredientes faltantes
+    ing_disponibles = st.session_state.ingredientes_usuario
+    faltantes = []
+    
     for ing in receta["ingredientes"]:
-        st.write(f"• {ing.capitalize()}")
+        ing_norm = normalizar_ingrediente(ing)
+        
+        # Verificar si el ingrediente de la receta está entre los del usuario
+        tiene_ingrediente = any(
+            u_ing == ing_norm or u_ing in ing_norm.split()
+            for u_ing in ing_disponibles
+        ) if ing_disponibles else True
+        
+        if tiene_ingrediente:
+            st.write(f"✅ {ing.capitalize()}")
+        else:
+            st.write(f"❌ **{ing.capitalize()}** *(Te falta este)*")
+            faltantes.append(ing.capitalize())
+
+    # Generar botón de descarga si faltan ingredientes
+    if faltantes and ing_disponibles:
+        st.info(f"💡 Te faltan **{len(faltantes)}** ingredientes para esta receta.")
+        texto_lista = f"🛒 Lista de Compras para: {receta['nombre']}\n"
+        texto_lista += "-" * 35 + "\n"
+        texto_lista += "\n".join([f"• {item}" for item in faltantes])
+        
+        st.download_button(
+            label="📄 Descargar Lista de Compras (.txt)",
+            data=texto_lista,
+            file_name=f"lista_compras_{receta['nombre'].lower().replace(' ', '_')}.txt",
+            mime="text/plain"
+        )
+    elif ing_disponibles and not faltantes:
+        st.success("🎉 ¡Tienes todos los ingredientes para preparar esta receta!")
 
     st.divider()
 
@@ -227,6 +258,9 @@ with tab_buscador:
         ingredientes_usuario = [normalizar_ingrediente(ing) for ing in entrada.split(",") if ing.strip()]
         ingredientes_usuario = list(dict.fromkeys(ingredientes_usuario))
 
+    # Guardar en la sesión para usarlo en el modal
+    st.session_state.ingredientes_usuario = ingredientes_usuario
+
     resultados = []
 
     if ingredientes_usuario:
@@ -258,7 +292,6 @@ with tab_buscador:
         st.markdown(f"### 🍽️ Recetas Recomendadas ({len(resultados)})")
 
         if resultados:
-            # Orden estricto definido por el usuario
             orden_niveles = ["Principiante", "Explorador", "Intermedio", "Experto"]
             niveles_disponibles = [n for n in orden_niveles if any(r["receta"]["nivel"] == n for r in resultados)]
 
@@ -279,4 +312,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-                
+    
