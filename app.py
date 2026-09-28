@@ -501,7 +501,22 @@ with tab_temporada:
         """,
         unsafe_allow_html=True
     )
-    st.info("Sección Temporada en desarrollo.")
+
+    tab_primavera, tab_verano, tab_otono, tab_invierno = st.tabs([
+        "Primavera", "Verano", "Otoño", "Invierno"
+    ])
+
+    with tab_primavera:
+        mostrar_categoria("Temporada", "Primavera")
+
+    with tab_verano:
+        mostrar_categoria("Temporada", "Verano")
+
+    with tab_otono:
+        mostrar_categoria("Temporada", "Otoño")
+
+    with tab_invierno:
+        mostrar_categoria("Temporada", "Invierno")
 
 # ------------------------------------------------------------
 # 6. PESTAÑA DISEÑO
