@@ -112,7 +112,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y CURSOR DINÁMICO
+# ESTILOS CSS GENERALES Y CURSOR DINÁMICO (NUEVA PALETA DE COLORES)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -125,8 +125,8 @@ st.markdown(
         cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
     }}
 
-    /* Fondo general */
-    .stApp {{ background-color: #F5F1E8; }}
+    /* Fondo general: Marfil */
+    .stApp {{ background-color: #FFF8EA; color: #4A2920; }}
     
     /* Contenedor principal */
     .block-container {{
@@ -135,87 +135,45 @@ st.markdown(
         max-width: 1200px !important;
     }}
 
-    /* PANTALLA DE INICIO EN PANTALLA COMPLETA */
-    .hero-fullscreen {{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        min-height: calc(85vh - 50px);
-        background-color: #26352B;
-        border-radius: 16px;
-        color: #F5F1E8;
-        padding: 40px 20px;
-        margin-top: 10px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }}
-    
-    .hero-title {{
-        font-family: 'Georgia', serif;
-        font-size: 58px;
-        font-weight: 700;
-        letter-spacing: 4px;
-        margin-bottom: 60px;
-        color: #F5F1E8;
-        text-transform: uppercase;
-        line-height: 1.25;
-    }}
-    
-    .hero-slogan {{
-        font-family: 'Georgia', serif;
-        font-size: 38px;
-        margin-bottom: 60px;
-        color: #E2DDD0;
-    }}
-    
-    .hero-subtitle {{
-        font-family: 'Georgia', serif;
-        font-size: 34px;
-        font-weight: 300;
-        letter-spacing: 1px;
-        color: #D7D0C2;
-    }}
-
-    /* ESTILO ENCABEZADO DE SECCIONES */
+    /* ESTILO ENCABEZADO DE SECCIONES: Chocolate */
     .section-header {{
         text-align: center;
-        padding: 20px 0;
+        padding: 15px 0;
         margin-bottom: 20px;
     }}
     .section-header h1 {{
         font-family: 'Georgia', serif;
-        font-size: 40px;
+        font-size: 38px;
         font-weight: bold;
-        letter-spacing: 3px;
-        color: #26352B;
+        letter-spacing: 2px;
+        color: #4A2920;
         text-transform: uppercase;
         margin: 0;
     }}
 
     /* TARJETAS DE SELECCIÓN DE CURSOR PARA SECCIÓN DISEÑO */
     .icon-card {{
-        border: 3px solid #000000;
+        border: 2px solid #4A2920;
         background-color: #FFFFFF;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 20px;
         text-align: center;
         font-size: 50px;
         margin-bottom: 10px;
-        box-shadow: 4px 4px 0px #000000;
+        box-shadow: 4px 4px 0px #C65332;
     }}
 
     /* Estilos para las tarjetas de la grilla */
     div[data-testid="stVerticalBlockBorderWrapper"] {{
         background-color: #FFFFFF;
-        border-radius: 12px;
-        border: 1px solid #DED8CC !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        border-radius: 14px;
+        border: 1px solid #F4C95D !important;
+        box-shadow: 0 4px 12px rgba(74, 41, 32, 0.06);
     }}
     
     .badge-match {{
         display: inline-block;
-        padding: 3px 8px;
+        padding: 4px 10px;
         border-radius: 6px;
         font-size: 12px;
         font-weight: bold;
@@ -223,24 +181,35 @@ st.markdown(
         margin-bottom: 8px;
     }}
 
+    /* Botones principales: Terracota */
     .stButton > button {{
         border-radius: 8px;
-        background-color: #536B59;
-        color: white;
+        background-color: #C65332;
+        color: #FFF8EA;
         font-weight: 600;
+        border: none;
         width: 100%;
+        transition: all 0.2s ease;
     }}
-    .stButton > button:hover {{ background-color: #3F5545; color: white; }}
+    .stButton > button:hover {{ 
+        background-color: #F4C95D; 
+        color: #4A2920;
+    }}
 
-    /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) */
+    /* ESTILOS DE PESTAÑAS (TABS) */
     button[data-baseweb="tab"] {{
-        color: #26352B !important;
+        color: #4A2920 !important;
         font-weight: 600;
         font-size: 16px;
     }}
     button[data-baseweb="tab"][aria-selected="true"] {{
-        color: #536B59 !important;
-        border-bottom-color: #536B59 !important;
+        color: #C65332 !important;
+        border-bottom-color: #C65332 !important;
+    }}
+    
+    /* Titulares secundarios */
+    h1, h2, h3, h4 {{
+        color: #4A2920 !important;
     }}
     </style>
     """,
@@ -269,7 +238,7 @@ def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
 
                 if porcentaje is not None:
                     porcentaje_round = round(porcentaje)
-                    badge_color = "#28a745" if porcentaje_round == 100 else ("#17a2b8" if porcentaje_round >= 75 else "#ffc107")
+                    badge_color = "#C65332" if porcentaje_round == 100 else ("#D9822B" if porcentaje_round >= 75 else "#F4C95D")
                     st.markdown(
                         f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje_round}% Match</span>',
                         unsafe_allow_html=True
@@ -367,19 +336,15 @@ tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO
+# 1. PESTAÑA DE INICIO (PORTADA EXACTA CON LA IMAGEN)
 # ------------------------------------------------------------
 with tab_inicio:
-    st.markdown(
-        """
-        <div class="hero-fullscreen">
-            <div class="hero-title">CHEF CERO<br>RESIDUOS</div>
-            <div class="hero-slogan">No solo cocines.</div>
-            <div class="hero-subtitle">Aprovecha, descubre y comparte.</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    ruta_portada = os.path.join(os.path.dirname(__file__), "portada.jpg")
+    if os.path.exists(ruta_portada):
+        st.image(ruta_portada, use_container_width=True)
+    else:
+        # Alternativa en caso de que la imagen aún no esté guardada en el servidor
+        st.image("https://raw.githubusercontent.com/streamlit/streamlit/main/docs/static/logo.png", caption="Carga la imagen 'portada.jpg' en la carpeta raíz del proyecto", use_container_width=True)
 
 # ------------------------------------------------------------
 # 2. PESTAÑA DE MENÚ
@@ -593,7 +558,10 @@ with tab_diseno:
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
-        fav_recetas =  [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
-        mostrar_grilla_recetas(fav_recetas, "favs")
+        fav_recetas = [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
+        if fav_recetas:
+            mostrar_grilla_recetas(fav_recetas, "favs")
+        else:
+            st.info("Aún no tienes recetas favoritas guardadas.")
     else:
         st.info("Aún no has guardado recetas favoritas.")
