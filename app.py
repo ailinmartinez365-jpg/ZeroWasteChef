@@ -58,7 +58,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES
+# ESTILOS CSS GENERALES Y CORRECCIÓN DE COLORES
 # ============================================================
 
 st.markdown(
@@ -77,7 +77,6 @@ st.markdown(
         border-radius: 12px;
         border: 1px solid #DED8CC !important;
         box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-        transition: transform 0.2s ease;
     }
     
     .badge-match {
@@ -98,6 +97,16 @@ st.markdown(
         width: 100%;
     }
     .stButton > button:hover { background-color: #3F5545; color: white; }
+
+    /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) PARA EVITAR TEXTO EN ROJO */
+    button[data-baseweb="tab"] {
+        color: #26352B !important;
+        font-weight: 600;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        color: #536B59 !important;
+        border-bottom-color: #536B59 !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -134,7 +143,7 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
                 st.subheader(receta["nombre"])
                 st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
 
-                # Botón ver receta nativo que NUNCA falla
+                # Botón ver receta nativo
                 if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
                     st.session_state.receta_modal = receta
                     st.rerun()
@@ -211,7 +220,7 @@ with tab_buscador:
     with col1:
         filtro_tiempo = st.selectbox("Tiempo disponible", ["Todos", "10 minutos", "20 minutos", "30+ minutos"])
     with col2:
-        filtro_nivel = st.selectbox("Nivel de dificultad", ["Todos", "Principiante", "Intermedio", "Explorador", "Experto"])
+        filtro_nivel = st.selectbox("Nivel de dificultad", ["Todos", "Principiante", "Explorador", "Intermedio", "Experto"])
 
     ingredientes_usuario = []
     if entrada:
@@ -249,7 +258,10 @@ with tab_buscador:
         st.markdown(f"### 🍽️ Recetas Recomendadas ({len(resultados)})")
 
         if resultados:
-            niveles_disponibles = list(set(r["receta"]["nivel"] for r in resultados))
+            # Orden estricto definido por el usuario
+            orden_niveles = ["Principiante", "Explorador", "Intermedio", "Experto"]
+            niveles_disponibles = [n for n in orden_niveles if any(r["receta"]["nivel"] == n for r in resultados)]
+
             tabs_niveles = st.tabs([f"📌 {n}" for n in niveles_disponibles])
 
             for idx, nivel in enumerate(niveles_disponibles):
@@ -267,4 +279,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-        
+                
