@@ -377,8 +377,8 @@ with tab_menu:
         unsafe_allow_html=True
     )
 
-    tab_comida, tab_postres, tab_extras, tab_bebidas = st.tabs([
-        "Comida", "Postres", "Extras", "Bebidas"
+    tab_comida, tab_postres, tab_extras, tab_familia, tab_bebidas = st.tabs([
+        "Comida", "Postres", "Extras", "Familia", "Bebidas"
     ])
 
     with tab_comida:
@@ -387,7 +387,7 @@ with tab_menu:
     with tab_postres:
         mostrar_menu_categoria("Postres")
 
-    # SUB-SECCIÓN DE EXTRAS: BOTANAS | FIT | OTROS
+    # SUB-SECCIÓN DE EXTRAS
     with tab_extras:
         tab_botanas, tab_fit, tab_otros = st.tabs([
             "Botanas", "Fit", "Otros"
@@ -401,6 +401,24 @@ with tab_menu:
             
         with tab_otros:
             mostrar_menu_categoria("Extras", "Otros")
+
+    # SUB-SECCIÓN DE FAMILIA: EN FAMILIA | NIÑOS | PARA PEQUES | LONCHE
+    with tab_familia:
+        tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
+            "En familia", "Niños", "Para peques", "Lonche"
+        ])
+
+        with tab_en_familia:
+            mostrar_menu_categoria("Familia", "En familia")
+
+        with tab_ninos:
+            mostrar_menu_categoria("Familia", "Niños")
+
+        with tab_para_peques:
+            mostrar_menu_categoria("Familia", "Para peques")
+
+        with tab_lonche:
+            mostrar_menu_categoria("Familia", "Lonche")
 
     with tab_bebidas:
         mostrar_menu_categoria("Bebidas")
@@ -480,3 +498,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
+                                              
