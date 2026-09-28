@@ -1,6 +1,9 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
+import urllib.parse
+import base64
 
 # ============================================================
 # CONFIGURACIÓN
@@ -22,6 +25,47 @@ if "favoritos" not in st.session_state:
 
 if "receta_modal" not in st.session_state:
     st.session_state.receta_modal = None
+
+
+# ============================================================
+# DETECTAR CLIC EN UNA RECETA
+# ============================================================
+
+query_params = st.query_params
+
+if "receta_clic" in query_params:
+    nombre_receta = query_params["receta_clic"]
+    
+    for r in recetas:
+        if r["nombre"] == nombre_receta:
+            st.session_state.receta_modal = r
+            break
+            
+    # Limpiar únicamente la variable elegida para no desconfigurar el resto de la app
+    del st.query_params["receta_clic"]
+
+
+# ============================================================
+# IMAGEN A BASE64
+# ============================================================
+
+def obtener_base64_imagen(ruta_relativa):
+    if not ruta_relativa:
+        return None
+        
+    ruta_abs = os.path.join(os.path.dirname(__file__), ruta_relativa)
+
+    if os.path.exists(ruta_abs):
+        try:
+            with open(ruta_abs, "rb") as image_file:
+                encoded_string = base64.b64encode(image_file.read()).decode()
+                ext = ruta_relativa.split(".")[-1].lower()
+                mime_type = "jpeg" if ext in ["jpg", "jpeg"] else ext
+                return f"data:image/{mime_type};base64,{encoded_string}"
+        except Exception:
+            return None
+
+    return None
 
 
 # ============================================================
@@ -134,29 +178,16 @@ st.markdown(
         font-size: 16px;
     }
 
-    /* Estilos para botones principales */
     .stButton > button {
         border-radius: 10px;
         background-color: #536B59;
         color: white;
         font-weight: 600;
-        width: 100%;
     }
 
     .stButton > button:hover {
         background-color: #3F5545;
         color: white;
-    }
-
-    /* Badge de coincidencia sobre tarjeta */
-    .badge-match {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 8px;
     }
     </style>
     """,
@@ -165,45 +196,225 @@ st.markdown(
 
 
 # ============================================================
-# RENDERIZADOR DE CARRUSEL MEDIANTE NATIVOS DE STREAMLIT
+# CARRUSEL HORIZONTAL CON BOTÓN "VER RECETA"
 # ============================================================
 
-def mostrar_carrusel_recetas(lista_items, prefijo_key):
-    # Usamos st.container horizontal para mantener la alineación fluida
-    cols = st.columns(len(lista_items))
+def renderizar_carrusel_netflix(lista_items, id_carrusel):
+    tarjetas_html = ""
     
-    for idx, item in enumerate(lista_items):
+    for item in lista_items:
         receta = item["receta"]
         porcentaje = round(item["porcentaje"])
+
         badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
+        badge_texto = f"{porcentaje}% Match"
 
-        with cols[idx]:
-            with st.container(border=True):
-                # Imagen de la tarjeta
-                ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
-                if os.path.exists(ruta_imagen):
-                    st.image(ruta_imagen, use_container_width=True)
-                else:
-                    st.write("🍳")
+        src_img = obtener_base64_imagen(receta.get("imagen", ""))
+        if src_img:
+            img_html = f'<img src="{src_img}" class="card-img" alt="{receta["nombre"]}"/>'
+        else:
+            img_html = '<div class="card-img-placeholder">🍳</div>'
 
-                # Badge de coincidencia %
-                st.markdown(
-                    f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
-                    unsafe_allow_html=True
-                )
+        nombre_escapado = urllib.parse.quote(receta['nombre'])
 
-                # Info rápida
-                st.subheader(receta["nombre"])
-                st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
+        tarjetas_html += f"""
+        <div class="card-netflix">
+            <div class="img-container">
+                {img_html}
+                <div class="badge" style="background-color: {badge_color};">{badge_texto}</div>
+            </div>
+            <div class="card-body">
+                <div>
+                    <h4>{receta['nombre']}</h4>
+                    <p class="info">⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}</p>
+                </div>
+                <a href="?receta_clic={nombre_escapado}" target="_top" class="btn-ver-receta">
+                    Ver receta
+                </a>
+            </div>
+        </div>
+        """
 
-                # BOTÓN VER RECETA 100% FUNCIONAL
-                if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
-                    st.session_state.receta_modal = receta
-                    st.rerun()
+    html_code = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+        body {{
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }}
+        .carrusel-wrapper {{
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }}
+        .carrusel-container {{
+            display: flex;
+            overflow-x: auto;
+            gap: 18px;
+            padding: 10px 40px 20px 40px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+        }}
+        .carrusel-container::-webkit-scrollbar {{
+            height: 6px;
+        }}
+        .carrusel-container::-webkit-scrollbar-thumb {{
+            background-color: #C9C2B5;
+            border-radius: 10px;
+        }}
+
+        .btn-nav {{
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            background-color: rgba(83, 107, 89, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }}
+        .btn-nav:hover {{
+            background-color: rgba(63, 85, 69, 1);
+            transform: translateY(-50%) scale(1.1);
+        }}
+        .btn-left {{ left: 2px; }}
+        .btn-right {{ right: 2px; }}
+
+        .card-netflix {{
+            flex: 0 0 220px;
+            width: 220px;
+            height: 280px;
+            background-color: #FFFFFF;
+            border: 1px solid #DED8CC;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }}
+        .card-netflix:hover {{
+            transform: translateY(-4px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+            border-color: #536B59;
+        }}
+
+        .img-container {{
+            width: 100%;
+            height: 125px;
+            position: relative;
+            background-color: #EFECE6;
+        }}
+        .card-img {{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }}
+        .card-img-placeholder {{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            background-color: #E4DFC3;
+        }}
+
+        .badge {{
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }}
+
+        .card-body {{
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }}
+        .card-body h4 {{
+            margin: 0;
+            font-size: 15px;
+            color: #26352B;
+            line-height: 1.25;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }}
+        .info {{
+            margin: 6px 0 0 0;
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }}
+
+        .btn-ver-receta {{
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #536B59;
+            color: white !important;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none !important;
+            box-sizing: border-box;
+            transition: background-color 0.2s ease;
+        }}
+        .btn-ver-receta:hover {{
+            background-color: #3F5545;
+        }}
+    </style>
+    </head>
+    <body>
+        <div class="carrusel-wrapper">
+            <button class="btn-nav btn-left" onclick="moverCarrusel(-320)">❮</button>
+            <div class="carrusel-container" id="{id_carrusel}">
+                {tarjetas_html}
+            </div>
+            <button class="btn-nav btn-right" onclick="moverCarrusel(320)">❯</button>
+        </div>
+
+        <script>
+        function moverCarrusel(distancia) {{
+            const carrusel = document.getElementById('{id_carrusel}');
+            carrusel.scrollBy({{ left: distancia, behavior: 'smooth' }});
+        }}
+        </script>
+    </body>
+    </html>
+    """
+
+    components.html(html_code, height=310)
 
 
 # ============================================================
-# MODAL / POPUP DE LA RECETA
+# MODAL / POPUP PARA VER RECETA DETALLADA
 # ============================================================
 
 @st.dialog("Detalles de la Receta")
@@ -239,14 +450,14 @@ def mostrar_modal_receta(receta):
             st.rerun()
 
 
-# Disparar el modal si hay una receta seleccionada
+# Abrir modal si se seleccionó una receta
 if st.session_state.receta_modal:
     mostrar_modal_receta(st.session_state.receta_modal)
     st.session_state.receta_modal = None
 
 
 # ============================================================
-# ENCABEZADO
+# ENCABEZADO Y VISTA
 # ============================================================
 
 st.markdown(
@@ -363,8 +574,7 @@ with tab_buscador:
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-                    # Renderizamos las tarjetas organizadas con el botón 'Ver receta' nativo
-                    mostrar_carrusel_recetas(recetas_nivel, f"niv_{i}")
+                    renderizar_carrusel_netflix(recetas_nivel, f"carrusel_{i}")
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
 
@@ -393,4 +603,3 @@ with tab_favoritos:
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
-    
