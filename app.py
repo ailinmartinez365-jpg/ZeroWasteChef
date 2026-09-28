@@ -112,7 +112,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y CURSOR DINÁMICO (NUEVA PALETA DE COLORES)
+# ESTILOS CSS REFORZADOS (NUEVA PALETA DE COLORES)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -125,8 +125,11 @@ st.markdown(
         cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
     }}
 
-    /* Fondo general: Marfil */
-    .stApp {{ background-color: #FFF8EA; color: #4A2920; }}
+    /* FONDO GENERAL: Marfil #FFF8EA */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+        background-color: #FFF8EA !important;
+        color: #4A2920 !important;
+    }}
     
     /* Contenedor principal */
     .block-container {{
@@ -135,7 +138,11 @@ st.markdown(
         max-width: 1200px !important;
     }}
 
-    /* ESTILO ENCABEZADO DE SECCIONES: Chocolate */
+    /* ENCABEZADOS Y TEXTOS PRINCIPALES: Chocolate #4A2920 */
+    h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {{
+        color: #4A2920 !important;
+    }}
+
     .section-header {{
         text-align: center;
         padding: 15px 0;
@@ -146,12 +153,19 @@ st.markdown(
         font-size: 38px;
         font-weight: bold;
         letter-spacing: 2px;
-        color: #4A2920;
+        color: #4A2920 !important;
         text-transform: uppercase;
         margin: 0;
     }}
 
-    /* TARJETAS DE SELECCIÓN DE CURSOR PARA SECCIÓN DISEÑO */
+    /* TARJETAS DE RECETAS Y DISEÑO: Blanco con borde Amarillo Mantequilla #F4C95D */
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        background-color: #FFFFFF !important;
+        border-radius: 14px !important;
+        border: 2px solid #F4C95D !important;
+        box-shadow: 0 4px 12px rgba(74, 41, 32, 0.08) !important;
+    }}
+
     .icon-card {{
         border: 2px solid #4A2920;
         background-color: #FFFFFF;
@@ -163,53 +177,49 @@ st.markdown(
         box-shadow: 4px 4px 0px #C65332;
     }}
 
-    /* Estilos para las tarjetas de la grilla */
-    div[data-testid="stVerticalBlockBorderWrapper"] {{
-        background-color: #FFFFFF;
-        border-radius: 14px;
-        border: 1px solid #F4C95D !important;
-        box-shadow: 0 4px 12px rgba(74, 41, 32, 0.06);
+    /* BOTONES PRINCIPALES: Terracota #C65332 */
+    .stButton > button {{
+        border-radius: 8px !important;
+        background-color: #C65332 !important;
+        color: #FFF8EA !important;
+        font-weight: 600 !important;
+        border: none !important;
+        width: 100% !important;
+        transition: all 0.2s ease !important;
     }}
-    
+    .stButton > button:hover {{ 
+        background-color: #F4C95D !important; 
+        color: #4A2920 !important;
+    }}
+    .stButton > button * {{
+        color: inherit !important;
+    }}
+
+    /* PESTAÑAS (TABS): Chocolate y Terracota */
+    button[data-baseweb="tab"] {{
+        background-color: transparent !important;
+        border-radius: 6px 6px 0 0 !important;
+    }}
+    button[data-baseweb="tab"] p {{
+        color: #4A2920 !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] {{
+        border-bottom-color: #C65332 !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] p {{
+        color: #C65332 !important;
+    }}
+
     .badge-match {{
         display: inline-block;
         padding: 4px 10px;
         border-radius: 6px;
         font-size: 12px;
         font-weight: bold;
-        color: white;
+        color: white !important;
         margin-bottom: 8px;
-    }}
-
-    /* Botones principales: Terracota */
-    .stButton > button {{
-        border-radius: 8px;
-        background-color: #C65332;
-        color: #FFF8EA;
-        font-weight: 600;
-        border: none;
-        width: 100%;
-        transition: all 0.2s ease;
-    }}
-    .stButton > button:hover {{ 
-        background-color: #F4C95D; 
-        color: #4A2920;
-    }}
-
-    /* ESTILOS DE PESTAÑAS (TABS) */
-    button[data-baseweb="tab"] {{
-        color: #4A2920 !important;
-        font-weight: 600;
-        font-size: 16px;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] {{
-        color: #C65332 !important;
-        border-bottom-color: #C65332 !important;
-    }}
-    
-    /* Titulares secundarios */
-    h1, h2, h3, h4 {{
-        color: #4A2920 !important;
     }}
     </style>
     """,
@@ -336,15 +346,14 @@ tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA EXACTA CON LA IMAGEN)
+# 1. PESTAÑA DE INICIO (PORTADA DE LA APP)
 # ------------------------------------------------------------
 with tab_inicio:
     ruta_portada = os.path.join(os.path.dirname(__file__), "portada.jpg")
     if os.path.exists(ruta_portada):
         st.image(ruta_portada, use_container_width=True)
     else:
-        # Alternativa en caso de que la imagen aún no esté guardada en el servidor
-        st.image("https://raw.githubusercontent.com/streamlit/streamlit/main/docs/static/logo.png", caption="Carga la imagen 'portada.jpg' en la carpeta raíz del proyecto", use_container_width=True)
+        st.warning("⚠️ Para ver la portada completa, sube la imagen con el nombre **`portada.jpg`** a GitHub junto a tu archivo `app.py`.")
 
 # ------------------------------------------------------------
 # 2. PESTAÑA DE MENÚ
@@ -562,6 +571,4 @@ with tab_favoritos:
         if fav_recetas:
             mostrar_grilla_recetas(fav_recetas, "favs")
         else:
-            st.info("Aún no tienes recetas favoritas guardadas.")
-    else:
-        st.info("Aún no has guardado recetas favoritas.")
+            st.info("Aún
