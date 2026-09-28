@@ -554,6 +554,8 @@ with tab_diseno:
         unsafe_allow_html=True
     )
 
+    st.info("💻 **Nota para móviles:** La personalización del cursor solo es visible al usar la app desde una computadora.")
+
     iconos_comida = [
         {"nombre": "Nieve", "emoji": "🍦"},
         {"nombre": "Pizza", "emoji": "🍕"},
@@ -591,5 +593,4 @@ with tab_diseno:
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
-        fav_recetas = [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
-        mostrar_grilla_receta
+        fav_recetas = 
