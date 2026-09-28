@@ -108,7 +108,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y PANTALLA COMPLETA
+# ESTILOS CSS GENERALES
 # ============================================================
 
 st.markdown(
@@ -117,16 +117,14 @@ st.markdown(
     /* Fondo general */
     .stApp { background-color: #F5F1E8; }
     
-    /* Eliminar márgenes por defecto de Streamlit */
+    /* Contenedor principal */
     .block-container {
-        padding-top: 1rem !important;
-        padding-bottom: 0rem !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        max-width: 100% !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 1200px !important;
     }
 
-    /* PANTALLA DE INICIO A PANTALLA COMPLETA (HERO FULLSCREEN) */
+    /* PANTALLA DE INICIO EN PANTALLA COMPLETA */
     .hero-fullscreen {
         display: flex;
         flex-direction: column;
@@ -168,7 +166,33 @@ st.markdown(
         color: #D7D0C2;
     }
 
-    /* Estilos para las tarjetas de la grilla */
+    /* ESTILO ENCABEZADO MENÚ */
+    .menu-header {
+        text-align: center;
+        padding: 20px 0;
+        margin-bottom: 20px;
+    }
+    .menu-header h1 {
+        font-family: 'Georgia', serif;
+        font-size: 40px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        color: #26352B;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    /* TARJETAS CON BORDE NEGRO RECTANGULAR PARA EL MENÚ */
+    .card-menu {
+        border: 3px solid #000000 !important;
+        border-radius: 0px !important;
+        background-color: #FFFFFF;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 4px 4px 0px #000000;
+    }
+
+    /* Estilos para las tarjetas de la grilla del Buscador */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #FFFFFF;
         border-radius: 12px;
@@ -212,18 +236,17 @@ st.markdown(
 
 
 # ============================================================
-# RENDERIZADOR EN REJILLA/GRILLA (3 COLUMNAS)
+# RENDERIZADORES DE RECURSOS
 # ============================================================
 
-def mostrar_grilla_recetas(lista_items, prefijo_key):
-    cols = st.columns(3)
+def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
+    cols = st.columns(num_cols)
     
     for idx, item in enumerate(lista_items):
         receta = item["receta"]
-        porcentaje = round(item["porcentaje"])
-        badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
+        porcentaje = item.get("porcentaje", None)
 
-        with cols[idx % 3]:
+        with cols[idx % num_cols]:
             with st.container(border=True):
                 ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
                 if os.path.exists(ruta_imagen):
@@ -231,10 +254,13 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
                 else:
                     st.write("🍳")
 
-                st.markdown(
-                    f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
-                    unsafe_allow_html=True
-                )
+                if porcentaje is not None:
+                    porcentaje_round = round(porcentaje)
+                    badge_color = "#28a745" if porcentaje_round == 100 else ("#17a2b8" if porcentaje_round >= 75 else "#ffc107")
+                    st.markdown(
+                        f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje_round}% Match</span>',
+                        unsafe_allow_html=True
+                    )
 
                 st.subheader(receta["nombre"])
                 st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
@@ -242,6 +268,22 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
                 if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
                     st.session_state.receta_modal = receta
                     st.rerun()
+
+
+def mostrar_menu_categoria(categoria_nombre):
+    """Muestra las recetas de una categoría específica en una grilla de 2 columnas (como el boceto)"""
+    recetas_cat = [
+        {"receta": r} for r in recetas 
+        if r.get("categoria", "Comida").lower() == categoria_nombre.lower()
+    ]
+    
+    if recetas_cat:
+        mostrar_grilla_recetas(recetas_cat, f"menu_{categoria_nombre}", num_cols=2)
+    else:
+        # En caso de que aún no haya recetas etiquetadas con esa categoría en recetas.py
+        st.info(f"Aún no hay recetas registradas en la categoría '{categoria_nombre}'. Muestrario general:")
+        recetas_demo = [{"receta": r} for r in recetas[:6]]
+        mostrar_grilla_recetas(recetas_demo, f"menu_demo_{categoria_nombre}", num_cols=2)
 
 
 # ============================================================
@@ -294,14 +336,15 @@ if st.session_state.receta_modal:
 
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
-tab_inicio, tab_buscador, tab_favoritos = st.tabs([
+tab_inicio, tab_menu, tab_buscador, tab_favoritos = st.tabs([
     "🏠 Inicio", 
+    "📖 Menú",
     "🔍 Buscador", 
     f"❤️ Favoritos ({num_favoritos})"
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA EN PANTALLA COMPLETA)
+# 1. PESTAÑA DE INICIO
 # ------------------------------------------------------------
 with tab_inicio:
     st.markdown(
@@ -316,7 +359,36 @@ with tab_inicio:
     )
 
 # ------------------------------------------------------------
-# 2. PESTAÑA DEL BUSCADOR
+# 2. PESTAÑA DE MENÚ (FIEL A LA DIAPOSITIVA)
+# ------------------------------------------------------------
+with tab_menu:
+    st.markdown(
+        """
+        <div class="menu-header">
+            <h1>CHEF CERO RESIDUOS</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    tab_comida, tab_postres, tab_extras, tab_bebidas = st.tabs([
+        "Comida", "Postres", "Extras", "Bebidas"
+    ])
+
+    with tab_comida:
+        mostrar_menu_categoria("Comida")
+
+    with tab_postres:
+        mostrar_menu_categoria("Postres")
+
+    with tab_extras:
+        mostrar_menu_categoria("Extras")
+
+    with tab_bebidas:
+        mostrar_menu_categoria("Bebidas")
+
+# ------------------------------------------------------------
+# 3. PESTAÑA DEL BUSCADOR
 # ------------------------------------------------------------
 with tab_buscador:
     st.subheader("🔍 Buscador Inteligente de Recetas")
@@ -381,7 +453,7 @@ with tab_buscador:
             st.info("No se encontraron recetas con esos filtros.")
 
 # ------------------------------------------------------------
-# 3. PESTAÑA DE FAVORITOS
+# 4. PESTAÑA DE FAVORITOS
 # ------------------------------------------------------------
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
@@ -390,4 +462,3 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-            
