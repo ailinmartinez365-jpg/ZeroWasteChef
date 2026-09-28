@@ -27,7 +27,7 @@ if "favoritos_cargados" not in st.session_state:
 if "receta_modal" not in st.session_state:
     st.session_state.receta_modal = None
 
-# Estado para el cursor seleccionado por el usuario (por defecto: Tenedor y cuchillo)
+# Estado para el cursor seleccionado por el usuario
 if "cursor_actual" not in st.session_state:
     st.session_state.cursor_actual = "🍴"
 
@@ -203,7 +203,6 @@ st.markdown(
         font-size: 50px;
         margin-bottom: 10px;
         box-shadow: 4px 4px 0px #000000;
-        transition: transform 0.1s ease;
     }}
 
     /* Estilos para las tarjetas de la grilla */
@@ -543,7 +542,7 @@ with tab_temporada:
         mostrar_categoria("Temporada", "Invierno")
 
 # ------------------------------------------------------------
-# 6. PESTAÑA DISEÑO (CATÁLOGO DE ICONOS PARA CAMBIAR EL CURSOR)
+# 6. PESTAÑA DISEÑO
 # ------------------------------------------------------------
 with tab_diseno:
     st.markdown(
@@ -555,7 +554,6 @@ with tab_diseno:
         unsafe_allow_html=True
     )
 
-    # Catálogo ampliado de iconos de comida
     iconos_comida = [
         {"nombre": "Nieve", "emoji": "🍦"},
         {"nombre": "Pizza", "emoji": "🍕"},
@@ -583,7 +581,6 @@ with tab_diseno:
                 """,
                 unsafe_allow_html=True
             )
-            # Botón para activar el cursor seleccionado
             if st.button(f"Seleccionar {item['nombre']}", key=f"cursor_btn_{idx}"):
                 st.session_state.cursor_actual = item["emoji"]
                 st.rerun()
@@ -592,4 +589,7 @@ with tab_diseno:
 # 7. PESTAÑA DE FAVORITOS
 # ------------------------------------------------------------
 with tab_favoritos:
-    st.su
+    st.subheader("❤️ Tus Recetas Guardadas")
+    if st.session_state.favoritos:
+        fav_recetas = [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
+        mostrar_grilla_receta
