@@ -1,6 +1,8 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
+import json
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -15,11 +17,61 @@ st.set_page_config(
 
 recetas = modulo_recetas.recetas
 
+# Inicializar estados de la sesión
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
+if "favoritos_cargados" not in st.session_state:
+    st.session_state.favoritos_cargados = False
+
 if "receta_modal" not in st.session_state:
     st.session_state.receta_modal = None
+
+
+# ============================================================
+# PERSISTENCIA CON LOCALSTORAGE (GUARDAR FAVORITOS)
+# ============================================================
+
+def sincronizar_localstorage():
+    """Maneja la lectura y escritura de favoritos en el navegador."""
+    
+    # 1. Recuperar favoritos guardados al cargar la app por primera vez
+    if not st.session_state.favoritos_cargados:
+        html_code = """
+        <script>
+            const favs = localStorage.getItem('favoritos_chef');
+            if (favs) {
+                window.parent.postMessage({
+                    type: 'streamlit:setComponentValue',
+                    value: JSON.parse(favs)
+                }, '*');
+            } else {
+                window.parent.postMessage({
+                    type: 'streamlit:setComponentValue',
+                    value: []
+                }, '*');
+            }
+        </script>
+        """
+        favs_recuperados = components.html(html_code, height=0, width=0)
+        if favs_recuperados is not None:
+            st.session_state.favoritos = favs_recuperados
+            st.session_state.favoritos_cargados = True
+
+
+def guardar_favorito_localstorage(lista_favoritos):
+    """Guarda la lista de favoritos en el navegador."""
+    json_favs = json.dumps(lista_favoritos)
+    html_code = f"""
+    <script>
+        localStorage.setItem('favoritos_chef', '{json_favs}');
+    </script>
+    """
+    components.html(html_code, height=0, width=0)
+
+
+# Ejecutar la sincronización al inicio
+sincronizar_localstorage()
 
 
 # ============================================================
@@ -175,14 +227,17 @@ def mostrar_modal_receta(receta):
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
 
+    # LÓGICA DE FAVORITOS CON GUARDADO EN LOCALSTORAGE
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
         if st.button("❤️ Quitar de Favoritos"):
             st.session_state.favoritos.remove(receta["nombre"])
+            guardar_favorito_localstorage(st.session_state.favoritos)
             st.rerun()
     else:
         if st.button("🤍 Guardar en Favoritos"):
             st.session_state.favoritos.append(receta["nombre"])
+            guardar_favorito_localstorage(st.session_state.favoritos)
             st.rerun()
 
 
@@ -258,7 +313,6 @@ with tab_buscador:
         st.markdown(f"### 🍽️ Recetas Recomendadas ({len(resultados)})")
 
         if resultados:
-            # Orden estricto definido por el usuario
             orden_niveles = ["Principiante", "Explorador", "Intermedio", "Experto"]
             niveles_disponibles = [n for n in orden_niveles if any(r["receta"]["nivel"] == n for r in resultados)]
 
