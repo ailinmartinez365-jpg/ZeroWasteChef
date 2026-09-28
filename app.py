@@ -115,12 +115,45 @@ st.markdown(
     """
     <style>
     .stApp { background-color: #F5F1E8; }
-    .block-container { max-width: 1200px; padding-top: 30px; padding-bottom: 60px; }
-    .marca { text-align: center; margin-bottom: 8px; }
-    .marca h1 { font-size: 42px; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; color: #26352B; }
-    .marca p { font-size: 16px; color: #59645C; margin-top: 0; }
-    .linea { height: 1px; background-color: #D7D0C2; margin: 20px 0; }
+    .block-container { max-width: 1200px; padding-top: 20px; padding-bottom: 60px; }
     
+    /* ESTILOS PARA LA PANTALLA DE INICIO (HERO PORTADA) */
+    .hero-container {
+        text-align: center;
+        padding: 80px 20px 60px 20px;
+        background-color: #26352B;
+        border-radius: 20px;
+        color: #F5F1E8;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .hero-title {
+        font-family: 'Georgia', serif;
+        font-size: 52px;
+        font-weight: bold;
+        letter-spacing: 4px;
+        margin-bottom: 40px;
+        color: #F5F1E8;
+        text-transform: uppercase;
+    }
+    
+    .hero-slogan {
+        font-family: 'Georgia', serif;
+        font-size: 32px;
+        font-style: italic;
+        margin-bottom: 40px;
+        color: #E2DDD0;
+    }
+    
+    .hero-subtitle {
+        font-family: 'Georgia', serif;
+        font-size: 28px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        color: #D7D0C2;
+    }
+
     /* Estilos para las tarjetas de la grilla */
     div[data-testid="stVerticalBlockBorderWrapper"] {
         background-color: #FFFFFF;
@@ -148,10 +181,11 @@ st.markdown(
     }
     .stButton > button:hover { background-color: #3F5545; color: white; }
 
-    /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) PARA EVITAR TEXTO EN ROJO */
+    /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) */
     button[data-baseweb="tab"] {
         color: #26352B !important;
         font-weight: 600;
+        font-size: 16px;
     }
     button[data-baseweb="tab"][aria-selected="true"] {
         color: #536B59 !important;
@@ -168,7 +202,7 @@ st.markdown(
 # ============================================================
 
 def mostrar_grilla_recetas(lista_items, prefijo_key):
-    cols = st.columns(3) # 3 tarjetas por fila
+    cols = st.columns(3)
     
     for idx, item in enumerate(lista_items):
         receta = item["receta"]
@@ -177,14 +211,12 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
 
         with cols[idx % 3]:
             with st.container(border=True):
-                # Imagen
                 ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
                 if os.path.exists(ruta_imagen):
                     st.image(ruta_imagen, use_container_width=True)
                 else:
                     st.write("🍳")
 
-                # Match
                 st.markdown(
                     f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
                     unsafe_allow_html=True
@@ -193,7 +225,6 @@ def mostrar_grilla_recetas(lista_items, prefijo_key):
                 st.subheader(receta["nombre"])
                 st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
 
-                # Botón ver receta nativo
                 if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
                     st.session_state.receta_modal = receta
                     st.rerun()
@@ -225,7 +256,6 @@ def mostrar_modal_receta(receta):
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
 
-    # LÓGICA DE FAVORITOS CON GUARDADO EN LOCALSTORAGE
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
         if st.button("❤️ Quitar de Favoritos"):
@@ -245,27 +275,53 @@ if st.session_state.receta_modal:
 
 
 # ============================================================
-# INTERFAZ PRINCIPAL
+# INTERFAZ PRINCIPAL Y NAVEGACIÓN
 # ============================================================
 
-st.markdown(
-    """
-    <div class="marca">
-        <h1>CHEF CERO RESIDUOS</h1>
-        <p>No solo cocines. Aprovecha, descubre y comparte.</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
-
-# Garantizar la lectura segura de la cantidad de favoritos
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
-tab_buscador, tab_favoritos = st.tabs(["🔍 Buscador Inteligente", f"❤️ Mis Favoritos ({num_favoritos})"])
+# Pestañas principales de navegación basadas en el diseño
+tab_inicio, tab_buscador, tab_favoritos = st.tabs([
+    "🏠 Inicio", 
+    "🔍 Buscador", 
+    f"❤️ Favoritos ({num_favoritos})"
+])
 
+# ------------------------------------------------------------
+# 1. PESTAÑA DE INICIO (PORTADA)
+# ------------------------------------------------------------
+with tab_inicio:
+    st.markdown(
+        """
+        <div class="hero-container">
+            <div class="hero-title">CHEF CERO RESIDUOS</div>
+            <div class="hero-slogan">No solo cocines.</div>
+            <div class="hero-subtitle">Aprovecha, descubre y comparte.</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.markdown("### 🌿 Nuestra Misión")
+    col_a, col_b, col_c = st.columns(3)
+    
+    with col_a:
+        st.markdown("#### ♻️ Aprovecha")
+        st.write("Reduce el desperdicio de comida transformando los ingredientes sobrantes de tu refrigerador en platillos deliciosos.")
+        
+    with col_b:
+        st.markdown("#### 🔍 Descubre")
+        st.write("Encuentra recetas ajustadas a tu nivel de cocina, tiempo disponible y combinaciones inteligentes de ingredientes.")
+        
+    with col_c:
+        st.markdown("#### 🤝 Comparte")
+        st.write("Guarda tus recetas preferidas, organízalas en tus favoritos y comparte hábitos de cocina más sostenibles.")
+
+# ------------------------------------------------------------
+# 2. PESTAÑA DEL BUSCADOR
+# ------------------------------------------------------------
 with tab_buscador:
+    st.subheader("🔍 Buscador Inteligente de Recetas")
     entrada = st.text_input(
         "Ingredientes disponibles",
         placeholder="Ejemplo: huevo, tomate, queso",
@@ -326,7 +382,9 @@ with tab_buscador:
         else:
             st.info("No se encontraron recetas con esos filtros.")
 
-
+# ------------------------------------------------------------
+# 3. PESTAÑA DE FAVORITOS
+# ------------------------------------------------------------
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
@@ -334,4 +392,3 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-        
