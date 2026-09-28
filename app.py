@@ -27,6 +27,10 @@ if "favoritos_cargados" not in st.session_state:
 if "receta_modal" not in st.session_state:
     st.session_state.receta_modal = None
 
+# Estado para el cursor seleccionado por el usuario (por defecto: Tenedor y cuchillo)
+if "cursor_actual" not in st.session_state:
+    st.session_state.cursor_actual = "🍴"
+
 
 # ============================================================
 # PERSISTENCIA CON LOCALSTORAGE (GUARDAR FAVORITOS)
@@ -108,24 +112,31 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES
+# ESTILOS CSS GENERALES Y CURSOR DINÁMICO
 # ============================================================
 
+emoji_cursor = st.session_state.cursor_actual
+
 st.markdown(
-    """
+    f"""
     <style>
+    /* CURSOR DINÁMICO PERSONALIZADO */
+    html, body, .stApp, button, div, a, input {{
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
+    }}
+
     /* Fondo general */
-    .stApp { background-color: #F5F1E8; }
+    .stApp {{ background-color: #F5F1E8; }}
     
     /* Contenedor principal */
-    .block-container {
+    .block-container {{
         padding-top: 1.5rem !important;
         padding-bottom: 2rem !important;
         max-width: 1200px !important;
-    }
+    }}
 
     /* PANTALLA DE INICIO EN PANTALLA COMPLETA */
-    .hero-fullscreen {
+    .hero-fullscreen {{
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -138,9 +149,9 @@ st.markdown(
         padding: 40px 20px;
         margin-top: 10px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
+    }}
     
-    .hero-title {
+    .hero-title {{
         font-family: 'Georgia', serif;
         font-size: 58px;
         font-weight: 700;
@@ -149,30 +160,30 @@ st.markdown(
         color: #F5F1E8;
         text-transform: uppercase;
         line-height: 1.25;
-    }
+    }}
     
-    .hero-slogan {
+    .hero-slogan {{
         font-family: 'Georgia', serif;
         font-size: 38px;
         margin-bottom: 60px;
         color: #E2DDD0;
-    }
+    }}
     
-    .hero-subtitle {
+    .hero-subtitle {{
         font-family: 'Georgia', serif;
         font-size: 34px;
         font-weight: 300;
         letter-spacing: 1px;
         color: #D7D0C2;
-    }
+    }}
 
     /* ESTILO ENCABEZADO DE SECCIONES */
-    .section-header {
+    .section-header {{
         text-align: center;
         padding: 20px 0;
         margin-bottom: 20px;
-    }
-    .section-header h1 {
+    }}
+    .section-header h1 {{
         font-family: 'Georgia', serif;
         font-size: 40px;
         font-weight: bold;
@@ -180,17 +191,30 @@ st.markdown(
         color: #26352B;
         text-transform: uppercase;
         margin: 0;
-    }
+    }}
+
+    /* TARJETAS DE SELECCIÓN DE CURSOR PARA SECCIÓN DISEÑO */
+    .icon-card {{
+        border: 3px solid #000000;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        box-shadow: 4px 4px 0px #000000;
+        transition: transform 0.1s ease;
+    }}
 
     /* Estilos para las tarjetas de la grilla */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
         background-color: #FFFFFF;
         border-radius: 12px;
         border: 1px solid #DED8CC !important;
         box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    }
+    }}
     
-    .badge-match {
+    .badge-match {{
         display: inline-block;
         padding: 3px 8px;
         border-radius: 6px;
@@ -198,27 +222,27 @@ st.markdown(
         font-weight: bold;
         color: white;
         margin-bottom: 8px;
-    }
+    }}
 
-    .stButton > button {
+    .stButton > button {{
         border-radius: 8px;
         background-color: #536B59;
         color: white;
         font-weight: 600;
         width: 100%;
-    }
-    .stButton > button:hover { background-color: #3F5545; color: white; }
+    }}
+    .stButton > button:hover {{ background-color: #3F5545; color: white; }}
 
     /* RESETEAR COLORES DE LAS PESTAÑAS (TABS) */
-    button[data-baseweb="tab"] {
+    button[data-baseweb="tab"] {{
         color: #26352B !important;
         font-weight: 600;
         font-size: 16px;
-    }
-    button[data-baseweb="tab"][aria-selected="true"] {
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] {{
         color: #536B59 !important;
         border-bottom-color: #536B59 !important;
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True
@@ -519,7 +543,7 @@ with tab_temporada:
         mostrar_categoria("Temporada", "Invierno")
 
 # ------------------------------------------------------------
-# 6. PESTAÑA DISEÑO
+# 6. PESTAÑA DISEÑO (CATÁLOGO DE ICONOS PARA CAMBIAR EL CURSOR)
 # ------------------------------------------------------------
 with tab_diseno:
     st.markdown(
@@ -530,16 +554,42 @@ with tab_diseno:
         """,
         unsafe_allow_html=True
     )
-    st.info("Sección Diseño en desarrollo.")
+
+    # Catálogo ampliado de iconos de comida
+    iconos_comida = [
+        {"nombre": "Nieve", "emoji": "🍦"},
+        {"nombre": "Pizza", "emoji": "🍕"},
+        {"nombre": "Hamburguesa", "emoji": "🍔"},
+        {"nombre": "Sándwich", "emoji": "🥪"},
+        {"nombre": "Taco", "emoji": "🌮"},
+        {"nombre": "Donut", "emoji": "🍩"},
+        {"nombre": "Aguacate", "emoji": "🥑"},
+        {"nombre": "Papas", "emoji": "🍟"},
+        {"nombre": "Hot Dog", "emoji": "🌭"},
+        {"nombre": "Sushi", "emoji": "🍣"},
+        {"nombre": "Pastel", "emoji": "🍰"},
+        {"nombre": "Chef", "emoji": "👨‍🍳"}
+    ]
+
+    cols_diseno = st.columns(2)
+
+    for idx, item in enumerate(iconos_comida):
+        with cols_diseno[idx % 2]:
+            st.markdown(
+                f"""
+                <div class="icon-card">
+                    {item['emoji']}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+            # Botón para activar el cursor seleccionado
+            if st.button(f"Seleccionar {item['nombre']}", key=f"cursor_btn_{idx}"):
+                st.session_state.cursor_actual = item["emoji"]
+                st.rerun()
 
 # ------------------------------------------------------------
 # 7. PESTAÑA DE FAVORITOS
 # ------------------------------------------------------------
 with tab_favoritos:
-    st.subheader("❤️ Tus Recetas Guardadas")
-    if st.session_state.favoritos:
-        fav_recetas = [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
-        mostrar_grilla_recetas(fav_recetas, "favs")
-    else:
-        st.info("Aún no has guardado recetas favoritas.")
-    
+    st.su
