@@ -1,3 +1,31 @@
+# ------------------------------------------------------------
+# 1. PESTAÑA DE INICIO (PORTADA DE LA APP)
+# ------------------------------------------------------------
+with tab_inicio:
+    # 1. Lista de posibles nombres que pudo haber tomado el archivo al subirlo
+    nombres_posibles = [
+        "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
+        "Portada.jpg", "PORTADA.JPG"
+    ]
+    
+    imagen_encontrada = None
+    dir_actual = os.path.dirname(__file__)
+
+    # Buscar la imagen localmente considerando variaciones de mayúsculas y extensión
+    for nombre in nombres_posibles:
+        ruta = os.path.join(dir_actual, nombre)
+        if os.path.exists(ruta):
+            imagen_encontrada = ruta
+            break
+
+    # 2. Renderizar la imagen si existe localmente o usar la URL externa si no
+    if imagen_encontrada:
+        st.image(imagen_encontrada, use_container_width=True)
+    else:
+        # Enlace externo como respaldo directo si el archivo en GitHub aún no compila
+        url_respaldo = "https://lh3.googleusercontent.com/d/1000065722.jpg"
+        st.image(url_respaldo, use_container_width=True)
+        
 import streamlit as st
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
@@ -571,4 +599,6 @@ with tab_favoritos:
         if fav_recetas:
             mostrar_grilla_recetas(fav_recetas, "favs")
         else:
-            st.info("Aún
+            st.info("Aún no tienes recetas favoritas guardadas.")
+    else:
+        st.info("Aún no has guardado recetas favoritas.")
