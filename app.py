@@ -17,7 +17,7 @@ st.set_page_config(
 
 recetas = modulo_recetas.recetas
 
-# Inicializar estados de la sesión asegurando que sean listas
+# Inicializar estados de la sesión
 if "favoritos" not in st.session_state or not isinstance(st.session_state.favoritos, list):
     st.session_state.favoritos = []
 
@@ -108,7 +108,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS GENERALES Y CORRECCIÓN DE COLORES
+# ESTILOS CSS GENERALES Y PORTADA
 # ============================================================
 
 st.markdown(
@@ -117,40 +117,38 @@ st.markdown(
     .stApp { background-color: #F5F1E8; }
     .block-container { max-width: 1200px; padding-top: 20px; padding-bottom: 60px; }
     
-    /* ESTILOS PARA LA PANTALLA DE INICIO (HERO PORTADA) */
+    /* PANTALLA DE INICIO FIEL A LA DIAPOSITIVA */
     .hero-container {
         text-align: center;
-        padding: 80px 20px 60px 20px;
+        padding: 100px 20px;
         background-color: #26352B;
         border-radius: 20px;
         color: #F5F1E8;
-        margin-bottom: 40px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
     
     .hero-title {
         font-family: 'Georgia', serif;
-        font-size: 52px;
+        font-size: 54px;
         font-weight: bold;
-        letter-spacing: 4px;
-        margin-bottom: 40px;
+        letter-spacing: 3px;
+        margin-bottom: 50px;
         color: #F5F1E8;
         text-transform: uppercase;
+        line-height: 1.2;
     }
     
     .hero-slogan {
         font-family: 'Georgia', serif;
-        font-size: 32px;
-        font-style: italic;
-        margin-bottom: 40px;
+        font-size: 36px;
+        margin-bottom: 50px;
         color: #E2DDD0;
     }
     
     .hero-subtitle {
         font-family: 'Georgia', serif;
-        font-size: 28px;
+        font-size: 32px;
         font-weight: 300;
-        letter-spacing: 1px;
         color: #D7D0C2;
     }
 
@@ -280,7 +278,6 @@ if st.session_state.receta_modal:
 
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
-# Pestañas principales de navegación basadas en el diseño
 tab_inicio, tab_buscador, tab_favoritos = st.tabs([
     "🏠 Inicio", 
     "🔍 Buscador", 
@@ -288,34 +285,19 @@ tab_inicio, tab_buscador, tab_favoritos = st.tabs([
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA)
+# 1. PESTAÑA DE INICIO (PORTADA EXACTA A LA DIAPOSITIVA)
 # ------------------------------------------------------------
 with tab_inicio:
     st.markdown(
         """
         <div class="hero-container">
-            <div class="hero-title">CHEF CERO RESIDUOS</div>
+            <div class="hero-title">CHEF CERO<br>RESIDUOS</div>
             <div class="hero-slogan">No solo cocines.</div>
             <div class="hero-subtitle">Aprovecha, descubre y comparte.</div>
         </div>
         """,
         unsafe_allow_html=True
     )
-    
-    st.markdown("### 🌿 Nuestra Misión")
-    col_a, col_b, col_c = st.columns(3)
-    
-    with col_a:
-        st.markdown("#### ♻️ Aprovecha")
-        st.write("Reduce el desperdicio de comida transformando los ingredientes sobrantes de tu refrigerador en platillos deliciosos.")
-        
-    with col_b:
-        st.markdown("#### 🔍 Descubre")
-        st.write("Encuentra recetas ajustadas a tu nivel de cocina, tiempo disponible y combinaciones inteligentes de ingredientes.")
-        
-    with col_c:
-        st.markdown("#### 🤝 Comparte")
-        st.write("Guarda tus recetas preferidas, organízalas en tus favoritos y comparte hábitos de cocina más sostenibles.")
 
 # ------------------------------------------------------------
 # 2. PESTAÑA DEL BUSCADOR
@@ -392,3 +374,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
+            
