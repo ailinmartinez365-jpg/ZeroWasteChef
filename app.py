@@ -17,8 +17,8 @@ st.set_page_config(
 
 recetas = modulo_recetas.recetas
 
-# Inicializar estados de la sesión
-if "favoritos" not in st.session_state:
+# Inicializar estados de la sesión asegurando que sean listas
+if "favoritos" not in st.session_state or not isinstance(st.session_state.favoritos, list):
     st.session_state.favoritos = []
 
 if "favoritos_cargados" not in st.session_state:
@@ -34,8 +34,6 @@ if "receta_modal" not in st.session_state:
 
 def sincronizar_localstorage():
     """Maneja la lectura y escritura de favoritos en el navegador."""
-    
-    # 1. Recuperar favoritos guardados al cargar la app por primera vez
     if not st.session_state.favoritos_cargados:
         html_code = """
         <script>
@@ -54,7 +52,7 @@ def sincronizar_localstorage():
         </script>
         """
         favs_recuperados = components.html(html_code, height=0, width=0)
-        if favs_recuperados is not None:
+        if favs_recuperados is not None and isinstance(favs_recuperados, list):
             st.session_state.favoritos = favs_recuperados
             st.session_state.favoritos_cargados = True
 
@@ -262,7 +260,10 @@ st.markdown(
 
 st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
 
-tab_buscador, tab_favoritos = st.tabs(["🔍 Buscador Inteligente", f"❤️ Mis Favoritos ({len(st.session_state.favoritos)})"])
+# Garantizar la lectura segura de la cantidad de favoritos
+num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
+
+tab_buscador, tab_favoritos = st.tabs(["🔍 Buscador Inteligente", f"❤️ Mis Favoritos ({num_favoritos})"])
 
 with tab_buscador:
     entrada = st.text_input(
@@ -333,4 +334,4 @@ with tab_favoritos:
         mostrar_grilla_recetas(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
-    
+        
