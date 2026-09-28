@@ -1,6 +1,9 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import os
+import base64
+import json
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -13,10 +16,8 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Cargar base de datos
 recetas = modulo_recetas.recetas
 
-# Inicializar estados de la sesión
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
@@ -25,35 +26,36 @@ if "receta_modal" not in st.session_state:
 
 
 # ============================================================
-# NORMALIZAR INGREDIENTES
+# FUNCIONES AUXILIARES
 # ============================================================
+
+def obtener_base64_imagen(ruta_relativa):
+    if not ruta_relativa:
+        return ""
+    ruta_abs = os.path.join(os.path.dirname(__file__), ruta_relativa)
+    if os.path.exists(ruta_abs):
+        try:
+            with open(ruta_abs, "rb") as img_file:
+                encoded = base64.b64encode(img_file.read()).decode()
+                ext = ruta_relativa.split(".")[-1].lower()
+                mime = "jpeg" if ext in ["jpg", "jpeg"] else ext
+                return f"data:image/{mime};base64,{encoded}"
+        except Exception:
+            return ""
+    return ""
 
 @st.cache_data
 def normalizar_ingrediente(ingrediente):
-    ingrediente = ingrediente.strip().lower()
-    ingrediente = ingrediente.replace(",", "").replace(".", "")
-
+    ingrediente = ingrediente.strip().lower().replace(",", "").replace(".", "")
     palabras = ingrediente.split()
-
-    palabras_ignoradas = [
+    ignoradas = [
         "un", "una", "unos", "unas", "el", "la", "los", "las", "de", "del",
         "gramos", "gramo", "kg", "kilo", "kilos", "g", "ml", "litro", "litros",
         "taza", "tazas", "cucharada", "cucharadas", "cucharadita", "cucharaditas",
         "barra", "barras", "paquete", "paquetes", "lata", "latas", "sobre", "sobres", "pieza", "piezas"
     ]
-
-    palabras_limpias = []
-
-    for palabra in palabras:
-        palabra_limpia = palabra.strip(".,;:()")
-
-        if palabra_limpia.isdigit() or "/" in palabra_limpia:
-            continue
-
-        if palabra_limpia not in palabras_ignoradas:
-            palabras_limpias.append(palabra_limpia)
-
-    ingrediente = " ".join(palabras_limpias)
+    limpias = [p.strip(".,;:()") for p in palabras if not p.isdigit() and "/" not in p and p not in ignoradas]
+    ingrediente = " ".join(limpias)
 
     equivalencias = {
         "jitomate": "tomate", "jitomates": "tomate", "tomates": "tomate",
@@ -68,122 +70,28 @@ def normalizar_ingrediente(ingrediente):
 
     if ingrediente in equivalencias:
         return equivalencias[ingrediente]
-
     if ingrediente.endswith("s") and len(ingrediente) > 3:
-        ingrediente = ingrediente[:-1]
-
+        return ingrediente[:-1]
     return ingrediente
 
 
 # ============================================================
-# ESTILOS CSS INYECTADOS (CARRUSEL HORIZONTAL SIN IFRAME)
+# ESTILOS GENERALES
 # ============================================================
 
 st.markdown(
     """
     <style>
-    body {
-        cursor: url('https://img.icons8.com/emoji/32/pizza-emoji.png'), auto !important;
-    }
-
-    .stApp {
-        background-color: #F5F1E8;
-    }
-
-    .block-container {
-        max-width: 1250px;
-        padding-top: 35px;
-        padding-bottom: 60px;
-    }
-
-    .marca {
-        text-align: center;
-        margin-bottom: 8px;
-    }
-
-    .marca h1 {
-        font-size: 46px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        margin-bottom: 5px;
-        color: #26352B;
-    }
-
-    .marca p {
-        font-size: 18px;
-        color: #59645C;
-        margin-top: 0;
-    }
-
-    .linea {
-        height: 1px;
-        background-color: #D7D0C2;
-        margin: 25px 0;
-    }
-
-    .seccion-busqueda {
-        text-align: center;
-        margin-bottom: 25px;
-    }
-
-    div[data-testid="stTextInput"] input {
-        border: 1px solid #C9C2B5;
-        border-radius: 12px;
-        background-color: #FFFFFF;
-        padding: 14px;
-        font-size: 16px;
-    }
-
-    /* ESTILO PARA EL CONTENEDOR HORIZONTAL DEL CARRUSEL */
-    div[data-testid="stHorizontalBlock"].carrusel-horizontal {
-        display: flex !important;
-        flex-direction: row !important;
-        overflow-x: auto !important;
-        flex-wrap: nowrap !important;
-        gap: 16px !important;
-        padding: 10px 5px 20px 5px !important;
-        scroll-behavior: smooth;
-    }
-
-    div[data-testid="stHorizontalBlock"].carrusel-horizontal::-webkit-scrollbar {
-        height: 7px;
-    }
-
-    div[data-testid="stHorizontalBlock"].carrusel-horizontal::-webkit-scrollbar-thumb {
-        background-color: #C9C2B5;
-        border-radius: 10px;
-    }
-
-    /* FORZAR TAMAÑO Y FORMA DE TARJETA EN CADA COLUMNA */
-    div[data-testid="stHorizontalBlock"].carrusel-horizontal > div[data-testid="column"] {
-        flex: 0 0 220px !important;
-        min-width: 220px !important;
-        max-width: 220px !important;
-    }
-
-    /* BOTONES */
-    .stButton > button {
-        border-radius: 10px;
-        background-color: #536B59;
-        color: white;
-        font-weight: 600;
-        width: 100%;
-    }
-
-    .stButton > button:hover {
-        background-color: #3F5545;
-        color: white;
-    }
-
-    .badge-match {
-        display: inline-block;
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-size: 11px;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 5px;
-    }
+    .stApp { background-color: #F5F1E8; }
+    .block-container { max-width: 1250px; padding-top: 35px; padding-bottom: 60px; }
+    .marca { text-align: center; margin-bottom: 8px; }
+    .marca h1 { font-size: 46px; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; color: #26352B; }
+    .marca p { font-size: 18px; color: #59645C; margin-top: 0; }
+    .linea { height: 1px; background-color: #D7D0C2; margin: 25px 0; }
+    .seccion-busqueda { text-align: center; margin-bottom: 25px; }
+    div[data-testid="stTextInput"] input { border: 1px solid #C9C2B5; border-radius: 12px; background-color: #FFFFFF; padding: 14px; font-size: 16px; }
+    .stButton > button { border-radius: 10px; background-color: #536B59; color: white; font-weight: 600; width: 100%; }
+    .stButton > button:hover { background-color: #3F5545; color: white; }
     </style>
     """,
     unsafe_allow_html=True
@@ -191,59 +99,210 @@ st.markdown(
 
 
 # ============================================================
-# RENDERIZADOR DE CARRUSEL HORIZONTAL NATIVO
+# RENDERIZADOR DE CARRUSEL HORIZONTAL HTML REAL
 # ============================================================
 
-def mostrar_carrusel_horizontal(lista_items, prefijo_key):
-    # Envolvemos las columnas nativas de Streamlit dentro del contenedor con scroll horizontal
-    st.html('<div class="carrusel-contenedor-wrapper">')
-    
-    cols = st.columns(len(lista_items))
-    
-    # Aplicar la clase CSS para volverlo carrusel deslizable
-    st.markdown(
-        """
-        <script>
-            var elementos = window.parent.document.querySelectorAll('div[data-testid="stHorizontalBlock"]');
-            elementos.forEach(function(el) {
-                if (el.children.length > 1) {
-                    el.classList.add('carrusel-horizontal');
-                }
-            });
-        </script>
-        """,
-        unsafe_allow_html=True
-    )
-
+def renderizar_carrusel_real(lista_items, prefijo_key):
+    cards_html = ""
     for idx, item in enumerate(lista_items):
         receta = item["receta"]
         porcentaje = round(item["porcentaje"])
         badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
+        img_src = obtener_base64_imagen(receta.get("imagen", ""))
+        
+        img_tag = f'<img src="{img_src}" class="card-img"/>' if img_src else '<div class="card-img-placeholder">🍳</div>'
+        
+        # Guardamos el nombre escapado para JS
+        nombre_safe = receta["nombre"].replace("'", "\\'")
 
-        with cols[idx]:
-            with st.container(border=True):
-                # Imagen
-                ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
-                if os.path.exists(ruta_imagen):
-                    st.image(ruta_imagen, use_container_width=True)
-                else:
-                    st.write("🍳")
+        cards_html += f"""
+        <div class="card">
+            <div class="img-box">
+                {img_tag}
+                <span class="badge" style="background-color: {badge_color};">{porcentaje}% Match</span>
+            </div>
+            <div class="card-content">
+                <div class="title">{receta['nombre']}</div>
+                <div class="meta">⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}</div>
+                <button class="btn-receta" onclick="abrirReceta('{nombre_safe}')">Ver receta</button>
+            </div>
+        </div>
+        """
 
-                # Badge
-                st.markdown(
-                    f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
-                    unsafe_allow_html=True
-                )
+    html_componente = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+        * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }}
+        body {{ background: transparent; overflow: hidden; }}
+        
+        .carousel-wrapper {{
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }}
+        
+        .carousel-track {{
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 5px 15px 5px;
+            width: 100%;
+        }}
+        
+        .carousel-track::-webkit-scrollbar {{
+            height: 6px;
+        }}
+        .carousel-track::-webkit-scrollbar-thumb {{
+            background: #C9C2B5;
+            border-radius: 10px;
+        }}
+        
+        .card {{
+            flex: 0 0 210px;
+            width: 210px;
+            height: 275px;
+            background: #FFFFFF;
+            border: 1px solid #DED8CC;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }}
+        
+        .img-box {{
+            width: 100%;
+            height: 120px;
+            position: relative;
+            background: #EFECE6;
+        }}
+        
+        .card-img {{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }}
+        
+        .card-img-placeholder {{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }}
+        
+        .badge {{
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+        }}
+        
+        .card-content {{
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }}
+        
+        .title {{
+            font-size: 14px;
+            font-weight: 700;
+            color: #26352B;
+            line-height: 1.2;
+            height: 34px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }}
+        
+        .meta {{
+            font-size: 12px;
+            color: #666;
+            margin: 4px 0 8px 0;
+            font-weight: 600;
+        }}
+        
+        .btn-receta {{
+            width: 100%;
+            background-color: #536B59;
+            color: white;
+            border: none;
+            padding: 8px 0;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }}
+        
+        .btn-receta:hover {{
+            background-color: #3F5545;
+        }}
+        
+        .nav-btn {{
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background: rgba(83, 107, 89, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }}
+        .nav-left {{ left: -5px; }}
+        .nav-right {{ right: -5px; }}
+    </style>
+    </head>
+    <body>
+        <div class="carousel-wrapper">
+            <button class="nav-btn nav-left" onclick="scrollCarrusel(-300)">❮</button>
+            <div class="carousel-track" id="track_{prefijo_key}">
+                {cards_html}
+            </div>
+            <button class="nav-btn nav-right" onclick="scrollCarrusel(300)">❯</button>
+        </div>
 
-                st.subheader(receta["nombre"])
-                st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
+        <script>
+            function scrollCarrusel(val) {{
+                document.getElementById('track_{prefijo_key}').scrollBy({{ left: val, behavior: 'smooth' }});
+            }}
 
-                # BOTÓN NATIVO DE STREAMLIT (NUNCA FALLA NI BORRA NADA)
-                if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
-                    st.session_state.receta_modal = receta
-                    st.rerun()
+            function abrirReceta(nombre) {{
+                // Dispara el evento sin recargar la página ni romper Streamlit
+                window.parent.postMessage({{
+                    type: 'streamlit:setComponentValue',
+                    value: nombre
+                }}, '*');
+            }}
+        </script>
+    </body>
+    </html>
+    """
 
-    st.html('</div>')
+    # Retorna el valor seleccionado de la receta directamente al hacer clic
+    return components.html(html_componente, height=300)
 
 
 # ============================================================
@@ -283,14 +342,14 @@ def mostrar_modal_receta(receta):
             st.rerun()
 
 
-# Disparar el modal si se hizo clic en una receta
+# Abrir modal si hay receta activa
 if st.session_state.receta_modal:
     mostrar_modal_receta(st.session_state.receta_modal)
     st.session_state.receta_modal = None
 
 
 # ============================================================
-# VISTA PRINCIPAL Y ENCABEZADO
+# INTERFAZ PRINCIPAL
 # ============================================================
 
 st.markdown(
@@ -321,30 +380,20 @@ with tab_buscador:
     entrada = st.text_input(
         "Ingredientes",
         placeholder="Ejemplo: huevo, tomate, queso",
-        label_visibility="collapsed",
-        key="input_ingredientes"
+        label_visibility="collapsed"
     )
 
     columna_tiempo, columna_nivel = st.columns(2)
 
     with columna_tiempo:
-        filtro_tiempo = st.selectbox(
-            "Tiempo disponible",
-            ["Todos", "10 minutos", "20 minutos", "30+ minutos"]
-        )
+        filtro_tiempo = st.selectbox("Tiempo disponible", ["Todos", "10 minutos", "20 minutos", "30+ minutos"])
 
     with columna_nivel:
-        filtro_nivel = st.selectbox(
-            "Nivel de dificultad",
-            ["Todos", "Principiante", "Intermedio", "Explorador", "Experto"]
-        )
+        filtro_nivel = st.selectbox("Nivel de dificultad", ["Todos", "Principiante", "Intermedio", "Explorador", "Experto"])
 
     ingredientes_usuario = []
     if entrada:
-        ingredientes_usuario = [
-            normalizar_ingrediente(ing)
-            for ing in entrada.split(",") if ing.strip()
-        ]
+        ingredientes_usuario = [normalizar_ingrediente(ing) for ing in entrada.split(",") if ing.strip()]
         ingredientes_usuario = list(dict.fromkeys(ingredientes_usuario))
 
     resultados = []
@@ -392,10 +441,7 @@ with tab_buscador:
                 "puntuacion": puntuacion
             })
 
-        resultados.sort(
-            key=lambda r: (r["puntuacion"], r["porcentaje"], r["coincidencias"], -r["receta"]["tiempo"]),
-            reverse=True
-        )
+        resultados.sort(key=lambda r: (r["puntuacion"], r["porcentaje"], r["coincidencias"], -r["receta"]["tiempo"]), reverse=True)
 
         st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
         st.markdown(f"### 🍽️ Resultados ({len(resultados)})")
@@ -408,21 +454,27 @@ with tab_buscador:
 
                 if recetas_nivel:
                     st.subheader(f"📌 {nivel}")
-                    # Render de carrusel horizontal verdadero con botones funcionales
-                    mostrar_carrusel_horizontal(recetas_nivel, f"carrusel_sec_{i}")
+                    # Renderizamos carrusel HTML estilizado e independiente
+                    seleccion = renderizar_carrusel_real(recetas_nivel, f"car_{i}")
+                    
+                    # Si el usuario hace clic en "Ver receta", capturamos el evento
+                    if seleccion:
+                        for r in recetas:
+                            if r["nombre"] == seleccion:
+                                st.session_state.receta_modal = r
+                                st.rerun()
         else:
             st.info("No se encontraron recetas con esos ingredientes y filtros.")
 
 
 # ============================================================
-# TAB DE FAVORITOS
+# TAB FAVORITOS
 # ============================================================
 
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
         fav_recetas = [r for r in recetas if r["nombre"] in st.session_state.favoritos]
-        
         cols_fav = st.columns(3)
         for idx, receta in enumerate(fav_recetas):
             with cols_fav[idx % 3]:
@@ -432,10 +484,9 @@ with tab_favoritos:
                         st.image(ruta_imagen, use_container_width=True)
                     st.subheader(receta["nombre"])
                     st.caption(f"⏱️ {receta['tiempo']} min | 📈 {receta['nivel']}")
-                    
                     if st.button("Ver receta", key=f"fav_btn_{receta['nombre']}"):
                         st.session_state.receta_modal = receta
                         st.rerun()
     else:
         st.info("Aún no has guardado recetas favoritas.")
-             
+    
