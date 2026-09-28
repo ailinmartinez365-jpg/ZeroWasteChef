@@ -18,9 +18,6 @@ recetas = modulo_recetas.recetas
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = []
 
-if "receta_modal" not in st.session_state:
-    st.session_state.receta_modal = None
-
 
 # ============================================================
 # NORMALIZAR INGREDIENTES
@@ -65,29 +62,19 @@ st.markdown(
     """
     <style>
     .stApp { background-color: #F5F1E8; }
-    .block-container { max-width: 1200px; padding-top: 30px; padding-bottom: 60px; }
+    .block-container { max-width: 1000px; padding-top: 30px; padding-bottom: 60px; }
     .marca { text-align: center; margin-bottom: 8px; }
     .marca h1 { font-size: 42px; font-weight: 800; letter-spacing: 2px; margin-bottom: 5px; color: #26352B; }
     .marca p { font-size: 16px; color: #59645C; margin-top: 0; }
     .linea { height: 1px; background-color: #D7D0C2; margin: 20px 0; }
     
-    /* Estilos para las tarjetas de la grilla */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
+    /* Estilo para los bloques desplegables */
+    div[data-testid="stExpander"] {
         background-color: #FFFFFF;
-        border-radius: 12px;
+        border-radius: 10px;
         border: 1px solid #DED8CC !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-        transition: transform 0.2s ease;
-    }
-    
-    .badge-match {
-        display: inline-block;
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
 
     .stButton > button {
@@ -95,7 +82,6 @@ st.markdown(
         background-color: #536B59;
         color: white;
         font-weight: 600;
-        width: 100%;
     }
     .stButton > button:hover { background-color: #3F5545; color: white; }
     </style>
@@ -105,81 +91,57 @@ st.markdown(
 
 
 # ============================================================
-# RENDERIZADOR EN REJILLA/GRILLA (3 COLUMNAS)
+# RENDERIZADOR EN ACORDEÓN / DESPLEGABLE
 # ============================================================
 
-def mostrar_grilla_recetas(lista_items, prefijo_key):
-    cols = st.columns(3) # 3 tarjetas por fila
-    
+def mostrar_lista_acordeon(lista_items, prefijo_key):
     for idx, item in enumerate(lista_items):
         receta = item["receta"]
         porcentaje = round(item["porcentaje"])
-        badge_color = "#28a745" if porcentaje == 100 else ("#17a2b8" if porcentaje >= 75 else "#ffc107")
+        
+        # Emoji / indicador según porcentaje
+        match_str = f"🟢 {porcentaje}% Match" if porcentaje == 100 else (f"🔵 {porcentaje}% Match" if porcentaje >= 75 else f"🟡 {porcentaje}% Match")
+        
+        # Título formateado para la barra del acordeón
+        titulo_expander = f"🍽️ {receta['nombre']}  —  {match_str} | ⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}"
 
-        with cols[idx % 3]:
-            with st.container(border=True):
-                # Imagen
+        with st.expander(titulo_expander):
+            col_img, col_info = st.columns([1, 2])
+
+            with col_img:
                 ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
                 if os.path.exists(ruta_imagen):
                     st.image(ruta_imagen, use_container_width=True)
                 else:
-                    st.write("🍳")
+                    st.write("🍳 (Sin imagen)")
 
-                # Match
-                st.markdown(
-                    f'<span class="badge-match" style="background-color: {badge_color};">{porcentaje}% Match</span>',
-                    unsafe_allow_html=True
-                )
+            with col_info:
+                st.caption(receta.get("descripcion", ""))
+                
+                # Botón de Favoritos integrado dentro del mismo desplegable
+                es_fav = receta["nombre"] in st.session_state.favoritos
+                if es_fav:
+                    if st.button("❤️ Quitar de Favoritos", key=f"fav_{prefijo_key}_{idx}_{receta['nombre']}"):
+                        st.session_state.favoritos.remove(receta["nombre"])
+                        st.rerun()
+                else:
+                    if st.button("🤍 Guardar en Favoritos", key=f"fav_{prefijo_key}_{idx}_{receta['nombre']}"):
+                        st.session_state.favoritos.append(receta["nombre"])
+                        st.rerun()
 
-                st.subheader(receta["nombre"])
-                st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
+            st.divider()
 
-                # Botón ver receta nativo que NUNCA falla
-                if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
-                    st.session_state.receta_modal = receta
-                    st.rerun()
+            col_ing, col_inst = st.columns([1, 2])
 
+            with col_ing:
+                st.markdown("#### 🛒 Ingredientes")
+                for ing in receta["ingredientes"]:
+                    st.write(f"• {ing.capitalize()}")
 
-# ============================================================
-# MODAL DE RECETA
-# ============================================================
-
-@st.dialog("Detalles de la Receta")
-def mostrar_modal_receta(receta):
-    ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
-    if os.path.exists(ruta_imagen):
-        st.image(ruta_imagen, use_container_width=True)
-    
-    st.title(receta["nombre"])
-    st.write(f"⏱️ **Tiempo:** {receta['tiempo']} minutos | 📊 **Nivel:** {receta['nivel']}")
-    st.caption(receta.get("descripcion", ""))
-
-    st.divider()
-
-    st.subheader("🛒 Ingredientes")
-    for ing in receta["ingredientes"]:
-        st.write(f"• {ing.capitalize()}")
-
-    st.divider()
-
-    st.subheader("👩‍🍳 Instrucciones de Preparación")
-    for i, paso in enumerate(receta.get("instrucciones", []), start=1):
-        st.write(f"**{i}.** {paso}")
-
-    es_favorito = receta["nombre"] in st.session_state.favoritos
-    if es_favorito:
-        if st.button("❤️ Quitar de Favoritos"):
-            st.session_state.favoritos.remove(receta["nombre"])
-            st.rerun()
-    else:
-        if st.button("🤍 Guardar en Favoritos"):
-            st.session_state.favoritos.append(receta["nombre"])
-            st.rerun()
-
-
-if st.session_state.receta_modal:
-    mostrar_modal_receta(st.session_state.receta_modal)
-    st.session_state.receta_modal = None
+            with col_inst:
+                st.markdown("#### 👩‍🍳 Instrucciones")
+                for i, paso in enumerate(receta.get("instrucciones", []), start=1):
+                    st.write(f"**{i}.** {paso}")
 
 
 # ============================================================
@@ -246,16 +208,16 @@ with tab_buscador:
         resultados.sort(key=lambda r: r["porcentaje"], reverse=True)
 
         st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
-        st.markdown(f"### 🍽️ Recetas Recomendadas ({len(resultados)})")
+        st.markdown(f"### 🍽️ Recetas Encontradas ({len(resultados)})")
 
         if resultados:
-            niveles_disponibles = list(set(r["receta"]["nivel"] for r in resultados))
-            tabs_niveles = st.tabs([f"📌 {n}" for n in niveles_disponibles])
+            niveles = ["Principiante", "Intermedio", "Explorador", "Experto"]
 
-            for idx, nivel in enumerate(niveles_disponibles):
-                with tabs_niveles[idx]:
-                    recetas_sub = [r for r in resultados if r["receta"]["nivel"] == nivel]
-                    mostrar_grilla_recetas(recetas_sub, f"grilla_{idx}")
+            for idx, nivel in enumerate(niveles):
+                recetas_nivel = [r for r in resultados if r["receta"]["nivel"] == nivel]
+                if recetas_nivel:
+                    st.subheader(f"📌 {nivel}")
+                    mostrar_lista_acordeon(recetas_nivel, f"acordeon_{idx}")
         else:
             st.info("No se encontraron recetas con esos filtros.")
 
@@ -264,7 +226,7 @@ with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
         fav_recetas = [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
-        mostrar_grilla_recetas(fav_recetas, "favs")
+        mostrar_lista_acordeon(fav_recetas, "favs")
     else:
         st.info("Aún no has guardado recetas favoritas.")
             
