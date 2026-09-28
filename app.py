@@ -593,4 +593,7 @@ with tab_diseno:
 with tab_favoritos:
     st.subheader("❤️ Tus Recetas Guardadas")
     if st.session_state.favoritos:
-        fav_recetas = 
+        fav_recetas =  [{"receta": r, "porcentaje": 100} for r in recetas if r["nombre"] in st.session_state.favoritos]
+        mostrar_grilla_recetas(fav_recetas, "favs")
+    else:
+        st.info("Aún no has guardado recetas favoritas.")
