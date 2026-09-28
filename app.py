@@ -1,36 +1,8 @@
-# ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA DE LA APP)
-# ------------------------------------------------------------
-with tab_inicio:
-    # 1. Lista de posibles nombres que pudo haber tomado el archivo al subirlo
-    nombres_posibles = [
-        "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
-        "Portada.jpg", "PORTADA.JPG"
-    ]
-    
-    imagen_encontrada = None
-    dir_actual = os.path.dirname(__file__)
-
-    # Buscar la imagen localmente considerando variaciones de mayúsculas y extensión
-    for nombre in nombres_posibles:
-        ruta = os.path.join(dir_actual, nombre)
-        if os.path.exists(ruta):
-            imagen_encontrada = ruta
-            break
-
-    # 2. Renderizar la imagen si existe localmente o usar la URL externa si no
-    if imagen_encontrada:
-        st.image(imagen_encontrada, use_container_width=True)
-    else:
-        # Enlace externo como respaldo directo si el archivo en GitHub aún no compila
-        url_respaldo = "https://lh3.googleusercontent.com/d/1000065722.jpg"
-        st.image(url_respaldo, use_container_width=True)
-        
+import os
+import json
 import streamlit as st
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
-import os
-import json
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -140,7 +112,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS REFORZADOS (NUEVA PALETA DE COLORES)
+# ESTILOS CSS REFORZADOS (COLORES DE LA PALETA)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -357,12 +329,12 @@ if st.session_state.receta_modal:
 
 
 # ============================================================
-# INTERFAZ PRINCIPAL Y NAVEGACIÓN
+# INTERFAZ PRINCIPAL Y DEFINICIÓN DE PESTAÑAS (OBLIGATORIO AQUÍ)
 # ============================================================
 
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
-# Pestañas principales
+# Se definen las variables de las pestañas PRIMERO:
 tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_favoritos = st.tabs([
     "🏠 Inicio", 
     "📖 Menú",
@@ -374,14 +346,30 @@ tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_
 ])
 
 # ------------------------------------------------------------
-# 1. PESTAÑA DE INICIO (PORTADA DE LA APP)
+# 1. PESTAÑA DE INICIO
 # ------------------------------------------------------------
 with tab_inicio:
-    ruta_portada = os.path.join(os.path.dirname(__file__), "portada.jpg")
-    if os.path.exists(ruta_portada):
-        st.image(ruta_portada, use_container_width=True)
+    # Búsqueda dinámica de la imagen para garantizar que la lea sin importar el nombre o extensión
+    nombres_posibles = [
+        "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
+        "Portada.jpg", "PORTADA.JPG"
+    ]
+    
+    imagen_encontrada = None
+    dir_actual = os.path.dirname(__file__)
+
+    for nombre in nombres_posibles:
+        ruta = os.path.join(dir_actual, nombre)
+        if os.path.exists(ruta):
+            imagen_encontrada = ruta
+            break
+
+    if imagen_encontrada:
+        st.image(imagen_encontrada, use_container_width=True)
     else:
-        st.warning("⚠️ Para ver la portada completa, sube la imagen con el nombre **`portada.jpg`** a GitHub junto a tu archivo `app.py`.")
+        # Enlace externo directo a tu imagen como respaldo
+        url_respaldo = "https://lh3.googleusercontent.com/d/1000065722.jpg"
+        st.image(url_respaldo, use_container_width=True)
 
 # ------------------------------------------------------------
 # 2. PESTAÑA DE MENÚ
