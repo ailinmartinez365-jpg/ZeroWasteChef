@@ -270,20 +270,26 @@ def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
                     st.rerun()
 
 
-def mostrar_menu_categoria(categoria_nombre):
-    """Muestra las recetas de una categoría específica en una grilla de 2 columnas (como el boceto)"""
-    recetas_cat = [
-        {"receta": r} for r in recetas 
-        if r.get("categoria", "Comida").lower() == categoria_nombre.lower()
-    ]
+def mostrar_menu_categoria(categoria_nombre, subcategoria=None):
+    """Muestra las recetas filtrando por categoría principal y opcionalmente por subcategoría."""
+    recetas_filtradas = []
     
-    if recetas_cat:
-        mostrar_grilla_recetas(recetas_cat, f"menu_{categoria_nombre}", num_cols=2)
+    for r in recetas:
+        cat_match = r.get("categoria", "").lower() == categoria_nombre.lower()
+        sub_match = True
+        if subcategoria:
+            sub_match = r.get("subcategoria", "").lower() == subcategoria.lower()
+        
+        if cat_match and sub_match:
+            recetas_filtradas.append({"receta": r})
+    
+    if recetas_filtradas:
+        mostrar_grilla_recetas(recetas_filtradas, f"menu_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
     else:
-        # En caso de que aún no haya recetas etiquetadas con esa categoría en recetas.py
-        st.info(f"Aún no hay recetas registradas en la categoría '{categoria_nombre}'. Muestrario general:")
+        etiqueta = f"{categoria_nombre} > {subcategoria}" if subcategoria else categoria_nombre
+        st.info(f"Aún no hay recetas registradas en '{etiqueta}'. Muestrario de prueba:")
         recetas_demo = [{"receta": r} for r in recetas[:6]]
-        mostrar_grilla_recetas(recetas_demo, f"menu_demo_{categoria_nombre}", num_cols=2)
+        mostrar_grilla_recetas(recetas_demo, f"menu_demo_{categoria_nombre}_{subcategoria or 'gen'}", num_cols=2)
 
 
 # ============================================================
@@ -359,7 +365,7 @@ with tab_inicio:
     )
 
 # ------------------------------------------------------------
-# 2. PESTAÑA DE MENÚ (FIEL A LA DIAPOSITIVA)
+# 2. PESTAÑA DE MENÚ (FIEL A LAS DIAPOSITIVAS)
 # ------------------------------------------------------------
 with tab_menu:
     st.markdown(
@@ -381,8 +387,20 @@ with tab_menu:
     with tab_postres:
         mostrar_menu_categoria("Postres")
 
+    # SUB-SECCIÓN DE EXTRAS: BOTANAS | FIT | OTROS
     with tab_extras:
-        mostrar_menu_categoria("Extras")
+        tab_botanas, tab_fit, tab_otros = st.tabs([
+            "Botanas", "Fit", "Otros"
+        ])
+        
+        with tab_botanas:
+            mostrar_menu_categoria("Extras", "Botanas")
+            
+        with tab_fit:
+            mostrar_menu_categoria("Extras", "Fit")
+            
+        with tab_otros:
+            mostrar_menu_categoria("Extras", "Otros")
 
     with tab_bebidas:
         mostrar_menu_categoria("Bebidas")
