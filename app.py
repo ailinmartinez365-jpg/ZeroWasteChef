@@ -1,5 +1,6 @@
 import os
 import json
+import base64
 import streamlit as st
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
@@ -30,6 +31,28 @@ if "receta_modal" not in st.session_state:
 # Estado para el cursor seleccionado por el usuario
 if "cursor_actual" not in st.session_state:
     st.session_state.cursor_actual = "🍴"
+
+
+# ============================================================
+# CONVERTIDOR DE IMAGEN A BASE64 PARA CSS
+# ============================================================
+
+def obtener_base64_imagen(ruta_relativa):
+    """Convierte la imagen local a Base64 para que el CSS la muestre sin fallas."""
+    ruta_completa = os.path.join(os.path.dirname(__file__), ruta_relativa)
+    if os.path.exists(ruta_completa):
+        with open(ruta_completa, "rb") as archivo_img:
+            datos = archivo_img.read()
+        return base64.b64encode(datos).decode()
+    return None
+
+# Cargar la imagen del banner
+banner_b64 = obtener_base64_imagen("banner.png")
+if banner_b64:
+    css_background = f"url('data:image/png;base64,{banner_b64}')"
+else:
+    # URL de respaldo en caso de que el archivo 'banner.png' no se encuentre localmente
+    css_background = "url('https://lh3.googleusercontent.com/d/1000066152.png')"
 
 
 # ============================================================
@@ -112,7 +135,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS REFORZADOS (COLORES DE LA PALETA Y BANNER LOCAL)
+# ESTILOS CSS REFORZADOS (BANERS EN BASE64 / RESPONSIVO)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -143,11 +166,11 @@ st.markdown(
         color: #4A2920 !important;
     }}
 
-    /* BANNER RESPONSIVO USANDO LA IMAGEN LOCAL 'banner.png' */
+    /* BANNER RESPONSIVO AUTO-CONVERTIDO EN BASE64 */
     .kitchen-banner {{
         width: 100%;
         height: 180px;
-        background-image: url('app/static/banner.png'), url('banner.png');
+        background-image: {css_background};
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
@@ -533,7 +556,7 @@ with tab_diseno:
         {"nombre": "Hot Dog", "emoji": "🌭"},
         {"nombre": "Sushi", "emoji": "🍣"},
         {"nombre": "Pastel", "emoji": "🍰"},
-        {"nombre": "Chef", "emoji": "👨‍‍🍳"}
+        {"nombre": "Chef", "emoji": "👨‍‍‍‍🍳"}
     ]
 
     cols_diseno = st.columns(2)
