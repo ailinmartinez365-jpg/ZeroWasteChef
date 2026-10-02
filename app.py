@@ -562,7 +562,7 @@ with tab_diseno:
         {"nombre": "Hot Dog", "emoji": "🌭"},
         {"nombre": "Sushi", "emoji": "🍣"},
         {"nombre": "Pastel", "emoji": "🍰"},
-        {"nombre": "Chef", "emoji": "👨‍‍🍳"}
+        {"nombre": "Chef", "emoji": "🧑🏻‍🍳"}
     ]
 
     cols_diseno = st.columns(2)
