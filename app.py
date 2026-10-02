@@ -12,7 +12,7 @@ st.set_page_config(
     page_title="Kitchen help",
     page_icon="🍳",
     layout="wide",
-    initial_sidebar_state="TRUE NORTH"
+    initial_sidebar_state="collapsed"
 )
 
 recetas = modulo_recetas.recetas
@@ -356,7 +356,7 @@ with tab_inicio:
     # Búsqueda dinámica de la imagen de portada subida
     nombres_posibles = [
         "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
-        "Portada.jpg", "PORTADA.JPG", "file_00000000947081f5b885fe6fc5adb6a7.png"
+        "Portada.jpg", "PORTADA.JPG"
     ]
     
     imagen_encontrada = None
@@ -562,7 +562,7 @@ with tab_diseno:
         {"nombre": "Hot Dog", "emoji": "🌭"},
         {"nombre": "Sushi", "emoji": "🍣"},
         {"nombre": "Pastel", "emoji": "🍰"},
-        {"nombre": "Chef", "emoji": "🧑🏻‍🍳"}
+        {"nombre": "Chef", "emoji": "👨‍‍🍳"}
     ]
 
     cols_diseno = st.columns(2)
