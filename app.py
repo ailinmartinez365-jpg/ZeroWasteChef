@@ -12,7 +12,7 @@ st.set_page_config(
     page_title="Kitchen help",
     page_icon="🍳",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="TRUE NORTH"
 )
 
 recetas = modulo_recetas.recetas
