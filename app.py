@@ -578,4 +578,16 @@ with tab_diseno:
                 unsafe_allow_html=True
             )
             if st.button(f"Seleccionar {item['nombre']}", key=f"cursor_btn_{idx}"):
-    
+                st.session_state.cursor_actual = item["emoji"]
+                st.rerun()
+
+# ------------------------------------------------------------
+# 7. PESTAÑA FAVORITOS
+# ------------------------------------------------------------
+with tab_favoritos:
+    st.subheader("❤️ Tus Recetas Guardadas")
+    if st.session_state.favoritos:
+        fav_recetas = [{"receta": r} for r in recetas if r["nombre"] in st.session_state.favoritos]
+        mostrar_grilla_recetas(fav_recetas, "favs", num_cols=2)
+    else:
+        st.info("Aún no has guardado recetas favoritas.")
