@@ -112,7 +112,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS REFORZADOS (COLORES DE LA PALETA)
+# ESTILOS CSS REFORZADOS (COLORES DE LA PALETA Y BANNER LOCAL)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -143,11 +143,11 @@ st.markdown(
         color: #4A2920 !important;
     }}
 
-    /* BANNER RESPONSIVO PARA 'KITCHEN HELP' */
+    /* BANNER RESPONSIVO USANDO LA IMAGEN LOCAL 'banner.png' */
     .kitchen-banner {{
         width: 100%;
         height: 180px;
-        background-image: url('https://lh3.googleusercontent.com/d/1000066152.png');
+        background-image: url('app/static/banner.png'), url('banner.png');
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center center;
@@ -319,7 +319,7 @@ def mostrar_modal_receta(receta):
 
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
-        if st.button("❤️️ Quitar de Favoritos"):
+        if st.button("❤ Quitar de Favoritos"):
             st.session_state.favoritos.remove(receta["nombre"])
             guardar_favorito_localstorage(st.session_state.favoritos)
             st.rerun()
@@ -355,7 +355,6 @@ tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_
 # 1. PESTAÑA DE INICIO
 # ------------------------------------------------------------
 with tab_inicio:
-    # Búsqueda dinámica de la imagen de portada subida
     nombres_posibles = [
         "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
         "Portada.jpg", "PORTADA.JPG"
@@ -373,9 +372,7 @@ with tab_inicio:
     if imagen_encontrada:
         st.image(imagen_encontrada, use_container_width=True)
     else:
-        # Enlace externo directo como respaldo
-        url_respaldo = "https://lh3.googleusercontent.com/d/1000065722.jpg"
-        st.image(url_respaldo, use_container_width=True)
+        st.info("Sube la imagen 'portada.jpg' a la raíz de tu proyecto para ver la portada completa.")
 
 # ------------------------------------------------------------
 # 2. PESTAÑA DE MENÚ
