@@ -120,6 +120,9 @@ emoji_cursor = st.session_state.cursor_actual
 st.markdown(
     f"""
     <style>
+    /* IMPORTAR TIPOGRAFÍA CURSIVA ESTILO "BETTER TOGETHER" DE CANVA */
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=MonteCarlo&family=Dancing+Script:wght@700&display=swap');
+
     /* CURSOR DINÁMICO PERSONALIZADO */
     html, body, .stApp, button, div, a, input {{
         cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
@@ -148,14 +151,17 @@ st.markdown(
         padding: 15px 0;
         margin-bottom: 20px;
     }}
+    
+    /* APLICACIÓN DE LA LETRA BETTER TOGETHER A KITCHEN HELP */
     .section-header h1 {{
-        font-family: 'Georgia', serif;
-        font-size: 38px;
-        font-weight: bold;
-        letter-spacing: 2px;
+        font-family: 'Great Vibes', 'Dancing Script', cursive !important;
+        font-size: 64px !important;
+        font-weight: normal !important;
+        letter-spacing: 1px !important;
         color: #4A2920 !important;
-        text-transform: uppercase;
+        text-transform: none !important;
         margin: 0;
+        line-height: 1.2;
     }}
 
     /* TARJETAS DE RECETAS Y DISEÑO: Blanco con borde Amarillo Mantequilla #F4C95D */
@@ -382,7 +388,7 @@ with tab_menu:
     st.markdown(
         """
         <div class="section-header notranslate" translate="no">
-            <h1>KITCHEN HELP</h1>
+            <h1>Kitchen Help</h1>
         </div>
         """,
         unsafe_allow_html=True
@@ -484,7 +490,7 @@ with tab_familia:
     st.markdown(
         """
         <div class="section-header notranslate" translate="no">
-            <h1>KITCHEN HELP</h1>
+            <h1>Kitchen Help</h1>
         </div>
         """,
         unsafe_allow_html=True
@@ -513,7 +519,7 @@ with tab_temporada:
     st.markdown(
         """
         <div class="section-header notranslate" translate="no">
-            <h1>KITCHEN HELP</h1>
+            <h1>Kitchen Help</h1>
         </div>
         """,
         unsafe_allow_html=True
@@ -542,7 +548,7 @@ with tab_diseno:
     st.markdown(
         """
         <div class="section-header notranslate" translate="no">
-            <h1>KITCHEN HELP</h1>
+            <h1>Kitchen Help</h1>
         </div>
         """,
         unsafe_allow_html=True
