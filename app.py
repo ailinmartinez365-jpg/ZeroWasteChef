@@ -51,7 +51,7 @@ banner_b64 = obtener_base64_imagen("banner.png")
 if banner_b64:
     css_background = f"url('data:image/png;base64,{banner_b64}')"
 else:
-    # URL de respaldo en caso de que el archivo 'banner.png' no se encuentre localmente
+    # URL de respaldo
     css_background = "url('https://lh3.googleusercontent.com/d/1000066152.png')"
 
 
@@ -135,7 +135,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS REFORZADOS (BANERS EN BASE64 / RESPONSIVO)
+# ESTILOS CSS REFORZADOS (BANERS MAXIMIZADOS EN ANCHO)
 # ============================================================
 
 emoji_cursor = st.session_state.cursor_actual
@@ -166,20 +166,25 @@ st.markdown(
         color: #4A2920 !important;
     }}
 
-    /* BANNER RESPONSIVO AUTO-CONVERTIDO EN BASE64 */
+    /* BANNER MAXIMIZADO DE BORDE A BORDE */
     .kitchen-banner {{
-        width: 100%;
-        height: 180px;
+        width: 100% !important;
+        height: 280px; /* Mayor altura para destacar el diseño */
         background-image: {css_background};
-        background-size: contain;
+        background-size: cover; /* Ocupa el 100% del largo disponible */
         background-repeat: no-repeat;
         background-position: center center;
-        margin-bottom: 25px;
+        border-radius: 16px; /* Bordes suaves redondeados */
+        margin-top: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 16px rgba(74, 41, 32, 0.12); /* Sombra elegante */
     }}
 
+    /* Ajuste para pantallas de celulares */
     @media (max-width: 768px) {{
         .kitchen-banner {{
-            height: 100px;
+            height: 140px;
+            background-size: cover;
         }}
     }}
 
@@ -556,7 +561,7 @@ with tab_diseno:
         {"nombre": "Hot Dog", "emoji": "🌭"},
         {"nombre": "Sushi", "emoji": "🍣"},
         {"nombre": "Pastel", "emoji": "🍰"},
-        {"nombre": "Chef", "emoji": "👨‍‍‍‍🍳"}
+        {"nombre": "Chef", "emoji": "👨‍🍳"}
     ]
 
     cols_diseno = st.columns(2)
