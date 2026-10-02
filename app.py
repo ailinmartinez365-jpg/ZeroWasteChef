@@ -356,7 +356,7 @@ with tab_inicio:
     # Búsqueda dinámica de la imagen de portada subida
     nombres_posibles = [
         "portada.jpg", "portada.JPG", "portada.jpeg", "portada.png", 
-        "Portada.jpg", "PORTADA.JPG"
+        "Portada.jpg", "PORTADA.JPG", "file_00000000947081f5b885fe6fc5adb6a7.png"
     ]
     
     imagen_encontrada = None
