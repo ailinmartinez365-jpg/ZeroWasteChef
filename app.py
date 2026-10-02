@@ -120,9 +120,6 @@ emoji_cursor = st.session_state.cursor_actual
 st.markdown(
     f"""
     <style>
-    /* IMPORTAR TIPOGRAFÍA CURSIVA ESTILO "BETTER TOGETHER" DE CANVA */
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=MonteCarlo&family=Dancing+Script:wght@700&display=swap');
-
     /* CURSOR DINÁMICO PERSONALIZADO */
     html, body, .stApp, button, div, a, input {{
         cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
@@ -146,22 +143,21 @@ st.markdown(
         color: #4A2920 !important;
     }}
 
-    .section-header {{
-        text-align: center;
-        padding: 15px 0;
-        margin-bottom: 20px;
+    /* BANNER RESPONSIVO PARA 'KITCHEN HELP' */
+    .kitchen-banner {{
+        width: 100%;
+        height: 180px;
+        background-image: url('https://lh3.googleusercontent.com/d/1000066152.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-bottom: 25px;
     }}
-    
-    /* APLICACIÓN DE LA LETRA BETTER TOGETHER A KITCHEN HELP */
-    .section-header h1 {{
-        font-family: 'Great Vibes', 'Dancing Script', cursive !important;
-        font-size: 64px !important;
-        font-weight: normal !important;
-        letter-spacing: 1px !important;
-        color: #4A2920 !important;
-        text-transform: none !important;
-        margin: 0;
-        line-height: 1.2;
+
+    @media (max-width: 768px) {{
+        .kitchen-banner {{
+            height: 100px;
+        }}
     }}
 
     /* TARJETAS DE RECETAS Y DISEÑO: Blanco con borde Amarillo Mantequilla #F4C95D */
@@ -323,7 +319,7 @@ def mostrar_modal_receta(receta):
 
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
-        if st.button("❤️ Quitar de Favoritos"):
+        if st.button("❤️️ Quitar de Favoritos"):
             st.session_state.favoritos.remove(receta["nombre"])
             guardar_favorito_localstorage(st.session_state.favoritos)
             st.rerun()
@@ -385,14 +381,7 @@ with tab_inicio:
 # 2. PESTAÑA DE MENÚ
 # ------------------------------------------------------------
 with tab_menu:
-    st.markdown(
-        """
-        <div class="section-header notranslate" translate="no">
-            <h1>Kitchen Help</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
 
     tab_comida, tab_postres, tab_extras, tab_bebidas = st.tabs([
         "Comida", "Postres", "Extras", "Bebidas"
@@ -487,14 +476,7 @@ with tab_buscador:
 # 4. PESTAÑA FAMILIA
 # ------------------------------------------------------------
 with tab_familia:
-    st.markdown(
-        """
-        <div class="section-header notranslate" translate="no">
-            <h1>Kitchen Help</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
 
     tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
         "En familia", "Niños", "Para peques", "Lonche"
@@ -516,14 +498,7 @@ with tab_familia:
 # 5. PESTAÑA TEMPORADA
 # ------------------------------------------------------------
 with tab_temporada:
-    st.markdown(
-        """
-        <div class="section-header notranslate" translate="no">
-            <h1>Kitchen Help</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
 
     tab_primavera, tab_verano, tab_otono, tab_invierno = st.tabs([
         "Primavera", "Verano", "Otoño", "Invierno"
@@ -545,14 +520,7 @@ with tab_temporada:
 # 6. PESTAÑA DISEÑO
 # ------------------------------------------------------------
 with tab_diseno:
-    st.markdown(
-        """
-        <div class="section-header notranslate" translate="no">
-            <h1>Kitchen Help</h1>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
 
     st.info("💻 **Nota para móviles:** La personalización del cursor solo es visible al usar la app desde una computadora.")
 
