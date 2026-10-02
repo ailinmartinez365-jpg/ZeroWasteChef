@@ -9,7 +9,7 @@ import recetas as modulo_recetas
 # ============================================================
 
 st.set_page_config(
-    page_title="Chef Cero Residuos",
+    page_title="Kinchen Help",
     page_icon="🍳",
     layout="wide",
     initial_sidebar_state="collapsed"
