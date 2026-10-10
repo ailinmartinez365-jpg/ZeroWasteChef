@@ -186,17 +186,18 @@ st.markdown(
     .notranslate {{
         translate: no !important;
     }}
+
+    /* AJUSTE PARA PESTAÑAS EN MÓVILES (EVITA QUE SE CORTEN) */
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {{
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }}
+    [data-testid="stTabs"] button[data-baseweb="tab"] {{
+        flex: 1 1 auto !important;
+    }}
     </style>
     """,
     unsafe_allow_html=True
-    [data-testid="stTabs"] [data-baseweb="tab-list"] {
-        display: flex !important;
-        flex-wrap: wrap !important;
-    }
-    
-    [data-testid="stTabs"] button[data-baseweb="tab"] {
-        flex: 1 1 auto !important;
-    }
 )
    
 # ============================================================
