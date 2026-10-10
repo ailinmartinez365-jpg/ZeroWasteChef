@@ -190,7 +190,18 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+/* CORRECCIÓN PARA LAS PESTAÑAS EN MÓVILES */
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    
+    [data-testid="stTabs"] button[data-baseweb="tab"] {
+        flex-grow: 1 !important;
+        min-width: 100px !important;
+        font-size: 14px !important;
+        padding: 4px 8px !important;
+    }
 
 # ============================================================
 # NORMALIZAR INGREDIENTES
