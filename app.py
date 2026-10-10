@@ -10,8 +10,12 @@ supabase = create_client(supabase_url, supabase_key)
 
 @st.cache_data(ttl=5)
 def obtener_favoritos_nube():
-    response = supabase.table("favoritos").select("receta_nombre").execute()
-    return [item["receta_nombre"] for item in response.data]
+    try:
+        response = supabase.table("favoritos").select("receta_nombre").execute()
+        return [item["receta_nombre"] for item in response.data]
+    except Exception as e:
+        st.error(f"Error de Supabase: {e}")
+        return []
 
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = obtener_favoritos_nube()
