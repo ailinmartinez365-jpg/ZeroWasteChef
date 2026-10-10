@@ -189,8 +189,6 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
-/* CORRECCIÓN PARA LAS PESTAÑAS EN MÓVILES */
     [data-testid="stTabs"] [data-baseweb="tab-list"] {
         display: flex !important;
         flex-wrap: wrap !important;
@@ -199,7 +197,8 @@ st.markdown(
     [data-testid="stTabs"] button[data-baseweb="tab"] {
         flex: 1 1 auto !important;
     }
-
+)
+   
 # ============================================================
 # NORMALIZAR INGREDIENTES
 # ============================================================
