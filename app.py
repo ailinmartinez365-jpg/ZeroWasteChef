@@ -4,12 +4,10 @@ import base64
 import streamlit as st
 from supabase import create_client
 
-# --- AQUÍ VA LA CONEXIÓN A SUPABASE ---
 supabase_url = "https://wmxfwzhbwzbaacxkuqab.supabase.co/rest/v1/"
 supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndteGZ3emhid3piYWFjeGt1cWFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2NjE5NjYsImV4cCI6MjEwNzIzNzk2Nn0.R_SmJTkxJq3lyRxdHCeoINQ-cxUrrgv-Ol2YIxOg9YA"
 supabase = create_client(supabase_url, supabase_key)
 
-# Función para traer los favoritos de la nube y mantenerlos sincronizados
 @st.cache_data(ttl=5)
 def obtener_favoritos_nube():
     response = supabase.table("favoritos").select("receta_nombre").execute()
