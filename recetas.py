@@ -1,9 +1,63 @@
 # ============================================================
+# 1. LISTA INICIAL DE RECETAS (CREADA AL INICIO PARA EVITAR EL ERROR)
+# ============================================================
+recetas = [
+    {
+        "nombre": "Huevos con tomate",
+        "imagen": "imagenes/huevos_tomate.png",
+        "ingredientes": ["huevo", "tomate", "cebolla", "sal", "aceite"],
+        "tiempo": 10,
+        "nivel": "Principiante",
+        "descripcion": "Huevos revueltos tradicionales con tomate y cebolla."
+    },
+    {
+        "nombre": "Quesadillas de queso",
+        "imagen": "imagenes/quesadillas.png",
+        "ingredientes": ["tortilla", "queso"],
+        "tiempo": 5,
+        "nivel": "Principiante",
+        "descripcion": "Quesadillas calientes de sartén."
+    },
+    {
+        "nombre": "Pasta con tomate",
+        "imagen": "imagenes/pasta_tomate.png",
+        "ingredientes": ["pasta", "tomate", "ajo", "aceite de oliva", "sal"],
+        "tiempo": 15,
+        "nivel": "Principiante",
+        "descripcion": "Pasta sencilla con salsa natural de tomate."
+    },
+    {
+        "nombre": "Pasta cremosa",
+        "imagen": "imagenes/pasta_cremosa.png",
+        "ingredientes": ["pasta", "crema", "mantequilla", "queso", "pimienta"],
+        "tiempo": 20,
+        "nivel": "Principiante",
+        "descripcion": "Pasta con salsa cremosa y queso."
+    },
+    {
+        "nombre": "Arroz con verduras",
+        "imagen": "imagenes/arroz_verduras.png",
+        "ingredientes": ["arroz", "zanahoria", "chícharo", "aceite", "caldo de pollo"],
+        "tiempo": 25,
+        "nivel": "Explorador",
+        "descripcion": "Arroz clásico acompañado de verduras."
+    },
+    {
+        "nombre": "Puré de papa cremoso con tocino",
+        "imagen": "imagenes/pure_papa.png",
+        "ingredientes": ["papa", "mantequilla", "leche", "tocino", "sal", "pimienta"],
+        "tiempo": 25,
+        "nivel": "Principiante",
+        "descripcion": "Puré de papa suave con trocitos de tocino doradito."
+    }
+]
+
+
+# ============================================================
 # CATEGORÍAS DE LAS RECETAS EXISTENTES
 # ============================================================
 
 categorias_existentes = {
-
     "Huevos con tomate": "Comida",
     "Quesadillas de queso": "Comida",
     "Pasta con tomate": "Comida",
@@ -101,12 +155,13 @@ for receta in recetas:
     if receta["nombre"] in cambios_nombres:
         receta["nombre"] = cambios_nombres[receta["nombre"]]
 
-    receta["ingredientes"] = [
-        "galletas tipo María"
-        if ingrediente == "galletas Marías"
-        else ingrediente
-        for ingrediente in receta["ingredientes"]
-    ]
+    if "ingredientes" in receta:
+        receta["ingredientes"] = [
+            "galletas tipo María"
+            if ingrediente == "galletas Marías"
+            else ingrediente
+            for ingrediente in receta["ingredientes"]
+        ]
 
 
 # ============================================================
@@ -212,8 +267,7 @@ nuevas_recetas = [
             "chipotle",
             "caldo de pollo",
             "huevo",
-            "aceite de oliva",
-            "caldo de pollo"
+            "aceite de oliva"
         ],
         "tiempo": 35,
         "nivel": "Intermedio",
@@ -579,7 +633,7 @@ nuevas_recetas = [
             "Sofríe la carne con zanahoria y cebolla.",
             "Agrega salsa de tomate y catsup.",
             "Añade las láminas de lasagna.",
-            "Cubre con crema y queso.",
+             "Cubre con crema y queso.",
             "Tapa el sartén.",
             "Cocina hasta que la pasta esté suave y el queso se derrita."
         ]
@@ -1190,7 +1244,7 @@ nuevas_recetas = [
 
 
 # ============================================================
-# AGREGAR LAS NUEVAS RECETAS
+# AGREGAR LAS NUEVAS RECETAS A LA LISTA GENERAL
 # ============================================================
 
 recetas.extend(nuevas_recetas)
@@ -1201,12 +1255,8 @@ recetas.extend(nuevas_recetas)
 # ============================================================
 
 for receta in recetas:
-
-    receta["ingredientes"] = [
-        ingrediente.strip().lower()
-        for ingrediente in receta["ingredientes"]
-    ]
-
-# ============================================================
-# TOTAL ACTUAL: 99 RECETAS
-# ============================================================
+    if "ingredientes" in receta:
+        receta["ingredientes"] = [
+            ingrediente.strip().lower()
+            for ingrediente in receta["ingredientes"]
+]
