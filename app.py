@@ -2,6 +2,21 @@ import os
 import json
 import base64
 import streamlit as st
+from supabase import create_client
+
+# --- AQUÍ VA LA CONEXIÓN A SUPABASE ---
+supabase_url = "https://wmxfwzhbwzbaacxkuqab.supabase.co/rest/v1/"
+supabase_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndteGZ3emhid3piYWFjeGt1cWFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2NjE5NjYsImV4cCI6MjEwNzIzNzk2Nn0.R_SmJTkxJq3lyRxdHCeoINQ-cxUrrgv-Ol2YIxOg9YA"
+supabase = create_client(supabase_url, supabase_key)
+
+# Función para traer los favoritos de la nube y mantenerlos sincronizados
+@st.cache_data(ttl=5)
+def obtener_favoritos_nube():
+    response = supabase.table("favoritos").select("receta_nombre").execute()
+    return [item["receta_nombre"] for item in response.data]
+
+if "favoritos" not in st.session_state:
+    st.session_state.favoritos = obtener_favoritos_nube()
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 
@@ -583,10 +598,13 @@ with tab_diseno:
 # ------------------------------------------------------------
 # 7. PESTAÑA FAVORITOS
 # ------------------------------------------------------------
-with tab_favoritos:
-    st.subheader("❤️ Tus Recetas Guardadas")
-    if st.session_state.favoritos:
-        fav_recetas = [{"receta": r} for r in recetas if r["nombre"] in st.session_state.favoritos]
-        mostrar_grilla_recetas(fav_recetas, "favs", num_cols=2)
+    if es_favorito:
+        if st.button("❤️ Quitar de Favoritos", key=f"quitar_{receta['nombre']}"):
+            st.session_state.favoritos.remove(receta["nombre"])
+            supabase.table("favoritos").delete().eq("receta_nombre", receta["nombre"]).execute()
+            st.rerun()
     else:
-        st.info("Aún no has guardado recetas favoritas.")
+        if st.button("🤍 Guardar en Favoritos", key=f"guardar_{receta['nombre']}"):
+            st.session_state.favoritos.append(receta["nombre"])
+            supabase.table("favoritos").insert({"receta_nombre": receta["nombre"]}).execute()
+            st.rerun()
