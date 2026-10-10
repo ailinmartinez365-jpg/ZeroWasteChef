@@ -187,13 +187,17 @@ st.markdown(
         translate: no !important;
     }}
 
-    /* AJUSTE PARA PESTAÑAS EN MÓVILES (EVITA QUE SE CORTEN) */
     [data-testid="stTabs"] [data-baseweb="tab-list"] {{
         display: flex !important;
         flex-wrap: wrap !important;
+        overflow-x: visible !important;
     }}
     [data-testid="stTabs"] button[data-baseweb="tab"] {{
-        flex: 1 1 auto !important;
+        flex: 1 1 30% !important;
+        min-width: 90px !important;
+        white-space: normal !important;
+        height: auto !important;
+        text-align: center !important;
     }}
     </style>
     """,
