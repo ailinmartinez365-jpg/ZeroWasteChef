@@ -192,15 +192,12 @@ st.markdown(
 )
 /* CORRECCIÓN PARA LAS PESTAÑAS EN MÓVILES */
     [data-testid="stTabs"] [data-baseweb="tab-list"] {
+        display: flex !important;
         flex-wrap: wrap !important;
-        gap: 4px !important;
     }
     
     [data-testid="stTabs"] button[data-baseweb="tab"] {
-        flex-grow: 1 !important;
-        min-width: 100px !important;
-        font-size: 14px !important;
-        padding: 4px 8px !important;
+        flex: 1 1 auto !important;
     }
 
 # ============================================================
