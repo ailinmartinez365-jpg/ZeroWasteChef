@@ -600,6 +600,7 @@ with tab_diseno:
 # ------------------------------------------------------------
 # 7. PESTAÑA FAVORITOS
 # ------------------------------------------------------------
+    for receta in recetas
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
         if st.button("❤️ Quitar de Favoritos", key=f"quitar_{receta['nombre']}"):
