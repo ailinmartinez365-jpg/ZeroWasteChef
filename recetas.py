@@ -2497,27 +2497,172 @@ nuevas_recetas = [
             "Hornea hasta gratinar."
         ]
     }
-]
+Cuadri-Pizza
+Ingredientes:
+    ● 8 rebanadas de Pan Integral Bimbo
+    ● 8 rebanadas de jitomate
+    ● Orégano al gusto
+    ● 1 cucharada de aceite de oliva
+    ● 8 salchichas u 8 rebanadas de jamón
+    ● Queso manchego rallado
+    ● Sal y pimienta al gusto
+Preparación:
+    ● Se tuesta un poco de pan.
+    ● A cada pan se le pone una rebanada de jitomate, un poco de aceite de oliva, sal, pimienta y un poco de orégano.
+    ● Se rebanan las salchichas o el jamón y se acomodan arriba del jitomate.
+    ● Sazone con sal y ponga el queso rallado.
+    ● Hornee hasta que el queso gratine y dore un poco.
 
 
-# ============================================================
-# AGREGAR LAS NUEVAS RECETAS
-# ============================================================
 
-recetas.extend(nuevas_recetas)
+Caldo Tlalpeño
+Tiempo 30
+Porciones: 6
+1 kg de pollo deshebrado (pechuga o muslos)
+2 cucharadas de aceite vegetal
+1 cebolla mediana picada
+3 dientes de ajo picados
+2 zanahorias medianas cortadas en trozos
+2 papas medianas cortadas en cubos
+8 ejotes cortados en trozos pequeños
+1 lata (400 ml) de MEDIA CREMA 
+2 cubos de Caldo de Pollo 
+6 tazas de agua
+Sal y pimienta al gusto
 
 
-# ============================================================
-# LIMPIEZA FINAL DE INGREDIENTES
-# ============================================================
+En una olla grande, calienta el aceite vegetal a fuego medio-alto. Agrega la cebolla picada y los dientes de ajo, permitiendo que se doren ligeramente durante 2-3 minutos hasta que liberen su aroma.
+2.Incorpora el pollo deshebrado en la olla y revuelve constantemente durante 3-4 minutos para que se selle bien y tome color.
+3. Vierte el agua en la olla y agrega los cubos de Caldo de Pollo. Lleva a ebullición y luego reduce el fuego a medio-bajo. Deja cocinar durante 15 minutos para que el caldo adquiera sabor.
+4.Añade las zanahorias cortadas en trozos y las papas en cubos a la olla. Continúa la cocción a fuego medio durante 10 minutos aproximadamente hasta que las papas estén tiernas.
+5.Incorpora los ejotes cortados en trozos pequeños y sigue cocinando durante 5 minutos más hasta que todos los vegetales estén cocidos pero aún firmes.
+6.Retira la olla del fuego y vierte lentamente la MEDIA CREMA mientras revuelves constantemente para que se integre uniformemente sin que se corte. Prueba el caldo y ajusta la sazón con sal y pimienta según tu gusto.
+7.Sirve el caldo tlalpeño caliente en tazones profundos y acompaña con los ingredientes tradicionales como tiras de tortilla frita, rebanadas de aguacate, queso fresco desmoronado y limón fresco al lado.
 
-for receta in recetas:
+PAPAS A LA BOLOÑESA    45 min
 
-    receta["ingredientes"] = [
-        ingrediente.strip().lower()
-        for ingrediente in receta["ingredientes"]
-    ]
+INGREDIENTES
+·2 Cucharadas de aceite vegetal
+·1/2 Cebolla picada finamente
+·1 Cucharadita de ajo picado finamente
+·500 Gramos de carne molida de res
+·2 Cucharadas de salsa tipo Inglesa 
+·1 Cucharada de salsa de soya
+·2 tomates (Jitomates) cortados en cubos
+·3 Rebanadas de tocino picado y frito
+·1/2 Taza de puré de tomate natural
+·1/4 De cucharadita de hierbas finas molidas
+·1/4 De cucharadita de hojuelas de chile
+·1/4 De cucharadita de orégano seco molido
+·1 Cubo de Concentrado de tomate con pollo
+·4 Papas grandes cortadas en gajos
+·1 Cucharada de pimienta negra molida
+·1 Cucharada de hierbas finas molidas
+·1 Cucharada de sal con cebolla en polvo
+·1/4 De taza de queso parmesano rallado
+·Albahaca fresca y desinfectada
 
-# ============================================================
-# TOTAL ACTUAL: 99 RECETAS
-# ============================================================
+PREPARACION:
+·Para preparar la boloñesa, calentar en una sartén el aceite y freír la cebolla hasta que esté transparente, agregar el ajo, la carne molida y cocinar por 2 minutos. Verter la salsaInglesa y la salsa de soya. Añadir los tomates (jitomates), el tocino, el puré de tomate, la cucharadita de hierbas finas, las hojuelas de chile, el orégano, el Concentrado de Tomate con Pollo y cocinar por 5 minutos más.
+·Para cocinar las papas en gajo, colocar las papas en la canastilla de la freidora de aire y cocinar a 200 °C por 20 minutos, a la mitad de la cocción mover y continuar la cocción.
+·Aparte, mezclar la pimienta, las finas hierbas y la sal con cebolla, cuando haya pasado el tiempo de las papas añadir las papas cocidas y mueve hasta cubrir por completo.
+·Por ultimo servir las papas y cubrir con la salsa boloñesa, decorar con queso parmesano y hojas de albahaca.
+
+FLAUTAS DORADAS DE PAPA 35 min
+
+INGREDIENTES:
+·2 Papas cocidas y hechas puré
+·1/2 Cucharadita de sal con ajo en polvo
+·8 Tortillas de maíz
+·Aceite en aerosol
+·1 Taza de lechuga romana desinfectada y fileteada
+·1/2 Paquete Queso panela rallado (100 g)
+·1 Lata de Media Crema
+
+PREPARACION:
+·En un bowl o tazón mezclar las papas y la sal con ajo hasta integrar por completo, rellena las tortillas con un poco de la preparación anterior, enrolla y reserva.
+·Rociar un poco de aceite sobre las flautas, coloca algunos en la canastilla de la freidora de aire evitando que se encimen y cocina a 180 °C por 6 minutos, luego con unas pinzas voltéalos y cocina por 6 minutos más o hasta que estén crujientes.
+·Para servir las flautas, acompaña con la lechuga, el queso y la Media Crema. Agregar la salsa de su preferencia.
+
+BONELESS ACOMPAÑADOS DE SALSA BUFALO    38 min
+ 
+INGREDIENTES:
+·1/2 Taza de Leche Evaporada
+·1 Huevo
+·1 1/2 Taza de harina de trigo
+·2 Cucharadas de sal con ajo en polvo
+·1 Pechuga de pollo sin piel, sin hueso y cortada en cubos
+·2 Tazas de pan molido
+·3 Cucharadas de salsa de soya
+·3 Cucharadas de salsa Inglesa 
+·1 Cucharada de vinagre de manzana
+·1/2 Taza de salsa picante
+
+PREPARACION:
+·Batir la Leche Evaporada con el huevo hasta integrar por completo y reservar. Mezclar la harina con la sal con ajo. Pasar los cubos de pechuga de pollo por la mezcla de huevo, después por la mezcla de harina, otra vez por la de huevo y por último por el pan molido para formar los boneless.
+·Colocar los boneless en la freidora de aire  y calienta a 180 °C por 15 minutos.
+·Para hacer la salsa, mezclar la salsa de soya con la salsa Inglesa, el vinagre y la salsa picante. 
+·Servir los boneless y bañar con la salsa.
+
+PAPAS ESTILO CAJÚN     32 min
+ 
+INGREDIENTES:
+·3 Papas cortadas en gajos pequeños y remojadas en agua con sal y azúcar por 20 minutos
+·1 1/2 Cucharada de aceite de oliva
+·4 Cucharadas de sazonador estilo cajún (Para sazonar)
+·1 Cucharada de salsa de soya
+·3/4 De taza de cátsup
+·1/2 Limón (solo el jugo)
+·1 Cucharada de sazonador estilo cajún (Para el Dip)
+·Tocino picado y frito
+·Chorizo picado y frito
+·Cebollín fresco (picado finamente)
+
+PREPARACION:
+·Escurrir las papas y colocarlas sobre papel absorbente para retirar el exceso de agua. Mezclar con el aceite de oliva y 4 cucharadas del sazonador estilo cajún hasta integrar.
+·Añadir algunos gajos de papas en la freidora de aire evitando que se encimen y cocina a 200 °C por 10 minutos, con pinzas voltearlas y cocina por 10 minutos más o hasta que estén crujientes (repetir hasta cocinar todos los gajos).
+·Para el Dip, mezclar la salsa de soya, la cátsup, el jugo de limón y la cucharada del sazonador estilo cajún hasta integrar completamente.
+·Servir las papas, y bañar con el Dip, agregar el tocino, el chorizo y el cebollín.
+
+LASAÑA A LA SARTEN  40 min
+ 
+INGREDIENTES:
+·250 Gramos de carne de res, molida
+·12 Láminas de pasta para lasaña, cocidas
+·3/4 Taza de cebolla (picada finamente)
+·1 Cucharada de aceite vegetal
+·1 Cucharada de ajo (picado finamente)
+·3/4 Taza de zanahorias (picada finamente)
+·3/4 Taza de apio (picado finamente)
+·2 Jitomates, cortados en cubos
+·1 1/2 Tazas de puré de tomate, natural
+·2 Cucharadas de chile chipotle, adobado y molido
+·1/2 Cucharadita de sal
+·2 Hojas de laurel
+·1 Taza de mezcla de quesos, rallados
+·2 Cubos de Concentrado de Tomate 
+
+
+
+PREPARACION:
+·Calentar en una sartén el aceite, cocinar la cebolla y el ajo hasta que doren ligeramente, agregar la carne, la zanahoria, el apio, el jitomate y cocina hasta que cambien de color.
+·Agregar el puré, el chipotle, los cubos de concentrado de tomate desmoronado, la sal y el laurel; continuar la cocción hasta que hierva.
+·Colocar un poco de la salsa en una sartén, agrega algunas láminas de pasta de lasaña y una capa de queso, continuar haciendo capas hasta terminar con el resto de los ingredientes.
+·Tapar y cocina por 5 minutos a fuego bajo para que se incorporen los sabores.
+
+POLLO EN SALSA DE CILANTRO   50 min
+INGREDIENTES:
+2 pechugas de pollo sin hueso cortadas por mitad (cocidas y asadas)
+1 1/2 Tazas de cilantro desinfectado.
+1 lata de Leche Evaporada.
+1/2 Paquete de queso crema a temperatura ambiente 
+1 Cucharada de consomé de pollo en polvo
+1/4 De cucharadita de pimienta negra molida
+1 Cucharada de fécula de maíz disuelta en ¾ taza de agua
+
+
+
+PREPARACION:
+·Para la salsa, licuar la leche evaporada con el queso crema, el consomé de pollo, la pimienta, la fécula de maíz disuelta y las hojas de cilantro.
+·En una sartén, calentar la salsa a fuego medio hasta que espese un poco, moviendo constantemente para evitar que se pegue.
+·Incorporar las mitades de pechuga de pollo (previamente cocidas y asadas) en la salsa, cocinar de 2 a 3 minutos solo para incorporar los sabores.
