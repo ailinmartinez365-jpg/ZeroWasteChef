@@ -596,20 +596,3 @@ with tab_diseno:
             if st.button(f"Seleccionar {item['nombre']}", key=f"cursor_btn_{idx}"):
                 st.session_state.cursor_actual = item["emoji"]
                 st.rerun()
-
-# ------------------------------------------------------------
-# 7. PESTAÑA FAVORITOS
-# ------------------------------------------------------------
-    for receta in recetas:
-    es_favorito = receta["nombre"] in st.session_state.favoritos
-
-    if es_favorito:
-        if st.button("❤️ Quitar de Favoritos", key=f"quitar_{receta['nombre']}"):
-            st.session_state.favoritos.remove(receta["nombre"])
-            supabase.table("favoritos").delete().eq("receta_nombre", receta["nombre"]).execute()
-            st.rerun()
-    else:
-        if st.button("🤍 Guardar en Favoritos", key=f"guardar_{receta['nombre']}"):
-            st.session_state.favoritos.append(receta["nombre"])
-            supabase.table("favoritos").insert({"receta_nombre": receta["nombre"]}).execute()
-            st.rerun()
