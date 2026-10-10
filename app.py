@@ -19,6 +19,7 @@ def obtener_favoritos_nube():
 
 if "favoritos" not in st.session_state:
     st.session_state.favoritos = obtener_favoritos_nube()
+
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 
@@ -37,7 +38,7 @@ recetas = modulo_recetas.recetas
 
 # Inicializar estados de la sesión
 if "favoritos" not in st.session_state or not isinstance(st.session_state.favoritos, list):
-    st.session_state.favoritos = []
+    st.session_state.favoritos = obtener_favoritos_nube()
 
 if "favoritos_cargados" not in st.session_state:
     st.session_state.favoritos_cargados = False
@@ -68,52 +69,127 @@ banner_b64 = obtener_base64_imagen("banner.png")
 if banner_b64:
     css_background = f"url('data:image/png;base64,{banner_b64}')"
 else:
-    # URL de respaldo
     css_background = "url('https://lh3.googleusercontent.com/d/1000066152.png')"
 
 
 # ============================================================
-# PERSISTENCIA CON LOCALSTORAGE (GUARDAR FAVORITOS)
+# ESTILOS CSS REFORZADOS
 # ============================================================
 
-def sincronizar_localstorage():
-    """Maneja la lectura y escritura de favoritos en el navegador."""
-    if not st.session_state.favoritos_cargados:
-        html_code = """
-        <script>
-            const favs = localStorage.getItem('favoritos_chef');
-            if (favs) {
-                window.parent.postMessage({
-                    type: 'streamlit:setComponentValue',
-                    value: JSON.parse(favs)
-                }, '*');
-            } else {
-                window.parent.postMessage({
-                    type: 'streamlit:setComponentValue',
-                    value: []
-                }, '*');
-            }
-        </script>
-        """
-        favs_recuperados = components.html(html_code, height=0, width=0)
-        if favs_recuperados is not None and isinstance(favs_recuperados, list):
-            st.session_state.favoritos = favs_recuperados
-            st.session_state.favoritos_cargados = True
+emoji_cursor = st.session_state.cursor_actual
 
+st.markdown(
+    f"""
+    <style>
+    /* CURSOR DINÁMICO PERSONALIZADO */
+    html, body, .stApp, button, div, a, input {{
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
+    }}
 
-def guardar_favorito_localstorage(lista_favoritos):
-    """Guarda la lista de favoritos en el navegador."""
-    json_favs = json.dumps(lista_favoritos)
-    html_code = f"""
-    <script>
-        localStorage.setItem('favoritos_chef', '{json_favs}');
-    </script>
-    """
-    components.html(html_code, height=0, width=0)
+    /* FONDO GENERAL: Marfil #FFF8EA */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+        background-color: #FFF8EA !important;
+        color: #4A2920 !important;
+    }}
+    
+    .block-container {{
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+        max-width: 1200px !important;
+    }}
 
+    h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {{
+        color: #4A2920 !important;
+    }}
 
-# Ejecutar la sincronización al inicio
-sincronizar_localstorage()
+    .kitchen-banner {{
+        width: 100% !important;
+        height: 280px;
+        background-image: {css_background};
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: 16px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 16px rgba(74, 41, 32, 0.12);
+    }}
+
+    @media (max-width: 768px) {{
+        .kitchen-banner {{
+            height: 140px;
+            background-size: cover;
+        }}
+    }}
+
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        background-color: #FFFFFF !important;
+        border-radius: 14px !important;
+        border: 2px solid #F4C95D !important;
+        box-shadow: 0 4px 12px rgba(74, 41, 32, 0.08) !important;
+    }}
+
+    .icon-card {{
+        border: 2px solid #4A2920;
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        box-shadow: 4px 4px 0px #C65332;
+    }}
+
+    .stButton > button {{
+        border-radius: 8px !important;
+        background-color: #C65332 !important;
+        color: #FFF8EA !important;
+        font-weight: 600 !important;
+        border: none !important;
+        width: 100% !important;
+        transition: all 0.2s ease !important;
+    }}
+    .stButton > button:hover {{ 
+        background-color: #F4C95D !important; 
+        color: #4A2920 !important;
+    }}
+    .stButton > button * {{
+        color: inherit !important;
+    }}
+
+    button[data-baseweb="tab"] {{
+        background-color: transparent !important;
+        border-radius: 6px 6px 0 0 !important;
+    }}
+    button[data-baseweb="tab"] p {{
+        color: #4A2920 !important;
+        font-weight: 600 !important;
+        font-size: 16px !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] {{
+        border-bottom-color: #C65332 !important;
+    }}
+    button[data-baseweb="tab"][aria-selected="true"] p {{
+        color: #C65332 !important;
+    }}
+
+    .badge-match {{
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: bold;
+        color: white !important;
+        margin-bottom: 8px;
+    }}
+
+    .notranslate {{
+        translate: no !important;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -152,135 +228,7 @@ def normalizar_ingrediente(ingrediente):
 
 
 # ============================================================
-# ESTILOS CSS REFORZADOS (BANERS MAXIMIZADOS EN ANCHO)
-# ============================================================
-
-emoji_cursor = st.session_state.cursor_actual
-
-st.markdown(
-    f"""
-    <style>
-    /* CURSOR DINÁMICO PERSONALIZADO */
-    html, body, .stApp, button, div, a, input {{
-        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="24" font-size="22">{emoji_cursor}</text></svg>'), auto !important;
-    }}
-
-    /* FONDO GENERAL: Marfil #FFF8EA */
-    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
-        background-color: #FFF8EA !important;
-        color: #4A2920 !important;
-    }}
-    
-    /* Contenedor principal */
-    .block-container {{
-        padding-top: 1.5rem !important;
-        padding-bottom: 2rem !important;
-        max-width: 1200px !important;
-    }}
-
-    /* ENCABEZADOS Y TEXTOS PRINCIPALES: Chocolate #4A2920 */
-    h1, h2, h3, h4, h5, h6, p, label, span, .stMarkdown {{
-        color: #4A2920 !important;
-    }}
-
-    /* BANNER MAXIMIZADO DE BORDE A BORDE */
-    .kitchen-banner {{
-        width: 100% !important;
-        height: 280px; /* Mayor altura para destacar el diseño */
-        background-image: {css_background};
-        background-size: cover; /* Ocupa el 100% del largo disponible */
-        background-repeat: no-repeat;
-        background-position: center center;
-        border-radius: 16px; /* Bordes suaves redondeados */
-        margin-top: 10px;
-        margin-bottom: 30px;
-        box-shadow: 0 6px 16px rgba(74, 41, 32, 0.12); /* Sombra elegante */
-    }}
-
-    /* Ajuste para pantallas de celulares */
-    @media (max-width: 768px) {{
-        .kitchen-banner {{
-            height: 140px;
-            background-size: cover;
-        }}
-    }}
-
-    /* TARJETAS DE RECETAS Y DISEÑO: Blanco con borde Amarillo Mantequilla #F4C95D */
-    div[data-testid="stVerticalBlockBorderWrapper"] {{
-        background-color: #FFFFFF !important;
-        border-radius: 14px !important;
-        border: 2px solid #F4C95D !important;
-        box-shadow: 0 4px 12px rgba(74, 41, 32, 0.08) !important;
-    }}
-
-    .icon-card {{
-        border: 2px solid #4A2920;
-        background-color: #FFFFFF;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        font-size: 50px;
-        margin-bottom: 10px;
-        box-shadow: 4px 4px 0px #C65332;
-    }}
-
-    /* BOTONES PRINCIPALES: Terracota #C65332 */
-    .stButton > button {{
-        border-radius: 8px !important;
-        background-color: #C65332 !important;
-        color: #FFF8EA !important;
-        font-weight: 600 !important;
-        border: none !important;
-        width: 100% !important;
-        transition: all 0.2s ease !important;
-    }}
-    .stButton > button:hover {{ 
-        background-color: #F4C95D !important; 
-        color: #4A2920 !important;
-    }}
-    .stButton > button * {{
-        color: inherit !important;
-    }}
-
-    /* PESTAÑAS (TABS): Chocolate y Terracota */
-    button[data-baseweb="tab"] {{
-        background-color: transparent !important;
-        border-radius: 6px 6px 0 0 !important;
-    }}
-    button[data-baseweb="tab"] p {{
-        color: #4A2920 !important;
-        font-weight: 600 !important;
-        font-size: 16px !important;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] {{
-        border-bottom-color: #C65332 !important;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #C65332 !important;
-    }}
-
-    .badge-match {{
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: bold;
-        color: white !important;
-        margin-bottom: 8px;
-    }}
-
-    /* CLASE PARA PROTEGER EL NOMBRE DE LA TRADUCCIÓN AUTOMÁTICA */
-    .notranslate {{
-        translate: no !important;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# ============================================================
-# RENDERIZADORES DE RECURSOS
+# RENDERIZADORES DE RECURSOS (CON BOTONES DE FAVORITOS EN LA NUBE)
 # ============================================================
 
 def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
@@ -309,13 +257,32 @@ def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
                 st.subheader(receta["nombre"])
                 st.caption(f"⏱️ {receta['tiempo']} min | 📊 {receta['nivel']}")
 
+                # Botón para abrir modal
                 if st.button("Ver receta", key=f"btn_{prefijo_key}_{idx}_{receta['nombre']}"):
                     st.session_state.receta_modal = receta
                     st.rerun()
 
+                # Botón rápido de favoritos sincronizado con Supabase
+                es_favorito = receta["nombre"] in st.session_state.favoritos
+                if es_favorito:
+                    if st.button("❤️ Quitar favorito", key=f"fav_quitar_{prefijo_key}_{idx}_{receta['nombre']}"):
+                        st.session_state.favoritos.remove(receta["nombre"])
+                        try:
+                            supabase.table("favoritos").delete().eq("receta_nombre", receta["nombre"]).execute()
+                        except Exception as e:
+                            st.error(f"Error al borrar en Supabase: {e}")
+                        st.rerun()
+                else:
+                    if st.button("🤍 Guardar favorito", key=f"fav_guardar_{prefijo_key}_{idx}_{receta['nombre']}"):
+                        st.session_state.favoritos.append(receta["nombre"])
+                        try:
+                            supabase.table("favoritos").insert({"receta_nombre": receta["nombre"]}).execute()
+                        except Exception as e:
+                            st.error(f"Error al insertar en Supabase: {e}")
+                        st.rerun()
+
 
 def mostrar_categoria(categoria_nombre, subcategoria=None):
-    """Muestra las recetas filtrando por categoría principal y opcionalmente por subcategoría."""
     recetas_filtradas = []
     
     for r in recetas:
@@ -358,20 +325,26 @@ def mostrar_modal_receta(receta):
 
     st.divider()
 
-    st.subheader("👩‍‍🍳 Instrucciones de Preparación")
+    st.subheader("👩‍🍳 Instrucciones de Preparación")
     for i, paso in enumerate(receta.get("instrucciones", []), start=1):
         st.write(f"**{i}.** {paso}")
 
     es_favorito = receta["nombre"] in st.session_state.favoritos
     if es_favorito:
-        if st.button("❤ Quitar de Favoritos"):
+        if st.button("❤️ Quitar de Favoritos", key="modal_quitar"):
             st.session_state.favoritos.remove(receta["nombre"])
-            guardar_favorito_localstorage(st.session_state.favoritos)
+            try:
+                supabase.table("favoritos").delete().eq("receta_nombre", receta["nombre"]).execute()
+            except Exception as e:
+                st.error(f"Error al borrar en Supabase: {e}")
             st.rerun()
     else:
-        if st.button("🤍 Guardar en Favoritos"):
+        if st.button("🤍 Guardar en Favoritos", key="modal_guardar"):
             st.session_state.favoritos.append(receta["nombre"])
-            guardar_favorito_localstorage(st.session_state.favoritos)
+            try:
+                supabase.table("favoritos").insert({"receta_nombre": receta["nombre"]}).execute()
+            except Exception as e:
+                st.error(f"Error al insertar en Supabase: {e}")
             st.rerun()
 
 
@@ -596,3 +569,20 @@ with tab_diseno:
             if st.button(f"Seleccionar {item['nombre']}", key=f"cursor_btn_{idx}"):
                 st.session_state.cursor_actual = item["emoji"]
                 st.rerun()
+
+# ------------------------------------------------------------
+# 7. PESTAÑA FAVORITOS (NUEVA)
+# ------------------------------------------------------------
+with tab_favoritos:
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
+    st.subheader("❤️ Tus Recetas Favoritas")
+    
+    if st.session_state.favoritos:
+        # Filtramos las recetas que coincidan con los nombres guardados en favoritos
+        recetas_favs = [{"receta": r} for r in recetas if r["nombre"] in st.session_state.favoritos]
+        if recetas_favs:
+            mostrar_grilla_recetas(recetas_favs, "favs_tab", num_cols=2)
+        else:
+            st.info("Tienes nombres guardados, pero no se encontraron en el recetario actual.")
+    else:
+        st.info("Aún no tienes recetas guardadas en favoritos. Explora el menú o el buscador y dale clic al corazón para guardarlas.")
