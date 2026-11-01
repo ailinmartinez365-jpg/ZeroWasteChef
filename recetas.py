@@ -1249,6 +1249,47 @@ nuevas_recetas = [
 
 recetas.extend(nuevas_recetas)
 
+# ============================================================
+# ORGANIZAR CATEGORÍAS Y SUBCATEGORÍAS
+# ============================================================
+
+bebidas = [
+    "Agua de Piña con Avena",
+    "Horchata con Manzana y Canela",
+    "Piñada",
+    "Agua de Aguacate"
+]
+
+for receta in recetas:
+
+    nombre = receta["nombre"]
+    categoria = receta.get("categoria", "Comida")
+
+    # BEBIDAS
+    if nombre in bebidas:
+        receta["categoria"] = "Bebidas"
+        receta["subcategoria"] = ""
+
+    # BOTANAS
+    elif categoria == "Para botanear":
+        receta["categoria"] = "Extras"
+        receta["subcategoria"] = "Botanas"
+
+    # FIT
+    elif categoria == "Fit":
+        receta["categoria"] = "Extras"
+        receta["subcategoria"] = "Fit"
+
+    # OTROS EXTRAS
+    elif categoria == "Extras":
+        receta["categoria"] = "Extras"
+        receta["subcategoria"] = "Otros"
+
+    # COMIDA Y POSTRES
+    else:
+        receta["subcategoria"] = ""
+
+
 
 # ============================================================
 # LIMPIEZA FINAL DE INGREDIENTES
