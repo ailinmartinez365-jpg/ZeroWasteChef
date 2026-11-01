@@ -188,18 +188,36 @@ st.markdown(
         translate: no !important;
     }}
 
-    [data-testid="stTabs"] [data-baseweb="tab-list"] {{
+    
+    /* PESTAÑAS: EVITAR CORTES Y DESALINEACIONES */
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {
         display: flex !important;
-        flex-wrap: wrap !important;
-        overflow-x: visible !important;
-    }}
-    [data-testid="stTabs"] button[data-baseweb="tab"] {{
-        flex: 1 1 30% !important;
-        min-width: 90px !important;
-        white-space: normal !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        align-items: center !important;
+        gap: 8px !important;
+        min-height: 54px !important;
+        padding: 5px 2px !important;
+        scrollbar-width: thin;
+    }
+
+    [data-testid="stTabs"] button[data-baseweb="tab"] {
+        flex: 0 0 auto !important;
+        min-width: max-content !important;
+        min-height: 44px !important;
         height: auto !important;
+        padding: 9px 14px !important;
+        white-space: nowrap !important;
         text-align: center !important;
-    }}
+        overflow: visible !important;
+    }
+
+    [data-testid="stTabs"] button[data-baseweb="tab"] p {
+        line-height: 1.4 !important;
+        margin: 0 !important;
+    }
+
     </style>
     """,
     unsafe_allow_html=True
