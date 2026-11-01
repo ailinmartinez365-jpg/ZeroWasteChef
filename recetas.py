@@ -751,7 +751,7 @@ recetas = [
     },
     {
         "nombre": "GALLETAS DE AVENA",
-        "imagen": "",
+        "imagen": "imagenes/galletas_avena.png",
         "ingredientes":[
             "200 gramos de avena instantánea",
             "2 Cucharas de miel",
