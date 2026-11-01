@@ -22,7 +22,6 @@ if "favoritos" not in st.session_state:
 
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
-import recetas_familia
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -521,6 +520,8 @@ with tab_familia:
 
     with tab_lonche:
         mostrar_categoria("Familia", "Lonche")
+
+    import recetas_familia
 
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
