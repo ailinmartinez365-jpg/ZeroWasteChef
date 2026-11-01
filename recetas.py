@@ -772,5 +772,30 @@ recetas = [
         ],
         "categoria": "Extras",
         "subcategoria": "Fit"
+    },
+    {
+        "nombre": "Torrejas de espinaca",
+        "imagen":
+        "ingredientes": [
+            "2 Tazas de espinacas frescas lavadas",
+            "2 Huevos",
+            "½ Taza de avena o harina de avena",
+            "¼ De cebolla picada finamente",
+            "1 diente de ajo picado finamente o molido",
+            "Sal y pimienta al gusto",
+            "1 Cucharadita de aceite de oliva"
+        ],
+        "tiempo": 10,
+        "nivel": "Principiante",
+        "descripcion": "TORREJAS DE ESPINACAS “SALUDABLES Y RAPIDAS”"
+        "instrucciones": [
+            "En una sartén, poner a saltear las espinacas durante 2 ó 3 minutos.",
+            "EL AS BAJO LA MANGA cuando ya haya pasado el tiempo sugerido retíralas del fuego y escúrrelas muy bien para quitar el exceso de líquido y así evitar que nuestra mezcla quede muy húmeda.",
+            "En un bowl o tazón, mezclar la avena, la cebolla, el ajo, la sal y la pimienta.",
+            "Agregar las espinacas que previamente se saltearon, a la mezcla anterior hasta lograr integrar todos los ingredientes.",
+            "Formar con nuestra mezcla, pequeñas torrejitas o tortitas en nuestras manos o ayudándonos con una cuchara y colocarlas en una sartén ligeramente engrasada a fuego medio, por 2 ó 3 minutos de cada lado, hasta que estén doraditas y firmes."
+        ],
+        "categoria": "Extras",
+        "subcategoria": "Fit"
     }
 ]
