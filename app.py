@@ -508,46 +508,43 @@ with tab_buscador:
         else:
             st.info("No se encontraron recetas con esos filtros.")
 
-# ------------------------------------------------------------
+# -----------------------------------------------------------
 # 4. PESTAÑA FAMILIA
-# ------------------------------------------------------------
+# -----------------------------------------------------------
 
-# ------------------------------------------------------------
-# 4. PESTAÑA FAMILIA
-# ------------------------------------------------------------
-with tab_familia:
-    st.markdown(
-        '<div class="kitchen-banner notranslate" translate="no"></div>',
-        unsafe_allow_html=True
-    )
+st.subheader("En familia")
 
-    tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
-        "En familia", "Niños", "Para peques", "Lonche"
-    ])
+tab_en_familia, tab_ninos, tab_lonche = st.tabs([
+    "En familia",
+    "Niños",
+    "Lonche"
+])
 
-    with tab_en_familia:
-        recetas_familia_lista = [
-            {"receta": r} for r in recetas_familia.familia
-        ]
+def mostrar_recetas_familia(categoria, prefijo):
+    recetas_filtradas = [
+        {"receta": r}
+        for r in recetas_familia.familia
+        if r.get("categoria", "").strip().lower() == categoria.lower()
+    ]
 
-        if recetas_familia_lista:
-            mostrar_grilla_recetas(
-                recetas_familia_lista,
-                "familia_en_familia",
-                num_cols=2
-            )
-        else:
-            st.info("Próximamente agregaremos recetas familiares.")
+    if recetas_filtradas:
+        mostrar_grilla_recetas(
+            recetas_filtradas,
+            prefijo,
+            num_cols=2
+        )
+    else:
+        st.info("Aún no hay recetas registradas en esta categoría.")
 
-    with tab_ninos:
-        mostrar_categoria("Familia", "Niños")
 
-    with tab_para_peques:
-        mostrar_categoria("Familia", "Para peques")
+with tab_en_familia:
+    mostrar_recetas_familia("En familia", "familia_en_familia")
 
-    with tab_lonche:
-        mostrar_categoria("Familia", "Lonche")
+with tab_ninos:
+    mostrar_recetas_familia("Niños", "familia_ninos")
 
+with tab_lonche:
+    mostrar_recetas_familia("Lonche", "familia_lonche")
 
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
