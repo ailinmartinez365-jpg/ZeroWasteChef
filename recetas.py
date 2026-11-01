@@ -757,10 +757,10 @@ recetas = [
             "2 Cucharas de miel",
             "1 huevo",
             "Opcionales: arándanos o nueces o chispas de chocolate"
-        ]
+        ],
         "tiempo": 10,
-        "nive": "Principiante",
-        "descripcion": "galletas sin azucar"
+        "nivel": "Principiante",
+        "descripcion": "galletas sin azucar",
         "instrucciones": [
             "Mezclar en un bowl o tazón: la avena, la miel y el huevo.",
             "Revolver bien hasta que quede una masita manejable.",
@@ -769,7 +769,7 @@ recetas = [
             "Voltear con precaución y dejar por 1 minuto aproximadamente o hasta lograr el dorado que se desea.",
             "EL AS BAJO LA MANGA  si la mezcla queda muy seca se puede agregar una cucharadita de leche, o si por el contrario la mezcla está muy húmeda se le puede agregar un poquito más de avena.",
             "Y por último a disfrutar con un chocolate caliente o una leche fría nuestras deliciosas galletitas de avena."
-        ]
+        ],
         "categoria": "Extras",
         "subcategoria": "Fit"
     }
