@@ -448,6 +448,7 @@ with tab_menu:
 # 3. PESTAÑA DEL BUSCADOR
 # ------------------------------------------------------------
 with tab_buscador:
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
     st.subheader("🔍 Buscador Inteligente de Recetas")
     entrada = st.text_input(
         "Ingredientes disponibles",
@@ -531,6 +532,7 @@ def mostrar_recetas_familia(categoria, prefijo):
 
 
 with tab_familia:
+    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
     st.subheader("En familia")
 
     tab_en_familia, tab_ninos, tab_lonche = st.tabs([
