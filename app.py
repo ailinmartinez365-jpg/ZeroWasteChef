@@ -187,10 +187,9 @@ st.markdown(
     .notranslate {{
         translate: no !important;
     }}
-
     
     /* PESTAÑAS: EVITAR CORTES Y DESALINEACIONES */
-    [data-testid="stTabs"] [data-baseweb="tab-list"] {
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {{
         display: flex !important;
         flex-wrap: nowrap !important;
         overflow-x: auto !important;
@@ -202,7 +201,7 @@ st.markdown(
         scrollbar-width: thin;
     }}
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] {
+    [data-testid="stTabs"] button[data-baseweb="tab"] {{
         flex: 0 0 auto !important;
         min-width: max-content !important;
         min-height: 44px !important;
@@ -213,7 +212,7 @@ st.markdown(
         overflow: visible !important;
     }}
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] p {
+    [data-testid="stTabs"] button[data-baseweb="tab"] p {{
         line-height: 1.4 !important;
         margin: 0 !important;
     }}
