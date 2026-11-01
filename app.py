@@ -511,8 +511,15 @@ with tab_buscador:
 # ------------------------------------------------------------
 # 4. PESTAÑA FAMILIA
 # ------------------------------------------------------------
+
+# ------------------------------------------------------------
+# 4. PESTAÑA FAMILIA
+# ------------------------------------------------------------
 with tab_familia:
-    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="kitchen-banner notranslate" translate="no"></div>',
+        unsafe_allow_html=True
+    )
 
     tab_en_familia, tab_ninos, tab_para_peques, tab_lonche = st.tabs([
         "En familia", "Niños", "Para peques", "Lonche"
@@ -523,19 +530,24 @@ with tab_familia:
             {"receta": r} for r in recetas_familia.familia
         ]
 
-        mostrar_grilla_recetas(
-            recetas_familia_lista,
-            "familia_en_familia",
-            num_cols=2
-        )
+        if recetas_familia_lista:
+            mostrar_grilla_recetas(
+                recetas_familia_lista,
+                "familia_en_familia",
+                num_cols=2
+            )
         else:
             st.info("Próximamente agregaremos recetas familiares.")
 
     with tab_ninos:
         mostrar_categoria("Familia", "Niños")
 
+    with tab_para_peques:
+        mostrar_categoria("Familia", "Para peques")
+
     with tab_lonche:
         mostrar_categoria("Familia", "Lonche")
+
 
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
