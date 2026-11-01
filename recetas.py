@@ -787,7 +787,7 @@ recetas = [
         ],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "TORREJAS DE ESPINACAS “SALUDABLES Y RAPIDAS”"
+        "descripcion": "Torrejas de espinacas saludables y rápidas.",
         "instrucciones": [
             "En una sartén, poner a saltear las espinacas durante 2 ó 3 minutos.",
             "EL AS BAJO LA MANGA cuando ya haya pasado el tiempo sugerido retíralas del fuego y escúrrelas muy bien para quitar el exceso de líquido y así evitar que nuestra mezcla quede muy húmeda.",
