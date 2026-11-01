@@ -22,6 +22,7 @@ if "favoritos" not in st.session_state:
 
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
+import recetas familia
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
