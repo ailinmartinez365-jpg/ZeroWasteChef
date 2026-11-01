@@ -158,22 +158,6 @@ st.markdown(
         color: inherit !important;
     }}
 
-    button[data-baseweb="tab"] {{
-        background-color: transparent !important;
-        border-radius: 6px 6px 0 0 !important;
-    }}
-    button[data-baseweb="tab"] p {{
-        color: #4A2920 !important;
-        font-weight: 600 !important;
-        font-size: 16px !important;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] {{
-        border-bottom-color: #C65332 !important;
-    }}
-    button[data-baseweb="tab"][aria-selected="true"] p {{
-        color: #C65332 !important;
-    }}
-
     .badge-match {{
         display: inline-block;
         padding: 4px 10px;
@@ -188,34 +172,35 @@ st.markdown(
         translate: no !important;
     }}
     
-    /* PESTAÑAS: EVITAR CORTES Y DESALINEACIONES */
-    [data-testid="stTabs"] [data-baseweb="tab-list"] {{
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        align-items: center !important;
-        gap: 8px !important;
-        min-height: 54px !important;
-        padding: 5px 2px !important;
-        scrollbar-width: thin;
-    }}
+    /* NAVEGACIÓN DE CATEGORÍAS */
+    [data-testid="stTabs"] {
+        overflow: visible !important;
+    }
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] {{
-        flex: 0 0 auto !important;
-        min-width: max-content !important;
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {
+        min-height: 60px !important;
+        height: auto !important;
+        align-items: center !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        padding: 8px 4px !important;
+        gap: 10px !important;
+    }
+
+    [data-testid="stTabs"] button[data-baseweb="tab"] {
         min-height: 44px !important;
         height: auto !important;
-        padding: 9px 14px !important;
+        padding: 10px 14px !important;
+        flex-shrink: 0 !important;
         white-space: nowrap !important;
-        text-align: center !important;
         overflow: visible !important;
-    }}
+    }
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] p {{
-        line-height: 1.4 !important;
+    [data-testid="stTabs"] button[data-baseweb="tab"] p {
+        line-height: 1.5 !important;
         margin: 0 !important;
-    }}
+        overflow: visible !important;
+    }
 
     </style>
     """,
