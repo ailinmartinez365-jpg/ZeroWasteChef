@@ -70,8 +70,8 @@ familia = [
         ],
         "tiempo": 40,
         "nivel": "Principiante",
-        "descripcion": "Divertidas y variadas gomitas saludables."
-        "preparacion":[
+        "descripcion": "Divertidas y variadas gomitas saludables.",
+        "instruciones":[
             "PARA CUALQUIERA DE LAS COMBINACIONES QUE SE DESEA PREPARAR:",
             "Hidratar la gelatina sin sabor (grenetina) con los 35 ml de agua y dejar reposar unos minutos.",
             "Licuar los ingredientes según el sabor de gomitas que se desea preparar (De las cuatro combinaciones sugeridas) hasta lograr tener una mezcla homogénea.",
