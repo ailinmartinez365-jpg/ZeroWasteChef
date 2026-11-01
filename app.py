@@ -374,6 +374,12 @@ if st.session_state.receta_modal:
 
 num_favoritos = len(st.session_state.favoritos) if isinstance(st.session_state.favoritos, list) else 0
 
+# ESPACIO SUPERIOR PARA SEPARAR LA NAVEGACIÓN
+st.markdown(
+    '<div style="height: 55px;"></div>',
+    unsafe_allow_html=True
+)
+
 tab_inicio, tab_menu, tab_buscador, tab_familia, tab_temporada, tab_diseno, tab_favoritos = st.tabs([
     "🏠 Inicio", 
     "📖 Menú",
