@@ -200,7 +200,7 @@ st.markdown(
         min-height: 54px !important;
         padding: 5px 2px !important;
         scrollbar-width: thin;
-    }
+    }}
 
     [data-testid="stTabs"] button[data-baseweb="tab"] {
         flex: 0 0 auto !important;
@@ -211,12 +211,12 @@ st.markdown(
         white-space: nowrap !important;
         text-align: center !important;
         overflow: visible !important;
-    }
+    }}
 
     [data-testid="stTabs"] button[data-baseweb="tab"] p {
         line-height: 1.4 !important;
         margin: 0 !important;
-    }
+    }}
 
     </style>
     """,
