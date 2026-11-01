@@ -23,6 +23,7 @@ if "favoritos" not in st.session_state:
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import recetas_familia
+import recetas_temporada
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -547,27 +548,51 @@ with tab_familia:
     with tab_lonche:
         mostrar_recetas_familia("Lonche", "familia_lonche")
 
+
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
 # ------------------------------------------------------------
+
+def mostrar_recetas_temporada(categoria, prefijo):
+
+    recetas_filtradas = [
+        {"receta": r}
+        for r in recetas_temporada.temporada
+        if r.get("categoria", "").strip().lower() == categoria.lower()
+    ]
+
+    if recetas_filtradas:
+        mostrar_grilla_recetas(
+            recetas_filtradas,
+            prefijo,
+            num_cols=2
+        )
+    else:
+        st.info("Aún no hay recetas registradas en esta temporada.")
+
+
 with tab_temporada:
-    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="kitchen-banner notranslate" translate="no"></div>',
+        unsafe_allow_html=True
+    )
 
     tab_primavera, tab_verano, tab_otono, tab_invierno = st.tabs([
         "Primavera", "Verano", "Otoño", "Invierno"
     ])
 
     with tab_primavera:
-        mostrar_categoria("Temporada", "Primavera")
+        mostrar_recetas_temporada("Primavera", "temporada_primavera")
 
     with tab_verano:
-        mostrar_categoria("Temporada", "Verano")
+        mostrar_recetas_temporada("Verano", "temporada_verano")
 
     with tab_otono:
-        mostrar_categoria("Temporada", "Otoño")
+        mostrar_recetas_temporada("Otoño", "temporada_otono")
 
     with tab_invierno:
-        mostrar_categoria("Temporada", "Invierno")
+        mostrar_recetas_temporada("Invierno", "temporada_invierno")
+
 
 # ------------------------------------------------------------
 # 6. PESTAÑA DISEÑO
