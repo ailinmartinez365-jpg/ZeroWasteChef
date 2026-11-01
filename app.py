@@ -22,6 +22,7 @@ if "favoritos" not in st.session_state:
 
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
+import recetas_familia
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -510,8 +511,18 @@ with tab_familia:
     ])
 
     with tab_en_familia:
-        mostrar_categoria("Familia", "En familia")
-        import recetas_familia
+    recetas_familia_lista = [
+        {"receta": r} for r in recetas_familia.familia
+    ]
+
+    if recetas_familia_lista:
+        mostrar_grilla_recetas(
+            recetas_familia_lista,
+            "familia_en_familia",
+            num_cols=2
+        )
+    else:
+        st.info("Próximamente agregaremos recetas familiares.")
 
     with tab_ninos:
         mostrar_categoria("Familia", "Niños")
