@@ -512,14 +512,6 @@ with tab_buscador:
 # 4. PESTAÑA FAMILIA
 # -----------------------------------------------------------
 
-st.subheader("En familia")
-
-tab_en_familia, tab_ninos, tab_lonche = st.tabs([
-    "En familia",
-    "Niños",
-    "Lonche"
-])
-
 def mostrar_recetas_familia(categoria, prefijo):
     recetas_filtradas = [
         {"receta": r}
@@ -537,14 +529,23 @@ def mostrar_recetas_familia(categoria, prefijo):
         st.info("Aún no hay recetas registradas en esta categoría.")
 
 
-with tab_en_familia:
-    mostrar_recetas_familia("En familia", "familia_en_familia")
+with tab_familia:
+    st.subheader("En familia")
 
-with tab_ninos:
-    mostrar_recetas_familia("Niños", "familia_ninos")
+    tab_en_familia, tab_ninos, tab_lonche = st.tabs([
+        "En familia",
+        "Niños",
+        "Lonche"
+    ])
 
-with tab_lonche:
-    mostrar_recetas_familia("Lonche", "familia_lonche")
+    with tab_en_familia:
+        mostrar_recetas_familia("En familia", "familia_en_familia")
+
+    with tab_ninos:
+        mostrar_recetas_familia("Niños", "familia_ninos")
+
+    with tab_lonche:
+        mostrar_recetas_familia("Lonche", "familia_lonche")
 
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
