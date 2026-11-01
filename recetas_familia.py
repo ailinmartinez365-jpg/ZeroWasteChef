@@ -1,4 +1,4 @@
-recetas familia= [
+familia= [
   {
         "nombre": "Huevos con tomate",
         "imagen": "imagenes/huevos_tomate.png",
