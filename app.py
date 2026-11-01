@@ -173,11 +173,11 @@ st.markdown(
     }}
     
     /* NAVEGACIÓN DE CATEGORÍAS */
-    [data-testid="stTabs"] {
+    [data-testid="stTabs"] {{
         overflow: visible !important;
-    }
+    }}
 
-    [data-testid="stTabs"] [data-baseweb="tab-list"] {
+    [data-testid="stTabs"] [data-baseweb="tab-list"] {{
         min-height: 60px !important;
         height: auto !important;
         align-items: center !important;
@@ -185,22 +185,22 @@ st.markdown(
         overflow-y: visible !important;
         padding: 8px 4px !important;
         gap: 10px !important;
-    }
+    }}
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] {
+    [data-testid="stTabs"] button[data-baseweb="tab"] {{
         min-height: 44px !important;
         height: auto !important;
         padding: 10px 14px !important;
         flex-shrink: 0 !important;
         white-space: nowrap !important;
         overflow: visible !important;
-    }
+    }}
 
-    [data-testid="stTabs"] button[data-baseweb="tab"] p {
+    [data-testid="stTabs"] button[data-baseweb="tab"] p {{
         line-height: 1.5 !important;
         margin: 0 !important;
         overflow: visible !important;
-    }
+    }}
 
     </style>
     """,
