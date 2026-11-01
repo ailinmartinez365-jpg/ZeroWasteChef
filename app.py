@@ -448,8 +448,12 @@ with tab_menu:
 # 3. PESTAÑA DEL BUSCADOR
 # ------------------------------------------------------------
 with tab_buscador:
-    st.markdown('<div class="kitchen-banner notranslate" translate="no"></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="kitchen-banner notranslate" translate="no"></div>',
+        unsafe_allow_html=True
+    )
     st.subheader("🔍 Buscador Inteligente de Recetas")
+
     entrada = st.text_input(
         "Ingredientes disponibles",
         placeholder="Ejemplo: huevo, tomate, queso",
@@ -457,26 +461,41 @@ with tab_buscador:
     )
 
     col1, col2 = st.columns(2)
+
     with col1:
-        filtro_tiempo = st.selectbox("Tiempo disponible", ["Todos", "10 minutos", "20 minutos", "30+ minutos"])
+        filtro_tiempo = st.selectbox(
+            "Tiempo disponible",
+            ["Todos", "10 minutos", "20 minutos", "30+ minutos"]
+        )
+
     with col2:
-        filtro_nivel = st.selectbox("Nivel de dificultad", ["Todos", "Principiante", "Explorador", "Intermedio", "Experto"])
+        filtro_nivel = st.selectbox(
+            "Nivel de dificultad",
+            ["Todos", "Principiante", "Explorador", "Intermedio", "Experto"]
+        )
 
     ingredientes_usuario = []
+
     if entrada:
-        ingredientes_usuario = [normalizar_ingrediente(ing) for ing in entrada.split(",") if ing.strip()]
+        ingredientes_usuario = [
+            normalizar_ingrediente(ing)
+            for ing in entrada.split(",")
+            if ing.strip()
+        ]
         ingredientes_usuario = list(dict.fromkeys(ingredientes_usuario))
 
     resultados = []
 
     if ingredientes_usuario:
+
         todas_las_recetas = (
             recetas
             + recetas_familia.familia
             + recetas_temporada.temporada
         )
 
-for receta in todas_las_recetas:
+        for receta in todas_las_recetas:
+
             if filtro_tiempo == "10 minutos" and receta["tiempo"] > 10:
                 continue
             elif filtro_tiempo == "20 minutos" and receta["tiempo"] > 20:
@@ -487,34 +506,68 @@ for receta in todas_las_recetas:
             if filtro_nivel != "Todos" and receta["nivel"] != filtro_nivel:
                 continue
 
-            ingredientes_receta = [normalizar_ingrediente(ing) for ing in receta["ingredientes"]]
+            ingredientes_receta = [
+                normalizar_ingrediente(ing)
+                for ing in receta["ingredientes"]
+            ]
             ingredientes_receta = list(dict.fromkeys(ingredientes_receta))
 
-            coincidencias = sum(1 for ing_user in ingredientes_usuario if any(ing_user == ing_receta or ing_user in ing_receta.split() for ing_receta in ingredientes_receta))
+            coincidencias = sum(
+                1
+                for ing_user in ingredientes_usuario
+                if any(
+                    ing_user == ing_receta
+                    or ing_user in ing_receta.split()
+                    for ing_receta in ingredientes_receta
+                )
+            )
 
             if not ingredientes_receta or coincidencias == 0:
                 continue
 
             porcentaje = (coincidencias / len(ingredientes_receta)) * 100
-            resultados.append({"receta": receta, "porcentaje": porcentaje})
 
-        resultados.sort(key=lambda r: r["porcentaje"], reverse=True)
+            resultados.append({
+                "receta": receta,
+                "porcentaje": porcentaje
+            })
+
+        resultados.sort(
+            key=lambda r: r["porcentaje"],
+            reverse=True
+        )
 
         st.markdown('<div class="linea"></div>', unsafe_allow_html=True)
         st.markdown(f"### 🍽️ Recetas Recomendadas ({len(resultados)})")
 
         if resultados:
-            orden_niveles = ["Principiante", "Explorador", "Intermedio", "Experto"]
-            niveles_disponibles = [n for n in orden_niveles if any(r["receta"]["nivel"] == n for r in resultados)]
+            orden_niveles = [
+                "Principiante",
+                "Explorador",
+                "Intermedio",
+                "Experto"
+            ]
 
-            tabs_niveles = st.tabs([f"📌 {n}" for n in niveles_disponibles])
+            niveles_disponibles = [
+                n for n in orden_niveles
+                if any(r["receta"]["nivel"] == n for r in resultados)
+            ]
+
+            tabs_niveles = st.tabs([
+                f"📌 {n}" for n in niveles_disponibles
+            ])
 
             for idx, nivel in enumerate(niveles_disponibles):
                 with tabs_niveles[idx]:
-                    recetas_sub = [r for r in resultados if r["receta"]["nivel"] == nivel]
+                    recetas_sub = [
+                        r for r in resultados
+                        if r["receta"]["nivel"] == nivel
+                    ]
                     mostrar_grilla_recetas(recetas_sub, f"grilla_{idx}")
+
         else:
             st.info("No se encontraron recetas con esos filtros.")
+
 
 # -----------------------------------------------------------
 # 4. PESTAÑA FAMILIA
