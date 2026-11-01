@@ -511,18 +511,18 @@ with tab_familia:
     ])
 
     with tab_en_familia:
-    recetas_familia_lista = [
-        {"receta": r} for r in recetas_familia.familia
-    ]
+        recetas_familia_lista = [
+            {"receta": r} for r in recetas_familia.familia
+        ]
 
-    if recetas_familia_lista:
-        mostrar_grilla_recetas(
-            recetas_familia_lista,
-            "familia_en_familia",
-            num_cols=2
-        )
-    else:
-        st.info("Próximamente agregaremos recetas familiares.")
+        if recetas_familia_lista:
+            mostrar_grilla_recetas(
+                recetas_familia_lista,
+                "familia_en_familia",
+                num_cols=2
+            )
+        else:
+            st.info("Próximamente agregaremos recetas familiares.")
 
     with tab_ninos:
         mostrar_categoria("Familia", "Niños")
