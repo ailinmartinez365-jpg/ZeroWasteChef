@@ -23,16 +23,6 @@ if "favoritos" not in st.session_state:
 import streamlit.components.v1 as components
 import recetas as modulo_recetas
 import recetas_familia
-st.write("RECETAS FAMILIA:", len(recetas_familia.familia))
-
-st.write(
-    "RECETAS DE NIÑOS:",
-    [
-        r["nombre"]
-        for r in recetas_familia.familia
-        if r.get("categoria", "").strip().lower() == "niños"
-    ]
-)
 
 # ============================================================
 # CONFIGURACIÓN DE PÁGINA
