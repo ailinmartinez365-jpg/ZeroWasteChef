@@ -258,9 +258,11 @@ def mostrar_grilla_recetas(lista_items, prefijo_key, num_cols=3):
             with st.container(border=True):
                 ruta_imagen = os.path.join(os.path.dirname(__file__), receta.get("imagen", ""))
                 if os.path.exists(ruta_imagen):
-                    st.image(ruta_imagen, use_container_width=True)
-                else:
-                    st.write("🍳")
+                    if ruta_imagen and os.path.isfile(ruta_imagen):
+                        st.image(ruta_imagen, use_container_width=True)
+                    else:
+                        st.info("Imagen no disponible")
+
 
                 if porcentaje is not None:
                     porcentaje_round = round(porcentaje)
