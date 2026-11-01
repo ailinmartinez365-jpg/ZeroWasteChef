@@ -470,7 +470,13 @@ with tab_buscador:
     resultados = []
 
     if ingredientes_usuario:
-        for receta in recetas:
+        todas_las_recetas = (
+            recetas
+            + recetas_familia.familia
+            + recetas_temporada.temporada
+        )
+
+for receta in todas_las_recetas:
             if filtro_tiempo == "10 minutos" and receta["tiempo"] > 10:
                 continue
             elif filtro_tiempo == "20 minutos" and receta["tiempo"] > 20:
