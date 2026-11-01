@@ -1,17 +1,8 @@
 
 familia = [
     {
-        "nombre": "Huevos con tomate",
-        "imagen": "imagenes/huevos_tomate.png",
-        "ingredientes": ["huevo", "tomate", "cebolla", "sal", "aceite"],
-        "tiempo": 10,
-        "nivel": "Principiante",
-        "descripcion": "Huevos revueltos tradicionales con tomate y cebolla.",
-        "instrucciones": []
-    },
-
-    {
         "nombre": "EMPANADITAS DE OSITO",
+        "categoria": "Niños",
         "imagen": "imagenes/empanaditas_osito.png",
         "ingredientes": [
             "Tortilla de harina integral",
@@ -42,6 +33,7 @@ familia = [
 
     {
         "nombre": "GOMITAS DE GELATINA SALUDABLES PARA NIÑOS",
+        "categoria": "Niños",
         "imagen": "imagenes/gelatina.png",
         "ingredientes": [
             "PARA GOMITAS DE SANDIA Y LIMON:",
