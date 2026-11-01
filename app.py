@@ -511,17 +511,13 @@ with tab_familia:
 
     with tab_en_familia:
         mostrar_categoria("Familia", "En familia")
+        import recetas_familia
 
     with tab_ninos:
         mostrar_categoria("Familia", "Niños")
 
-    with tab_para_peques:
-        mostrar_categoria("Familia", "Para peques")
-
     with tab_lonche:
         mostrar_categoria("Familia", "Lonche")
-
-    import recetas_familia
 
 # ------------------------------------------------------------
 # 5. PESTAÑA TEMPORADA
