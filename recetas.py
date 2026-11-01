@@ -775,7 +775,7 @@ recetas = [
     },
     {
         "nombre": "Torrejas de espinaca",
-        "imagen":
+        "imagen": "imagenes/torrejas_espinaca.png",
         "ingredientes": [
             "2 Tazas de espinacas frescas lavadas",
             "2 Huevos",
