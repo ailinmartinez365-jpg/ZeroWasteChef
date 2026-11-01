@@ -770,7 +770,7 @@ recetas = [
             "EL AS BAJO LA MANGA  si la mezcla queda muy seca se puede agregar una cucharadita de leche, o si por el contrario la mezcla está muy húmeda se le puede agregar un poquito más de avena.",
             "Y por último a disfrutar con un chocolate caliente o una leche fría nuestras deliciosas galletitas de avena."
         ]
-        "categoria": "Postres", "Fit"
-        "subcategoria": ""
+        "categoria": "Extras",
+        "subcategoria": "Fit"
     }
 ]
