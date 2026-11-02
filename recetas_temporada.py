@@ -24,5 +24,31 @@ temporada = [
             "Hornea hasta que estén cocidas y ligeramente doradas."
         ],
         "categoria": "Otoño"
+    },
+    {
+        "nombre": "GALLETAS DE MANTEQUILLA",
+        "imagen": "imagenes/galletas_mantequilla.png",
+        "ingredientes": [
+            "200 gramos de mantequilla a temperatura ambiente",
+            "120 gramos de azúcar",
+            "280 gramos de harina de trigo (tamizada)",
+            "1 cucharadita de esencia de vainilla",
+            "Envoltura plástica o film",
+            "Papel para hornear"
+        ],
+        "tiempo": 30,
+        "nivel": "Principiante",
+        "descripcion": "Deliciosas Galletas Para Decorar",
+        "instrucciones": [
+            "Batir la mantequilla con el azúcar hasta tener una mezcla cremosa.",
+            "Añadirá la vainilla e ir incorporando poco a poco la harina hasta formar una masa suave y manejable.",
+            "Poner la masa sobre un trozo de envoltura plástica o  film y formar un rollo que llevaremos al refrigerador durante 1 hora.",
+            "En una charola o bandeja para horno, poner el papel para hornear.",
+            "Una vez transcurrido el tiempo, sacar del refrigerador el rollo, retirar la envoltura plástica y con cuidado realizar cortes de aproximadamente 1 centímetro, formando rodajas las cuales colocaremos en la charola que previamente preparamos con el papel para hornear",
+            "Hornear a 180° C durante 11 ó 12 minutos, hasta que los bordes comiencen a dorarse.",
+            "EL AS BAJO LA MANGA. Aunque al salir del horno las galletas estén blanditas, no las hornees de más, ya que se endurecerán y tomaran textura al enfriarse."
+        ],
+        "categoria": "Temporada", "Postres",
+        "subcategoria": "Invierno"
     }
 ]
