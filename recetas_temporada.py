@@ -48,7 +48,6 @@ temporada = [
             "Hornear a 180° C durante 11 ó 12 minutos, hasta que los bordes comiencen a dorarse.",
             "EL AS BAJO LA MANGA. Aunque al salir del horno las galletas estén blanditas, no las hornees de más, ya que se endurecerán y tomaran textura al enfriarse."
         ],
-        "categoria": "Temporada", "Postres",
-        "subcategoria": "Invierno"
+        "categoria": "Invierno"
     }
 ]
