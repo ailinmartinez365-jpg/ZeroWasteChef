@@ -774,7 +774,7 @@ recetas = [
             "Perejil o cilantro finamente picado"
         ],
         "tiempo": 25,
-        "nivel": "Principiante",
+        "nivel": "Explorador",
         "instrucciones": [
             "Cortar el pollo en trozos, sazonar con sal y pimienta y dorarlo en una sartén  con el aceite o mantequilla a fuego medio. Retirar del fuego y reservar el pollo en un tazón.",
             "En la misma sartén sofreír la cebolla y el ajo durante 2 ó 3 minutos hasta que estén transparentes.",
@@ -784,7 +784,6 @@ recetas = [
             "Agregar el queso rallado y mezclar para que se derrita.",
             "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
         ],
-        "categoria": "Comida",
-        "subcategoria": ""
+        "categoria": "Comida"
     }
 ]
