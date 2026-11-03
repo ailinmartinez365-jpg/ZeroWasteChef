@@ -761,7 +761,7 @@ recetas = [
     },
     {
         "nombre": "POLLO EN CREMA",
-        "imagen": "imagenes/pollo_crema.png"
+        "imagen": "imagenes/pollo_crema.png",
         "ingredientes": [
             "4 Pechugas de pollo",
             "1 Cebolla pequeña picada finamente",
