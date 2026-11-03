@@ -784,7 +784,7 @@ recetas = [
             "Agregar el queso rallado y mezclar para que se derrita.",
             "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
         ],
-        "categoria": "Comidad",
+        "categoria": "Comida",
         "subcategoria": ""
     }
 ]
