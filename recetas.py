@@ -775,7 +775,7 @@ recetas = [
         ],
         "tiempo": 25,
         "nivel": "Principiante",
-        "instruciones": [
+        "instrucciones": [
             "Cortar el pollo en trozos, sazonar con sal y pimienta y dorarlo en una sartén  con el aceite o mantequilla a fuego medio. Retirar del fuego y reservar el pollo en un tazón.",
             "En la misma sartén sofreír la cebolla y el ajo durante 2 ó 3 minutos hasta que estén transparentes.",
             "Agregar la crema y el caldo de pollo a la sartén y cocinar a fuego bajo durante 5 minutos revolviendo ocasionalmente.",
