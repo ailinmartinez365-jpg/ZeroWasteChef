@@ -74,7 +74,6 @@ recetas = [
         "ingredientes": ["crepas", "pollo", "chile poblano", "cebolla", "crema", "caldo de pollo", "leche", "mantequilla", "queso manchego", "sal", "pimienta"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Crepas rellenas de pollo y poblano con una salsa cremosa.",
         "instrucciones": [
             "Sofríe la cebolla y el chile poblano.",
             "Agrega el pollo, sal y pimienta.",
@@ -93,7 +92,6 @@ recetas = [
         "ingredientes": ["tortilla", "chile guajillo", "tomate", "cebolla", "ajo", "pollo", "caldo de pollo", "queso", "crema", "aceite"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Dobladas de tortilla bañadas en salsa de chile guajillo.",
         "instrucciones": [
             "Cocina los chiles guajillo con tomate, cebolla y ajo.",
             "Licúa los ingredientes con un poco de caldo.",
@@ -111,7 +109,6 @@ recetas = [
         "ingredientes": ["pan blanco", "ajo", "cebolla", "epazote", "chipotle", "caldo de pollo", "huevo", "aceite de oliva"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Sopa caliente de pan, chile y hierbas.",
         "instrucciones": [
             "Sofríe la cebolla y el ajo.",
             "Agrega el chipotle y el epazote.",
@@ -129,7 +126,6 @@ recetas = [
         "ingredientes": ["carne de res", "cebolla", "ajo", "chile morita", "tomatillo", "caldo de res", "sal", "pimienta", "aceite"],
         "tiempo": 40,
         "nivel": "Intermedio",
-        "descripcion": "Carne de res en una salsa de chile morita.",
         "instrucciones": [
             "Dora la carne con un poco de aceite.",
             "Cocina los tomatillos con chile morita, cebolla y ajo.",
@@ -147,7 +143,6 @@ recetas = [
         "ingredientes": ["pan blanco", "atún", "cebolla", "crema", "leche", "cilantro", "caldo de pollo", "chile verde", "mantequilla", "queso Oaxaca", "pimienta"],
         "tiempo": 50,
         "nivel": "Intermedio",
-        "descripcion": "Budín salado de pan y atún con queso.",
         "instrucciones": [
             "Retira la corteza del pan.",
             "Mezcla el atún con cebolla, crema, leche y chile.",
@@ -166,7 +161,6 @@ recetas = [
         "ingredientes": ["cappelli", "cebolla", "curry", "harina", "crema", "almendra", "chabacano seco", "mantequilla", "caldo de pollo", "pimienta", "leche"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Pasta cappelli con salsa cremosa de curry.",
         "instrucciones": [
             "Cuece la pasta.",
             "Sofríe la cebolla con mantequilla.",
@@ -185,7 +179,6 @@ recetas = [
         "ingredientes": ["pierna de cerdo", "cebolla", "ajo", "caldo de pollo", "chile ancho", "zanahoria"],
         "tiempo": 90,
         "nivel": "Intermedio",
-        "descripcion": "Cerdo cocinado con chile ancho y verduras.",
         "instrucciones": [
             "Cocina la carne hasta que comience a dorarse.",
             "Hidrata los chiles ancho.",
@@ -203,7 +196,6 @@ recetas = [
         "ingredientes": ["pasta para lasagna", "brócoli", "aceite de oliva", "ajo", "cebolla", "anchoas", "tomate", "piñones", "pavo", "caldo de pollo", "pimienta", "queso manchego", "aceite"],
         "tiempo": 60,
         "nivel": "Intermedio",
-        "descripcion": "Lasagna con brócoli, pavo, piñones y queso.",
         "instrucciones": [
             "Cuece la pasta para lasagna.",
             "Sofríe ajo, cebolla y brócoli.",
@@ -222,7 +214,6 @@ recetas = [
         "ingredientes": ["carne molida", "zanahoria", "cebolla", "aceite", "sal", "salsa de tomate", "catsup", "pasta para lasagna", "crema", "queso para derretir"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Lasaña rápida preparada directamente en sartén.",
         "instrucciones": [
             "Sofríe la carne con zanahoria y cebolla.",
             "Agrega salsa de tomate y catsup.",
@@ -240,7 +231,6 @@ recetas = [
         "ingredientes": ["tortilla de harina", "frijoles refritos", "queso", "cebolla", "ajo", "tomate", "caldo de pollo", "aceite"],
         "tiempo": 20,
         "nivel": "Principiante",
-        "descripcion": "Burritas sencillas de frijoles con queso.",
         "instrucciones": [
             "Sofríe cebolla y ajo.",
             "Agrega tomate picado.",
@@ -258,7 +248,6 @@ recetas = [
         "ingredientes": ["pollo", "aceite", "cebolla", "ajo", "zanahoria", "papa", "ejote", "crema", "caldo de pollo", "agua", "sal", "pimienta", "tortilla", "aguacate", "queso fresco", "limón"],
         "tiempo": 30,
         "nivel": "Intermedio",
-        "descripcion": "Caldo tradicional con pollo, verduras y acompañamientos.",
         "instrucciones": [
             "Sofríe cebolla y ajo.",
             "Agrega zanahoria, papa y ejotes.",
@@ -276,7 +265,6 @@ recetas = [
         "ingredientes": ["leche evaporada", "ajo", "espárragos", "chile jalapeño", "queso mozzarella", "agua", "caldo de pollo", "crutones"],
         "tiempo": 20,
         "nivel": "Intermedio",
-        "descripcion": "Crema suave de queso y espárragos.",
         "instrucciones": [
             "Asa los espárragos.",
             "Licúa los espárragos con leche evaporada y ajo.",
@@ -294,7 +282,6 @@ recetas = [
         "ingredientes": ["aceite vegetal", "arrachera", "salsa sazonadora", "salsa inglesa", "pimienta", "ajo", "pimiento", "queso manchego"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Pimientos rellenos de carne y queso.",
         "instrucciones": [
             "Corta los pimientos por la mitad.",
             "Cocina la arrachera en cubos.",
@@ -312,7 +299,6 @@ recetas = [
         "ingredientes": ["mayonesa", "atún", "pasta de coditos", "chícharos", "tomate", "crema", "caldo de pollo"],
         "tiempo": 5,
         "nivel": "Principiante",
-        "descripcion": "Ensalada fría de coditos con atún y verduras.",
         "instrucciones": [
             "Cuece y escurre la pasta.",
             "Mezcla el atún con mayonesa y crema.",
@@ -330,7 +316,6 @@ recetas = [
         "ingredientes": ["finas hierbas", "sal de ajo", "limón", "salsa inglesa", "salsa sazonadora", "costillas de cerdo"],
         "tiempo": 54,
         "nivel": "Intermedio",
-        "descripcion": "Costillas de cerdo sazonadas con hierbas y cítricos.",
         "instrucciones": [
             "Sazona las costillas con finas hierbas y sal de ajo.",
             "Agrega limón y las salsas.",
@@ -347,7 +332,6 @@ recetas = [
         "ingredientes": ["harina", "miel", "aceite de oliva", "levadura", "finas hierbas", "agua", "tomate", "puré de tomate", "caldo de pollo", "pollo", "cebolla", "queso manchego", "tocino", "salsa BBQ", "salsa inglesa"],
         "tiempo": 67,
         "nivel": "Intermedio",
-        "descripcion": "Pizza casera de pollo con queso y un toque hawaiano.",
         "instrucciones": [
             "Prepara la masa con harina, levadura, agua, miel y aceite.",
             "Prepara la salsa con tomate y puré de tomate.",
@@ -366,7 +350,6 @@ recetas = [
         "ingredientes": ["aceite de maíz", "cebolla", "champiñones", "leche evaporada", "caldo de pollo", "maicena", "agua", "mantequilla", "pollo", "elote", "calabacita", "papa", "zanahoria", "sal de ajo", "pasta para lasagna", "queso manchego"],
         "tiempo": 45,
         "nivel": "Intermedio",
-        "descripcion": "Canelones rellenos de pollo y verduras con salsa cremosa de champiñones.",
         "instrucciones": [
             "Sofríe cebolla y champiñones.",
             "Agrega leche evaporada y caldo de pollo.",
@@ -394,7 +377,6 @@ recetas = [
         "ingredientes": ["bocaditos de pan", "mostaza", "mayonesa", "mantequilla", "jamón", "queso manchego", "sal", "pimienta"],
         "tiempo": 15,
         "nivel": "Principiante",
-        "descripcion": "Bocaditos calientes de pan con jamón y queso.",
         "instrucciones": [
             "Corta la parte superior de los bocaditos sin romperlos.",
             "Unta mantequilla y mostaza en el interior.",
@@ -411,7 +393,6 @@ recetas = [
         "ingredientes": ["huevo", "tocino", "papa", "cebolla", "cilantro", "chile en vinagre", "caldo de pollo", "aceite"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Rollitos de huevo rellenos de papa y tocino.",
         "instrucciones": [
             "Cocina el tocino y reserva.",
             "Prepara un puré de papa con cebolla y cilantro.",
@@ -429,7 +410,6 @@ recetas = [
         "ingredientes": ["pan", "queso crema", "cebolla", "jugo de carne", "sal de ajo", "sal de cebolla", "sal", "pimienta", "nuez"],
         "tiempo": 20,
         "nivel": "Principiante",
-        "descripcion": "Botana cremosa de queso con nuez.",
         "instrucciones": [
             "Mezcla el queso crema con cebolla picada.",
             "Agrega jugo de carne, sal de ajo y sal de cebolla.",
@@ -447,7 +427,6 @@ recetas = [
         "ingredientes": ["pan integral", "atún", "cebolla", "ajo", "cilantro", "chile en vinagre", "caldo de pollo", "aceite", "rábano"],
         "tiempo": 30,
         "nivel": "Intermedio",
-        "descripcion": "Botana de atún preparada sobre pan integral.",
         "instrucciones": [
             "Sofríe cebolla y ajo.",
             "Agrega el atún y el chile.",
@@ -465,7 +444,6 @@ recetas = [
         "ingredientes": ["pollo", "leche", "sal", "ajo en polvo", "paprika", "pimienta", "pan molido", "queso", "huevo", "panko", "aceite vegetal"],
         "tiempo": 40,
         "nivel": "Intermedio",
-        "descripcion": "Donas saladas de pollo rellenas de queso.",
         "instrucciones": [
             "Procesa el pollo con leche y condimentos.",
             "Forma pequeñas donas con la mezcla.",
@@ -483,7 +461,6 @@ recetas = [
         "ingredientes": ["carne molida", "tortilla de harina", "queso amarillo", "queso para derretir", "huevo", "leche", "cúrcuma", "paprika", "sal", "pimienta"],
         "tiempo": 30,
         "nivel": "Intermedio",
-        "descripcion": "Triángulos crujientes rellenos de carne y queso.",
         "instrucciones": [
             "Cocina la carne molida con los condimentos.",
             "Coloca carne y queso sobre las tortillas.",
@@ -501,7 +478,6 @@ recetas = [
         "ingredientes": ["pan integral", "tomate", "orégano", "aceite de oliva", "salchicha", "jamón", "queso manchego", "sal", "pimienta"],
         "tiempo": 20,
         "nivel": "Principiante",
-        "descripcion": "Pequeñas pizzas hechas con pan integral.",
         "instrucciones": [
             "Corta el pan integral en cuadros.",
             "Agrega tomate y orégano.",
@@ -519,7 +495,6 @@ recetas = [
         "ingredientes": ["atún", "cebolla", "perejil", "huevo", "pan molido", "comino", "salsa de soya", "salsa inglesa", "harina", "aceite de maíz", "media crema", "queso manchego", "chipotle", "sal de cebolla", "tocino"],
         "tiempo": 30,
         "nivel": "Intermedio",
-        "descripcion": "Bocaditos crujientes de atún con queso.",
         "instrucciones": [
             "Mezcla el atún con cebolla, perejil y tocino.",
             "Agrega huevo, pan molido y condimentos.",
@@ -537,7 +512,6 @@ recetas = [
         "ingredientes": ["crema", "salsa inglesa", "salsa sazonadora", "queso crema", "atún con chipotle", "baguette"],
         "tiempo": 25,
         "nivel": "Principiante",
-        "descripcion": "Dip cremoso de atún con chipotle.",
         "instrucciones": [
             "Mezcla el queso crema con la crema.",
             "Agrega el atún con chipotle.",
@@ -555,7 +529,6 @@ recetas = [
         "ingredientes": ["camarón", "pescado", "aceite de oliva", "ajo", "cebolla morada", "tomate", "chile serrano", "jugo de limón", "salsa inglesa", "salsa sazonadora", "aguacate", "cilantro", "sal", "galletas saladas"],
         "tiempo": 50,
         "nivel": "Intermedio",
-        "descripcion": "Preparación fresca de camarón y pescado con limón y chile.",
         "instrucciones": [
             "Corta el pescado y los vegetales.",
             "Prepara una mezcla de limón, chile y salsas.",
@@ -573,7 +546,6 @@ recetas = [
         "ingredientes": ["tocino", "salchicha", "palillos", "piña", "salsa sazonadora", "salsa inglesa", "perejil", "chile serrano"],
         "tiempo": 30,
         "nivel": "Principiante",
-        "descripcion": "Botana de salchicha, tocino y piña.",
         "instrucciones": [
             "Corta las salchichas y la piña.",
             "Envuelve las salchichas con tocino.",
@@ -590,7 +562,6 @@ recetas = [
         "ingredientes": ["pasta de hojaldre", "alcachofa", "queso Chihuahua", "huevo", "ajonjolí", "crema", "pimiento", "sal de cebolla"],
         "tiempo": 55,
         "nivel": "Intermedio",
-        "descripcion": "Empanadas horneadas de alcachofa y queso.",
         "instrucciones": [
             "Prepara el relleno con alcachofa, crema y pimiento.",
             "Agrega queso y sal de cebolla.",
@@ -609,7 +580,6 @@ recetas = [
         "ingredientes": ["aceite de oliva", "cebolla", "tomate", "pescado blanco", "salsa sazonadora", "sal de ajo", "perejil", "tortilla de maíz", "palillos", "aceite vegetal", "aguacate", "cebolla morada", "cilantro", "limón"],
         "tiempo": 34,
         "nivel": "Intermedio",
-        "descripcion": "Pequeñas empanadas de pescado acompañadas de aguacate.",
         "instrucciones": [
             "Sofríe cebolla y tomate.",
             "Agrega el pescado deshebrado.",
@@ -628,7 +598,6 @@ recetas = [
         "ingredientes": ["papa", "aceite de maíz", "orégano", "pimienta", "cebolla", "carne molida", "sal de ajo", "salsa sazonadora", "salsa inglesa", "queso amarillo", "chile serrano", "chorizo"],
         "tiempo": 70,
         "nivel": "Intermedio",
-        "descripcion": "Papas preparadas con carne, queso y chile.",
         "instrucciones": [
             "Cocina las papas hasta que estén suaves.",
             "Dóralas con aceite y orégano.",
@@ -646,7 +615,6 @@ recetas = [
         "ingredientes": ["mayonesa", "salsa sazonadora", "chipotle", "palillos", "elote", "tocino"],
         "tiempo": 44,
         "nivel": "Principiante",
-        "descripcion": "Elotes asados con chipotle, mayonesa y tocino.",
         "instrucciones": [
             "Asa los elotes.",
             "Mezcla mayonesa con chipotle.",
@@ -667,7 +635,6 @@ recetas = [
         "ingredientes": ["leche evaporada", "caldo de pollo", "mantequilla", "puré de papa instantáneo", "avena", "atún", "cebolla", "perejil", "huevo", "aceite", "berros", "tomate", "pepino", "cebolla morada", "limón", "aceite de oliva", "pimienta", "sal"],
         "tiempo": 35,
         "nivel": "Intermedio",
-        "descripcion": "Tortitas de avena, papa y atún acompañadas de ensalada.",
         "instrucciones": [
             "Prepara el puré de papa.",
             "Mezcla con avena, atún, cebolla y perejil.",
@@ -685,7 +652,6 @@ recetas = [
         "ingredientes": ["aguacate", "vainilla", "leche en polvo", "leche condensada", "agua", "hielo"],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "Bebida cremosa preparada con aguacate.",
         "instrucciones": [
             "Coloca el aguacate en la licuadora.",
             "Agrega vainilla, leche y agua.",
@@ -705,7 +671,6 @@ recetas = [
         "ingredientes": ["leche en polvo", "leche condensada", "avena", "jugo de piña", "agua", "hielo"],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "Bebida fría de piña y avena.",
         "instrucciones": [
             "Licúa la leche en polvo, leche condensada y avena.",
             "Agrega el jugo de piña y agua.",
@@ -721,7 +686,6 @@ recetas = [
         "ingredientes": ["leche en polvo", "leche condensada", "arroz cocido", "agua", "canela", "manzana verde", "hielo"],
         "tiempo": 15,
         "nivel": "Principiante",
-        "descripcion": "Horchata cremosa con manzana y canela.",
         "instrucciones": [
             "Licúa el arroz cocido con agua.",
             "Agrega leche en polvo y leche condensada.",
@@ -738,7 +702,6 @@ recetas = [
         "ingredientes": ["piña congelada", "néctar de piña", "azúcar", "limón", "salsa de soya", "chile en polvo", "concentrado de jamaica", "piña", "dulce de tamarindo", "dulce enchilado"],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "Bebida fría y tropical de piña con un toque picante.",
         "instrucciones": [
             "Licúa la piña congelada con el néctar.",
             "Agrega azúcar y limón.",
@@ -760,7 +723,6 @@ recetas = [
         ],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "galletas sin azucar",
         "instrucciones": [
             "Mezclar en un bowl o tazón: la avena, la miel y el huevo.",
             "Revolver bien hasta que quede una masita manejable.",
@@ -787,7 +749,6 @@ recetas = [
         ],
         "tiempo": 10,
         "nivel": "Principiante",
-        "descripcion": "Torrejas de espinacas saludables y rápidas.",
         "instrucciones": [
             "En una sartén, poner a saltear las espinacas durante 2 ó 3 minutos.",
             "EL AS BAJO LA MANGA cuando ya haya pasado el tiempo sugerido retíralas del fuego y escúrrelas muy bien para quitar el exceso de líquido y así evitar que nuestra mezcla quede muy húmeda.",
@@ -797,5 +758,33 @@ recetas = [
         ],
         "categoria": "Extras",
         "subcategoria": "Fit"
+    },
+    {
+        "nombre": "POLLO EN CREMA",
+        "imagen": "imagenes/pollo_crema.png"
+        "ingredientes": [
+            "4 Pechugas de pollo",
+            "1 Cebolla pequeña picada finamente",
+            "2 Dientes de ajo",
+            "1 Taza de crema",
+            "½ Taza de caldo de pollo",
+            "1 Cucharadita de aceite o mantequilla",
+            "½ Taza de queso rallado",
+            "Sal y pimienta al gusto",
+            "Perejil o cilantro finamente picado"
+        ],
+        "tiempo": 25,
+        "nivel": "Principiante",
+        "instruciones": [
+            "Cortar el pollo en trozos, sazonar con sal y pimienta y dorarlo en una sartén  con el aceite o mantequilla a fuego medio. Retirar del fuego y reservar el pollo en un tazón.",
+            "En la misma sartén sofreír la cebolla y el ajo durante 2 ó 3 minutos hasta que estén transparentes.",
+            "Agregar la crema y el caldo de pollo a la sartén y cocinar a fuego bajo durante 5 minutos revolviendo ocasionalmente.",
+            "EL AS BAJO LA MANGA. La crema se debe cocinar a fuego bajo para que quede cremosa y evitar que se corte.",
+            "Añade el pollo a la salsa o crema de la sartén y cocina de 5 a 10 minutos hasta que este cocido y la crema este espesa.",
+            "Agregar el queso rallado y mezclar para que se derrita.",
+            "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
+        ],
+        "categoria": "Comidad",
+        "subcategoria": ""
     }
 ]
