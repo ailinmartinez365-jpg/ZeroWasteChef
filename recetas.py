@@ -788,7 +788,7 @@ recetas = [
         "subcategoria": ""
     },
     {
-        "nombre": "PAPAS A LA BOLOÑESA",
+        "nombre": "Papas A LA BOLOÑESA",
         "imagen": "imagenes/papas a la boloñesa.png",
         "ingredientes": [
             "2 Cucharadas de aceite vegetal",
