@@ -819,7 +819,6 @@ recetas = [
             "Aparte, mezclar la pimienta, las finas hierbas y la sal con cebolla, cuando haya pasado el tiempo de las papas añadir las papas cocidas y mueve hasta cubrir por completo.",
             "Por ultimo servir las papas y cubrir con la salsa boloñesa, decorar con queso parmesano y hojas de albahaca."
         ],
-        "categoria": "Comida",
-        "subcategoria": ""
+        "categoria": "Comida"
     }
 ]
