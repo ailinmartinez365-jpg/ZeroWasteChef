@@ -812,7 +812,7 @@ recetas = [
             "Albahaca fresca y desinfectada"
         ],
         "tiempo": 45,
-        "nivel": "Explorador",
+        "nivel": "Intermedio",
         "instrucciones": [
             "Para preparar la boloñesa, calentar en una sartén el aceite y freír la cebolla hasta que esté transparente, agregar el ajo, la carne molida y cocinar por 2 minutos. Verter la salsaInglesa y la salsa de soya. Añadir los tomates (jitomates), el tocino, el puré de tomate, la cucharadita de hierbas finas, las hojuelas de chile, el orégano, el Concentrado de Tomate con Pollo y cocinar por 5 minutos más.",
             "Para cocinar las papas en gajo, colocar las papas en la canastilla de la freidora de aire y cocinar a 200 °C por 20 minutos, a la mitad de la cocción mover y continuar la cocción.",
