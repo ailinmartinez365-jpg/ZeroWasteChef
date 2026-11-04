@@ -208,39 +208,88 @@ st.markdown(
     unsafe_allow_html=True
 )
    
+ 
 # ============================================================
 # NORMALIZAR INGREDIENTES
 # ============================================================
 
 @st.cache_data
 def normalizar_ingrediente(ingrediente):
-    ingrediente = ingrediente.strip().lower().replace(",", "").replace(".", "")
+
+    import re
+    import unicodedata
+
+    ingrediente = ingrediente.lower().strip()
+
+    # Quitar acentos
+    ingrediente = unicodedata.normalize(
+        "NFD", ingrediente
+    )
+    ingrediente = "".join(
+        c for c in ingrediente
+        if unicodedata.category(c) != "Mn"
+    )
+
+    # Limpiar signos de puntuación
+    ingrediente = re.sub(r"[.,;:()]", " ", ingrediente)
+
     palabras = ingrediente.split()
+
     ignoradas = [
-        "un", "una", "unos", "unas", "el", "la", "los", "las", "de", "del",
-        "gramos", "gramo", "kg", "kilo", "kilos", "g", "ml", "litro", "litros",
-        "taza", "tazas", "cucharada", "cucharadas", "cucharadita", "cucharaditas",
-        "barra", "barras", "paquete", "paquetes", "lata", "latas", "sobre", "sobres", "pieza", "piezas"
+        "un", "una", "unos", "unas", "el", "la", "los", "las",
+        "de", "del", "gramos", "gramo", "kg", "kilo", "kilos",
+        "g", "ml", "litro", "litros", "taza", "tazas",
+        "cucharada", "cucharadas", "cucharadita", "cucharaditas",
+        "barra", "barras", "paquete", "paquetes", "lata", "latas",
+        "sobre", "sobres", "pieza", "piezas",
+        "grandes", "pequenas", "pequenos", "pequena",
+        "picado", "picada", "picados", "picadas",
+        "cortado", "cortada", "cortados", "cortadas",
+        "fresco", "fresca", "frescos", "frescas",
+        "molido", "molida", "molidos", "molidas",
+        "rallado", "rallada", "rallados", "ralladas",
+        "finamente", "seco", "seca", "secos", "secas"
     ]
-    limpias = [p.strip(".,;:()") for p in palabras if not p.isdigit() and "/" not in p and p not in ignoradas]
-    ingrediente = " ".join(limpias)
+
+    limpias = [
+        p for p in palabras
+        if not p.isdigit()
+        and "/" not in p
+        and p not in ignoradas
+    ]
 
     equivalencias = {
-        "jitomate": "tomate", "jitomates": "tomate", "tomates": "tomate",
-        "huevos": "huevo", "tortillas": "tortilla", "quesos": "queso",
-        "cebollas": "cebolla", "papas": "papa", "patatas": "papa",
-        "zanahorias": "zanahoria", "aceites": "aceite", "chiles": "chile",
-        "limones": "limon", "limón": "limon", "ajos": "ajo",
-        "mangos": "mango", "fresas": "fresa", "peras": "pera",
-        "duraznos": "durazno", "cerezas": "cereza", "nueces": "nuez",
-        "almendras": "almendra", "galletas": "galleta"
+        "jitomate": "tomate",
+        "jitomates": "tomate",
+        "tomates": "tomate",
+        "huevos": "huevo",
+        "tortillas": "tortilla",
+        "quesos": "queso",
+        "cebollas": "cebolla",
+        "papas": "papa",
+        "patatas": "papa",
+        "zanahorias": "zanahoria",
+        "aceites": "aceite",
+        "chiles": "chile",
+        "limones": "limon",
+        "ajos": "ajo",
+        "almendras": "almendra",
+        "nueces": "nuez",
+        "galletas": "galleta"
     }
 
-    if ingrediente in equivalencias:
-        return equivalencias[ingrediente]
-    if ingrediente.endswith("s") and len(ingrediente) > 3:
-        return ingrediente[:-1]
-    return ingrediente
+    resultado = []
+
+    for palabra in limpias:
+        palabra = equivalencias.get(palabra, palabra)
+
+        if palabra.endswith("s") and len(palabra) > 3:
+            palabra = palabra[:-1]
+
+        if palabra not in resultado:
+            resultado.append(palabra)
+
+    return " ".join(resultado)
 
 
 # ============================================================
