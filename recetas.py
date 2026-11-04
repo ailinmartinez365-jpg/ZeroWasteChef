@@ -785,5 +785,40 @@ recetas = [
             "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
         ],
         "categoria": "Comida"
+    },
+    {
+        "nombre": "PAPAS A LA BOLOÑESA",
+        "imagen": "imagenes/pollo_crema.png",
+        "ingredientes": [
+            "2 Cucharadas de aceite vegetal",
+            "1/2 Cebolla picada finamente",
+            "1 Cucharadita de ajo picado finamente",
+            "500 Gramos de carne molida de res",
+            "2 Cucharadas de salsa tipo Inglesa",
+            "1 Cucharada de salsa de soya",
+            "2 tomates (Jitomates) cortados en cubos",
+            "3 Rebanadas de tocino picado y frito",
+            "1/2 Taza de puré de tomate natural",
+            "1/4 De cucharadita de hierbas finas molidas,
+            "1/4 De cucharadita de hojuelas de chile",
+            "1/4 De cucharadita de orégano seco molido",
+            "1 Cubo de Concentrado de tomate con pollo",
+            "4 Papas grandes cortadas en gajos",
+            "1 Cucharada de pimienta negra molida",
+            "1 Cucharada de hierbas finas molidas",
+            "1 Cucharada de sal con cebolla en polvo",
+            "1/4 De taza de queso parmesano rallado",
+            "Albahaca fresca y desinfectada"
+        ],
+        "tiempo": 45,
+        "nivel": "Explorador",
+        "instrucciones": [
+            "Para preparar la boloñesa, calentar en una sartén el aceite y freír la cebolla hasta que esté transparente, agregar el ajo, la carne molida y cocinar por 2 minutos. Verter la salsaInglesa y la salsa de soya. Añadir los tomates (jitomates), el tocino, el puré de tomate, la cucharadita de hierbas finas, las hojuelas de chile, el orégano, el Concentrado de Tomate con Pollo y cocinar por 5 minutos más.",
+            "Para cocinar las papas en gajo, colocar las papas en la canastilla de la freidora de aire y cocinar a 200 °C por 20 minutos, a la mitad de la cocción mover y continuar la cocción.",
+            "Aparte, mezclar la pimienta, las finas hierbas y la sal con cebolla, cuando haya pasado el tiempo de las papas añadir las papas cocidas y mueve hasta cubrir por completo.",
+            "Por ultimo servir las papas y cubrir con la salsa boloñesa, decorar con queso parmesano y hojas de albahaca."
+        ],
+        "categoria": "Comida",
+        "subcategoria": ""
     }
 ]
