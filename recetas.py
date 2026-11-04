@@ -1,7 +1,68 @@
 recetas = [
 
     # ==================== COMIDA ====================
-
+    {
+        "nombre": "POLLO EN CREMA",
+        "imagen": "imagenes/pollo_crema.png",
+        "ingredientes": [
+            "4 Pechugas de pollo",
+            "1 Cebolla pequeña picada finamente",
+            "2 Dientes de ajo",
+            "1 Taza de crema",
+            "½ Taza de caldo de pollo",
+            "1 Cucharadita de aceite o mantequilla",
+            "½ Taza de queso rallado",
+            "Sal y pimienta al gusto",
+            "Perejil o cilantro finamente picado"
+        ],
+        "tiempo": 25,
+        "nivel": "Explorador",
+        "instrucciones": [
+            "Cortar el pollo en trozos, sazonar con sal y pimienta y dorarlo en una sartén  con el aceite o mantequilla a fuego medio. Retirar del fuego y reservar el pollo en un tazón.",
+            "En la misma sartén sofreír la cebolla y el ajo durante 2 ó 3 minutos hasta que estén transparentes.",
+            "Agregar la crema y el caldo de pollo a la sartén y cocinar a fuego bajo durante 5 minutos revolviendo ocasionalmente.",
+            "EL AS BAJO LA MANGA. La crema se debe cocinar a fuego bajo para que quede cremosa y evitar que se corte.",
+            "Añade el pollo a la salsa o crema de la sartén y cocina de 5 a 10 minutos hasta que este cocido y la crema este espesa.",
+            "Agregar el queso rallado y mezclar para que se derrita.",
+            "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
+        ],
+        "categoria": "Comida",
+        "subcategoria": ""
+    },
+    {
+        "nombre": "Papas A LA BOLOÑESA",
+        "imagen": "imagenes/papas a la boloñesa.png",
+        "ingredientes": [
+            "2 Cucharadas de aceite vegetal",
+            "1/2 Cebolla picada finamente",
+            "1 Cucharadita de ajo picado finamente",
+            "500 Gramos de carne molida de res",
+            "2 Cucharadas de salsa tipo Inglesa",
+            "1 Cucharada de salsa de soya",
+            "2 tomates (Jitomates) cortados en cubos",
+            "3 Rebanadas de tocino picado y frito",
+            "1/2 Taza de puré de tomate natural",
+            "1/4 De cucharadita de hierbas finas molidas",
+            "1/4 De cucharadita de hojuelas de chile",
+            "1/4 De cucharadita de orégano seco molido",
+            "1 Cubo de Concentrado de tomate con pollo",
+            "4 Papas grandes cortadas en gajos",
+            "1 Cucharada de pimienta negra molida",
+            "1 Cucharada de hierbas finas molidas",
+            "1 Cucharada de sal con cebolla en polvo",
+            "1/4 De taza de queso parmesano rallado",
+            "Albahaca fresca y desinfectada"
+        ],
+        "tiempo": 45,
+        "nivel": "Explorador",
+        "instrucciones": [
+            "Para preparar la boloñesa, calentar en una sartén el aceite y freír la cebolla hasta que esté transparente, agregar el ajo, la carne molida y cocinar por 2 minutos. Verter la salsaInglesa y la salsa de soya. Añadir los tomates (jitomates), el tocino, el puré de tomate, la cucharadita de hierbas finas, las hojuelas de chile, el orégano, el Concentrado de Tomate con Pollo y cocinar por 5 minutos más.",
+            "Para cocinar las papas en gajo, colocar las papas en la canastilla de la freidora de aire y cocinar a 200 °C por 20 minutos, a la mitad de la cocción mover y continuar la cocción.",
+            "Aparte, mezclar la pimienta, las finas hierbas y la sal con cebolla, cuando haya pasado el tiempo de las papas añadir las papas cocidas y mueve hasta cubrir por completo.",
+            "Por ultimo servir las papas y cubrir con la salsa boloñesa, decorar con queso parmesano y hojas de albahaca."
+        ],
+        "categoria": "Comida"
+    },
     {
         "nombre": "Huevos con tomate",
         "imagen": "imagenes/huevos_tomate.png",
@@ -363,6 +424,28 @@ recetas = [
         "categoria": "Comida",
         "subcategoria": ""
     },
+    {
+        "nombre": "FLAUTAS DORADAS DE PAPA",
+        "imagen": "imagenes/Flautas_de_papa.png",
+        "ingredientes": [
+            "2 Papas cocidas y hechas puré"
+            "1/2 Cucharadita de sal con ajo en polvo",
+            "8 Tortillas de maíz",
+            "Aceite en aerosol",
+            "1 Taza de lechuga romana desinfectada y fileteada",
+            "1/2 Paquete Queso panela rallado (100 g)",
+            "1 Lata de Media Crema"
+        ],
+        "tiempo": 35 min,
+        "nivel": "Explorador",
+        "instrucciones": [
+            "En un bowl o tazón mezclar las papas y la sal con ajo hasta integrar por completo, rellena las tortillas con un poco de la preparación anterior, enrolla y reserva.",
+            "Rociar un poco de aceite sobre las flautas, coloca algunos en la canastilla de la freidora de aire evitando que se encimen y cocina a 180 °C por 6 minutos, luego con unas pinzas voltéalos y cocina por 6 minutos más o hasta que estén crujientes.",
+            "Para servir las flautas, acompaña con la lechuga, el queso y la Media Crema. Agregar la salsa de su preferencia."
+        ],
+        "categoria":"Comida",
+        "subcategoria": ""
+    },
 
     # ==================== POSTRES ====================
 
@@ -646,6 +729,54 @@ recetas = [
         "categoria": "Extras",
         "subcategoria": "Fit"
     },
+        {
+        "nombre": "GALLETAS DE AVENA",
+        "imagen": "imagenes/galletas_avena.png",
+        "ingredientes":[
+            "200 gramos de avena instantánea",
+            "2 Cucharas de miel",
+            "1 huevo",
+            "Opcionales: arándanos o nueces o chispas de chocolate"
+        ],
+        "tiempo": 10,
+        "nivel": "Principiante",
+        "instrucciones": [
+            "Mezclar en un bowl o tazón: la avena, la miel y el huevo.",
+            "Revolver bien hasta que quede una masita manejable.",
+            "Tomar una pequeña cantidad de la masa y aplanarla ligeramente con las manos para formar la galletita.",
+            "Cocinar en un sartén antiadherente a fuego bajo aproximadamente por 5 minutos de un lado o hasta que este doradita.",
+            "Voltear con precaución y dejar por 1 minuto aproximadamente o hasta lograr el dorado que se desea.",
+            "EL AS BAJO LA MANGA  si la mezcla queda muy seca se puede agregar una cucharadita de leche, o si por el contrario la mezcla está muy húmeda se le puede agregar un poquito más de avena.",
+            "Y por último a disfrutar con un chocolate caliente o una leche fría nuestras deliciosas galletitas de avena."
+        ],
+        "categoria": "Extras",
+        "subcategoria": "Fit"
+    },
+        {
+        "nombre": "Torrejas de espinaca",
+        "imagen": "imagenes/torrejas_espinaca.png",
+        "ingredientes": [
+            "2 Tazas de espinacas frescas lavadas",
+            "2 Huevos",
+            "½ Taza de avena o harina de avena",
+            "¼ De cebolla picada finamente",
+            "1 diente de ajo picado finamente o molido",
+            "Sal y pimienta al gusto",
+            "1 Cucharadita de aceite de oliva"
+        ],
+        "tiempo": 10,
+        "nivel": "Principiante",
+        "instrucciones": [
+            "En una sartén, poner a saltear las espinacas durante 2 ó 3 minutos.",
+            "EL AS BAJO LA MANGA cuando ya haya pasado el tiempo sugerido retíralas del fuego y escúrrelas muy bien para quitar el exceso de líquido y así evitar que nuestra mezcla quede muy húmeda.",
+            "En un bowl o tazón, mezclar la avena, la cebolla, el ajo, la sal y la pimienta.",
+            "Agregar las espinacas que previamente se saltearon, a la mezcla anterior hasta lograr integrar todos los ingredientes.",
+            "Formar con nuestra mezcla, pequeñas torrejitas o tortitas en nuestras manos o ayudándonos con una cuchara y colocarlas en una sartén ligeramente engrasada a fuego medio, por 2 ó 3 minutos de cada lado, hasta que estén doraditas y firmes."
+        ],
+        "categoria": "Extras",
+        "subcategoria": "Fit"
+    },
+    # ==================== BEBIDAS ====================
     {
         "nombre": "Agua de Aguacate",
         "imagen": "imagenes/agua_aguacate.png",
@@ -662,9 +793,6 @@ recetas = [
         "categoria": "Bebidas",
         "subcategoria": ""
     },
-
-    # ==================== BEBIDAS ====================
-
     {
         "nombre": "Agua de Piña con Avena",
         "imagen": "imagenes/agua_pina_avena.png",
@@ -712,113 +840,4 @@ recetas = [
         "categoria": "Bebidas",
         "subcategoria": ""
     },
-    {
-        "nombre": "GALLETAS DE AVENA",
-        "imagen": "imagenes/galletas_avena.png",
-        "ingredientes":[
-            "200 gramos de avena instantánea",
-            "2 Cucharas de miel",
-            "1 huevo",
-            "Opcionales: arándanos o nueces o chispas de chocolate"
-        ],
-        "tiempo": 10,
-        "nivel": "Principiante",
-        "instrucciones": [
-            "Mezclar en un bowl o tazón: la avena, la miel y el huevo.",
-            "Revolver bien hasta que quede una masita manejable.",
-            "Tomar una pequeña cantidad de la masa y aplanarla ligeramente con las manos para formar la galletita.",
-            "Cocinar en un sartén antiadherente a fuego bajo aproximadamente por 5 minutos de un lado o hasta que este doradita.",
-            "Voltear con precaución y dejar por 1 minuto aproximadamente o hasta lograr el dorado que se desea.",
-            "EL AS BAJO LA MANGA  si la mezcla queda muy seca se puede agregar una cucharadita de leche, o si por el contrario la mezcla está muy húmeda se le puede agregar un poquito más de avena.",
-            "Y por último a disfrutar con un chocolate caliente o una leche fría nuestras deliciosas galletitas de avena."
-        ],
-        "categoria": "Extras",
-        "subcategoria": "Fit"
-    },
-    {
-        "nombre": "Torrejas de espinaca",
-        "imagen": "imagenes/torrejas_espinaca.png",
-        "ingredientes": [
-            "2 Tazas de espinacas frescas lavadas",
-            "2 Huevos",
-            "½ Taza de avena o harina de avena",
-            "¼ De cebolla picada finamente",
-            "1 diente de ajo picado finamente o molido",
-            "Sal y pimienta al gusto",
-            "1 Cucharadita de aceite de oliva"
-        ],
-        "tiempo": 10,
-        "nivel": "Principiante",
-        "instrucciones": [
-            "En una sartén, poner a saltear las espinacas durante 2 ó 3 minutos.",
-            "EL AS BAJO LA MANGA cuando ya haya pasado el tiempo sugerido retíralas del fuego y escúrrelas muy bien para quitar el exceso de líquido y así evitar que nuestra mezcla quede muy húmeda.",
-            "En un bowl o tazón, mezclar la avena, la cebolla, el ajo, la sal y la pimienta.",
-            "Agregar las espinacas que previamente se saltearon, a la mezcla anterior hasta lograr integrar todos los ingredientes.",
-            "Formar con nuestra mezcla, pequeñas torrejitas o tortitas en nuestras manos o ayudándonos con una cuchara y colocarlas en una sartén ligeramente engrasada a fuego medio, por 2 ó 3 minutos de cada lado, hasta que estén doraditas y firmes."
-        ],
-        "categoria": "Extras",
-        "subcategoria": "Fit"
-    },
-    {
-        "nombre": "POLLO EN CREMA",
-        "imagen": "imagenes/pollo_crema.png",
-        "ingredientes": [
-            "4 Pechugas de pollo",
-            "1 Cebolla pequeña picada finamente",
-            "2 Dientes de ajo",
-            "1 Taza de crema",
-            "½ Taza de caldo de pollo",
-            "1 Cucharadita de aceite o mantequilla",
-            "½ Taza de queso rallado",
-            "Sal y pimienta al gusto",
-            "Perejil o cilantro finamente picado"
-        ],
-        "tiempo": 25,
-        "nivel": "Explorador",
-        "instrucciones": [
-            "Cortar el pollo en trozos, sazonar con sal y pimienta y dorarlo en una sartén  con el aceite o mantequilla a fuego medio. Retirar del fuego y reservar el pollo en un tazón.",
-            "En la misma sartén sofreír la cebolla y el ajo durante 2 ó 3 minutos hasta que estén transparentes.",
-            "Agregar la crema y el caldo de pollo a la sartén y cocinar a fuego bajo durante 5 minutos revolviendo ocasionalmente.",
-            "EL AS BAJO LA MANGA. La crema se debe cocinar a fuego bajo para que quede cremosa y evitar que se corte.",
-            "Añade el pollo a la salsa o crema de la sartén y cocina de 5 a 10 minutos hasta que este cocido y la crema este espesa.",
-            "Agregar el queso rallado y mezclar para que se derrita.",
-            "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
-        ],
-        "categoria": "Comida",
-        "subcategoria": ""
-    },
-    {
-        "nombre": "Papas A LA BOLOÑESA",
-        "imagen": "imagenes/papas a la boloñesa.png",
-        "ingredientes": [
-            "2 Cucharadas de aceite vegetal",
-            "1/2 Cebolla picada finamente",
-            "1 Cucharadita de ajo picado finamente",
-            "500 Gramos de carne molida de res",
-            "2 Cucharadas de salsa tipo Inglesa",
-            "1 Cucharada de salsa de soya",
-            "2 tomates (Jitomates) cortados en cubos",
-            "3 Rebanadas de tocino picado y frito",
-            "1/2 Taza de puré de tomate natural",
-            "1/4 De cucharadita de hierbas finas molidas",
-            "1/4 De cucharadita de hojuelas de chile",
-            "1/4 De cucharadita de orégano seco molido",
-            "1 Cubo de Concentrado de tomate con pollo",
-            "4 Papas grandes cortadas en gajos",
-            "1 Cucharada de pimienta negra molida",
-            "1 Cucharada de hierbas finas molidas",
-            "1 Cucharada de sal con cebolla en polvo",
-            "1/4 De taza de queso parmesano rallado",
-            "Albahaca fresca y desinfectada"
-        ],
-        "tiempo": 45,
-        "nivel": "Explorador",
-        "instrucciones": [
-            "Para preparar la boloñesa, calentar en una sartén el aceite y freír la cebolla hasta que esté transparente, agregar el ajo, la carne molida y cocinar por 2 minutos. Verter la salsaInglesa y la salsa de soya. Añadir los tomates (jitomates), el tocino, el puré de tomate, la cucharadita de hierbas finas, las hojuelas de chile, el orégano, el Concentrado de Tomate con Pollo y cocinar por 5 minutos más.",
-            "Para cocinar las papas en gajo, colocar las papas en la canastilla de la freidora de aire y cocinar a 200 °C por 20 minutos, a la mitad de la cocción mover y continuar la cocción.",
-            "Aparte, mezclar la pimienta, las finas hierbas y la sal con cebolla, cuando haya pasado el tiempo de las papas añadir las papas cocidas y mueve hasta cubrir por completo.",
-            "Por ultimo servir las papas y cubrir con la salsa boloñesa, decorar con queso parmesano y hojas de albahaca."
-        ],
-        "categoria": "Comida"
-    }
 ]
