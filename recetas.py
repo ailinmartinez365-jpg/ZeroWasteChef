@@ -784,11 +784,12 @@ recetas = [
             "Agregar el queso rallado y mezclar para que se derrita.",
             "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
         ],
-        "categoria": "Comida"
+        "categoria": "Comida",
+        "subcategoria": ""
     },
     {
         "nombre": "PAPAS A LA BOLOÑESA",
-        "imagen": "imagenes/pollo_crema.png",
+        "imagen": "imagenes/papas a la boloñesa.png",
         "ingredientes": [
             "2 Cucharadas de aceite vegetal",
             "1/2 Cebolla picada finamente",
@@ -799,7 +800,7 @@ recetas = [
             "2 tomates (Jitomates) cortados en cubos",
             "3 Rebanadas de tocino picado y frito",
             "1/2 Taza de puré de tomate natural",
-            "1/4 De cucharadita de hierbas finas molidas,
+            "1/4 De cucharadita de hierbas finas molidas",
             "1/4 De cucharadita de hojuelas de chile",
             "1/4 De cucharadita de orégano seco molido",
             "1 Cubo de Concentrado de tomate con pollo",
