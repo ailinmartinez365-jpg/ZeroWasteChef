@@ -25,6 +25,7 @@ pestaña_menu, pestaña_buscador, pestaña_familia, pestaña_temporada = st.tabs
 ])
 
 # BUSCADOR
+
 with pestaña_buscador:
     todas_las_recetas = recetas + familia + temporada
 
@@ -45,7 +46,7 @@ with pestaña_buscador:
         ["Todos", "Principiante", "Explorador", "Intermedio", "Experto"]
     )
 
-    # NORMALIZAR INGREDIENTES
+    # EQUIVALENCIAS DE INGREDIENTES
     equivalencias = {
         "jitomate": "tomate",
         "jitomates": "tomate",
@@ -54,60 +55,73 @@ with pestaña_buscador:
         "patata": "papa",
         "patatas": "papa",
         "grenetina": "gelatina",
-        "gelatina sin sabor": "gelatina"
+        "gelatinas": "gelatina",
+        "gelatina sin sabor": "gelatina",
+        "fresas": "fresa",
+        "espinacas": "espinaca",
+        "uvas": "uva",
+        "limones": "limón",
+        "zanahorias": "zanahoria",
+        "naranjas": "naranja",
+        "mangos": "mango",
+        "cebollas": "cebolla",
+        "huevos": "huevo",
+        "ajos": "ajo"
     }
+
+    # ALIMENTOS QUE PUEDE RECONOCER EL BUSCADOR
     alimentos_reconocidos = [
-        "mantequilla",
-        "azúcar",
-        "harina",
-        "vainilla",
-        "tomate",
-        "papa",
-        "limón",
-        "sandía",
-        "gelatina",
-        "fresa",
-        "betabel",
-        "naranja",
-        "espinaca",
-        "uva",
-        "zanahoria",
-        "mango",
-        "huevo",
-        "queso",
-        "cebolla",
-        "ajo",
-        "carne",
-        "tocino",
-        "aceite",
-        "orégano",
-        "canela",
-        "sal",
-        "pimienta"
+        "mantequilla", "azúcar", "harina", "vainilla",
+        "tomate", "papa", "limón", "sandía", "gelatina",
+        "fresa", "betabel", "naranja", "espinaca", "uva",
+        "zanahoria", "mango", "huevo", "queso", "cebolla",
+        "ajo", "carne", "tocino", "aceite", "orégano",
+        "canela", "sal", "pimienta", "pollo", "res",
+        "cerdo", "leche", "crema", "yogur", "arroz",
+        "pasta", "frijol", "chile", "cilantro", "perejil",
+        "albahaca", "soya", "salsa", "agua", "avena",
+        "chocolate", "miel", "manzana", "plátano",
+        "nuez", "almendra", "elote", "pepino", "lechuga",
+        "brócoli", "calabaza", "champiñón", "pimiento"
     ]
+
+    # NORMALIZAR INGREDIENTES
     def normalizar_ingrediente_receta(ingrediente):
-        ingrediente = ingrediente.lower().strip()
+        texto = ingrediente.lower().strip()
 
         for palabra, equivalente in equivalencias.items():
-            ingrediente = ingrediente.replace(palabra, equivalente)
+            texto = texto.replace(palabra, equivalente)
 
-        return ingrediente
+        return texto
+
+    # EXTRAER ALIMENTOS DE UNA DESCRIPCIÓN
     def extraer_alimentos(ingrediente):
         texto = normalizar_ingrediente_receta(ingrediente)
         alimentos_encontrados = []
 
+        palabras = [
+            palabra.strip(".,:;()[]{}¡!¿?\"'")
+            for palabra in texto.split()
+        ]
+
         for alimento in alimentos_reconocidos:
-            if alimento in texto.split():
+            if alimento in palabras:
                 alimentos_encontrados.append(alimento)
-      
+
         return alimentos_encontrados
-    st.write(extraer_alimentos("200 gramos de mantequilla a temperatura ambiente"))
-    st.write(extraer_alimentos("2 tomates cortados en cubos"))
-    st.write(extraer_alimentos("Papel para hornear"))
+
+    # OBTENER INGREDIENTES NORMALIZADOS DE UNA RECETA
     def obtener_ingredientes_normalizados(receta):
         ingredientes_normalizados = []
 
         for ingrediente in receta["ingredientes"]:
+
+            texto = ingrediente.strip().lower()
+
+            # Ignorar encabezados de secciones
+            if texto.startswith("para ") and texto.endswith(":"):
+                continue
+
             alimentos = extraer_alimentos(ingrediente)
 
             for alimento in alimentos:
@@ -115,30 +129,163 @@ with pestaña_buscador:
                     ingredientes_normalizados.append(alimento)
 
         return ingredientes_normalizados
-    st.write(
-        obtener_ingredientes_normalizados(temporada[1])
-        )
+
+    # NORMALIZAR INGREDIENTES DEL USUARIO
     ingredientes_usuario = []
 
     if entrada:
         for ingrediente in entrada.split(","):
-            ingrediente = ingrediente.strip().lower()
+            ingrediente = normalizar_ingrediente_receta(ingrediente)
+            alimentos = extraer_alimentos(ingrediente)
 
-            if ingrediente:
-                ingrediente = equivalencias.get(ingrediente, ingrediente)
-                ingredientes_usuario.append(ingrediente)
-    def normalizar_ingrediente_receta(ingrediente):
-        ingrediente = ingrediente.lower().strip()
+            for alimento in alimentos:
+                if alimento not in ingredientes_usuario:
+                    ingredientes_usuario.append(alimento)
 
-        for palabra, equivalente in equivalencias.items():
-            ingrediente = ingrediente.replace(palabra, equivalente)
+    # BUSCAR RECETAS COINCIDENTES
+    recetas_coincidentes = []
 
-        return ingrediente
-    st.write(
-        normalizar_ingrediente_receta(
-            "  JITOMATES  "
+    if entrada and ingredientes_usuario:
+
+        for receta in todas_las_recetas:
+
+            ingredientes_receta = obtener_ingredientes_normalizados(receta)
+
+            if not ingredientes_receta:
+                continue
+
+            coincidencias = [
+                ingrediente
+                for ingrediente in ingredientes_receta
+                if ingrediente in ingredientes_usuario
+            ]
+
+            faltantes = [
+                ingrediente
+                for ingrediente in ingredientes_receta
+                if ingrediente not in ingredientes_usuario
+            ]
+
+            porcentaje = round(
+                len(coincidencias) / len(ingredientes_receta) * 100
+            )
+
+            # FILTRO DE TIEMPO
+            tiempo = receta.get("tiempo", 0)
+
+            if filtro_tiempo == "10 minutos" and tiempo > 10:
+                continue
+
+            if filtro_tiempo == "20 minutos" and tiempo > 20:
+                continue
+
+            if filtro_tiempo == "30+ minutos" and tiempo < 30:
+                continue
+
+            # FILTRO DE NIVEL
+            if (
+                filtro_nivel != "Todos"
+                and receta.get("nivel") != filtro_nivel
+            ):
+                continue
+
+            if coincidencias:
+                recetas_coincidentes.append({
+                    "receta": receta,
+                    "porcentaje": porcentaje,
+                    "coincidencias": coincidencias,
+                    "faltantes": faltantes
+                })
+
+        # ORDENAR DE MAYOR A MENOR COINCIDENCIA
+        recetas_coincidentes.sort(
+            key=lambda resultado: resultado["porcentaje"],
+            reverse=True
         )
-    )
+
+    # MOSTRAR RESULTADOS
+    if entrada:
+
+        if not ingredientes_usuario:
+            st.warning(
+                "No reconocí alimentos en tu búsqueda. "
+                "Intenta escribir ingredientes como huevo, tomate o papa."
+            )
+
+        elif not recetas_coincidentes:
+            st.info(
+                "No encontramos recetas con esos ingredientes "
+                "y filtros. Intenta cambiar tu búsqueda."
+            )
+
+        else:
+            st.subheader("Recetas que puedes preparar")
+
+            columnas = st.columns(3)
+
+            for indice, resultado in enumerate(recetas_coincidentes):
+
+                receta = resultado["receta"]
+                porcentaje = resultado["porcentaje"]
+
+                with columnas[indice % 3]:
+
+                    st.markdown(f"**{receta['nombre']}**")
+
+                    ruta_imagen = os.path.join(
+                        os.path.dirname(__file__),
+                        receta["imagen"]
+                    )
+
+                    if os.path.exists(ruta_imagen):
+                        st.image(
+                            ruta_imagen,
+                            use_container_width=True
+                        )
+                    else:
+                        st.info("Imagen próximamente")
+
+                    st.metric(
+                        "Coincidencia",
+                        f"{porcentaje}%"
+                    )
+
+                    st.write(
+                        f"Tiempo: {receta.get('tiempo', 'No especificado')} minutos"
+                    )
+
+                    st.write(
+                        f"Nivel: {receta.get('nivel', 'No especificado')}"
+                    )
+
+                    st.write(
+                        f"Ingredientes encontrados: "
+                        f"{len(resultado['coincidencias'])}"
+                    )
+
+                    if resultado["faltantes"]:
+                        st.write("**Ingredientes que te faltan:**")
+                        st.write(", ".join(resultado["faltantes"]))
+                    else:
+                        st.success("¡Tienes todos los ingredientes reconocidos!")
+
+                    with st.expander("Ver receta"):
+
+                        st.write("**Descripción:**")
+                        st.write(
+                            receta.get("descripcion", "Sin descripción")
+                        )
+
+                        st.write("**Ingredientes:**")
+                        for ingrediente in receta["ingredientes"]:
+                            st.write(f"- {ingrediente}")
+
+                        st.write("**Instrucciones:**")
+                        for paso, instruccion in enumerate(
+                            receta["instrucciones"], start=1
+                        ):
+                            st.write(f"{paso}. {instruccion}")
+    
     # BUSCAR RECETAS
     resultados = []
 
