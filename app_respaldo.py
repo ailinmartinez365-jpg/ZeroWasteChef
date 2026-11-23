@@ -1,7 +1,6 @@
 import os
 import json
 import base64
-import streamlit as st
 from supabase import create_client
 
 supabase_url = "https://wmxfwzhbwzbaacxkuqab.supabase.co"
