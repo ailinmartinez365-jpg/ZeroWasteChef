@@ -10,12 +10,6 @@ recetas = modulo_recetas.recetas
 familia = recetas_familia.familia
 temporada = recetas_temporada.temporada
 
-# CONFIGURACIÓN DE LA PÁGINA
-st.set_page_config(
-    page_title="Kitchen Help",
-    page_icon="🍃",
-    layout="wide"
-)
 # ENCABEZADO PRINCIPAL
 ruta_banner = os.path.join(
     os.path.dirname(__file__),
