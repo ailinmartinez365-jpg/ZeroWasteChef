@@ -340,3 +340,11 @@ else:
 st.info(  
     "Escribe algunos ingredientes para comenzar."  
 )
+# NAVEGACIÓN PRINCIPAL
+
+tab_menu, tab_buscador, tab_familia, tab_temporada = st.tabs([
+    "Menú",
+    "Buscador",
+    "Familia",
+    "Temporada"
+])
