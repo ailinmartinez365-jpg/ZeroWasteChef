@@ -362,4 +362,8 @@ with pestaña_familia:
     for receta in familia:
         if receta["categoria"] == categoria_familia:
             recetas_familia_filtradas.append(receta)
-    st.write("Recetas encontradas:", len(recetas_familia_filtradas))
+    if recetas_familia_filtradas:
+        st.subheader("Recetas disponibles")
+
+    else:
+        st.info("Todavía no hay recetas en esta categoría.")
