@@ -276,6 +276,8 @@ with pestaña_menu:
         horizontal=True
     )
 
+    subcategoria = None
+
     if categoria == "Comida":
         subcategoria = st.radio(
             "Selecciona el horario:",
@@ -290,9 +292,7 @@ with pestaña_menu:
             horizontal=True
         )
 
-    else:
-        subcategoria = None
-        recetas_filtradas = []
+    recetas_filtradas = []
 
     for receta in recetas:
         if receta["categoria"] == categoria:
@@ -302,45 +302,5 @@ with pestaña_menu:
 
             elif receta["subcategoria"] == subcategoria:
                 recetas_filtradas.append(receta)
-    columnas = st.columns(3)
 
-    for posicion, receta in enumerate(recetas_filtradas):
-
-        with columnas[posicion % 3]:
-
-            with st.container(border=True):
-
-                ruta_imagen = os.path.join(
-                    os.path.dirname(__file__),
-                    receta["imagen"]
-                )
-
-                st.image(
-                     ruta_imagen,
-                     use_container_width=True
-                )
-
-                st.subheader(receta["nombre"])
-
-                st.write(receta["tiempo"], "minutos")
-                st.write("Nivel:", receta["nivel"])
-
-                if st.button(
-                    "Ver receta",
-                    key="menu_" + receta["nombre"]
-                ):
-                    st.subheader(receta["nombre"])
-
-                    st.write("### Ingredientes")
-
-                    for ingrediente in receta["ingredientes"]:
-                        st.write("•", ingrediente)
-
-                    st.write("### Preparación")
-
-                    for numero, instruccion in enumerate(
-                        receta["instrucciones"],
-                        start=1
-                    ):
-                        st.write(str(numero) + ".", instruccion)
-                    
+    st.write("Recetas encontradas:", len(recetas_filtradas))
