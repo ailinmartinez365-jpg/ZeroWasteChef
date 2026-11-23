@@ -27,7 +27,7 @@ recetas = [
             "Cuando lo sirvas en el plato, puedes opcionalmente agregar perejil o cilantro para mayor sabor y como un toque de decoración."
         ],
         "categoria": "Comida",
-        "subcategoria": ""
+        "subcategoria": "Desayuno"
     },
     {
         "nombre": "Papas A LA BOLOÑESA",
