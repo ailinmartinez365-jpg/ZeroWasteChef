@@ -357,3 +357,8 @@ with pestaña_familia:
         ["En familia", "Niños", "Lonche"],
         horizontal=True
     )
+    recetas_familia_filtradas = []
+
+    for receta in familia:
+        if receta["categoria"] == categoria_familia:
+            recetas_familia_filtradas.append(receta)
