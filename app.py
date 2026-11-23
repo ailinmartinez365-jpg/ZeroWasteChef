@@ -56,6 +56,35 @@ with pestaña_buscador:
         "grenetina": "gelatina",
         "gelatina sin sabor": "gelatina"
     }
+        alimentos_reconocidos = [
+        "mantequilla",
+        "azúcar",
+        "harina",
+        "vainilla",
+        "tomate",
+        "papa",
+        "limón",
+        "sandía",
+        "gelatina",
+        "fresa",
+        "betabel",
+        "naranja",
+        "espinaca",
+        "uva",
+        "zanahoria",
+        "mango",
+        "huevo",
+        "queso",
+        "cebolla",
+        "ajo",
+        "carne",
+        "tocino",
+        "aceite",
+        "orégano",
+        "canela",
+        "sal",
+        "pimienta"
+    ]
     ingredientes_usuario = []
 
     if entrada:
