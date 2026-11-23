@@ -4,7 +4,32 @@ from recetas import recetas
 from recetas_familia import familia
 from recetas_temporada import temporada
 import os
+# RUTAS DE IMÁGENES
+CARPETA_PROYECTO = os.path.dirname(__file__)
 
+# Buscar la portada
+nombres_portada = [
+    "portada.jpg",
+    "portada.JPG",
+    "portada.jpeg",
+    "portada.png",
+    "Portada.jpg",
+    "PORTADA.JPG"
+]
+
+ruta_portada = None
+
+for nombre in nombres_portada:
+    posible_ruta = os.path.join(CARPETA_PROYECTO, nombre)
+
+    if os.path.exists(posible_ruta):
+        ruta_portada = posible_ruta
+        break
+
+# Banner
+ruta_banner = os.path.join(CARPETA_PROYECTO, "banner.png")
+
+URL_BANNER = "https://lh3.googleusercontent.com/d/1000066152.png"
 
 # NIVELES DE DIFICULTAD
 niveles = [
