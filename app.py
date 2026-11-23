@@ -275,3 +275,20 @@ with pestaña_menu:
         ["Comida", "Postres", "Extras", "Bebidas"],
         horizontal=True
     )
+
+    if categoria == "Comida":
+        subcategoria = st.radio(
+            "Selecciona el horario:",
+            ["Desayuno", "Almuerzo", "Cena"],
+            horizontal=True
+        )
+
+    elif categoria == "Extras":
+        subcategoria = st.radio(
+            "Selecciona una categoría:",
+            ["Botanas", "Fit", "Otros"],
+            horizontal=True
+        )
+
+    else:
+        subcategoria = None
