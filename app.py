@@ -292,3 +292,10 @@ with pestaña_menu:
 
     else:
         subcategoria = None
+       
+    if categoria == "Postres" or categoria == "Bebidas":
+        recetas_filtradas = []
+
+        for receta in recetas:
+            if receta["categoria"] == categoria:
+                recetas_filtradas.append(receta)
