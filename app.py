@@ -368,3 +368,29 @@ with pestaña_familia:
 
     else:
         st.info("Todavía no hay recetas en esta categoría.")
+    
+    columnas = st.columns(3)
+
+    for posicion, receta in enumerate(recetas_familia_filtradas):
+
+        with columnas[posicion % 3]:
+
+            with st.container(border=True):
+
+                ruta_imagen = os.path.join(
+                    os.path.dirname(__file__),
+                    receta["imagen"]
+                )
+
+                if os.path.exists(ruta_imagen):
+                    st.image(
+                        ruta_imagen,
+                        use_container_width=True
+                    )
+                else:
+                    st.info("Imagen próximamente")
+
+                st.subheader(receta["nombre"])
+
+                st.write(receta["tiempo"], "minutos")
+                st.write("Nivel:", receta["nivel"])
