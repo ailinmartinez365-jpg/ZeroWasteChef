@@ -317,10 +317,13 @@ with pestaña_menu:
                         receta["imagen"]
                     )
 
-                    st.image(
-                        ruta_imagen,
-                        use_container_width=True
-                    )
+                    if os.path.exists(ruta_imagen):
+                        st.image(
+                            ruta_imagen,
+                            use_container_width=True
+                        )
+                    else:
+                        st.info("Imagen próximamente")
 
                     st.subheader(receta["nombre"])
                     st.write(receta["tiempo"], "minutos")
