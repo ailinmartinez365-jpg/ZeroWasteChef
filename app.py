@@ -301,5 +301,6 @@ with pestaña_menu:
                 recetas_filtradas.append(receta)
 
             elif receta.get("subcategoria", "") == subcategoria:
+                recetas_filtradas.append(receta)
 
     st.write("Recetas encontradas:", len(recetas_filtradas))
