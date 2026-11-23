@@ -430,4 +430,7 @@ with pestaña_temporada:
     for receta in temporada:
         if receta["categoria"] == categoria_temporada:
             recetas_temporada_filtradas.append(receta)
-    st.write("Recetas encontradas:", len(recetas_temporada_filtradas))
+    if recetas_temporada_filtradas:
+        st.subheader("Recetas disponibles")
+    else:
+        st.info("Todavía no hay recetas en esta temporada.")
