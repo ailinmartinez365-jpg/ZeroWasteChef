@@ -16,36 +16,33 @@ st.set_page_config(
     page_icon="🍃",
     layout="wide"
 )
+# CONTROL DE PANTALLAS
+if "entrar_app" not in st.session_state:
+    st.session_state.entrar_app = False
 
-# RUTAS DE IMÁGENES
-CARPETA_PROYECTO = os.path.dirname(__file__)
+# PANTALLA DE PORTADA
+if not st.session_state.entrar_app:
 
-nombres_portada = [
-    "portada.jpg",
-    "portada.JPG",
-    "portada.jpeg",
-    "portada.png",
-    "Portada.jpg",
-    "PORTADA.JPG"
-]
-
-ruta_portada = None
-
-for nombre in nombres_portada:
-    posible_ruta = os.path.join(CARPETA_PROYECTO, nombre)
-
-    if os.path.exists(posible_ruta):
-        ruta_portada = posible_ruta
-        break
-
-ruta_banner = os.path.join(CARPETA_PROYECTO, "banner.png")
-
-if ruta_portada:
-    st.image(
-        ruta_portada,
-        use_container_width=True
+    ruta_portada = os.path.join(
+        os.path.dirname(__file__),
+        "portada.png"
     )
-    
+
+    if os.path.exists(ruta_portada):
+        st.image(
+            ruta_portada,
+            use_container_width=True
+        )
+    else:
+        st.error("No se encontró el archivo portada.png")
+
+    if st.button("Entrar", use_container_width=True):
+        st.session_state.entrar_app = True
+        st.rerun()
+
+    st.stop()
+
+
 # NIVELES DE DIFICULTAD
 niveles = [
     "Principiante",
