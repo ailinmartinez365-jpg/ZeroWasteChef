@@ -85,6 +85,13 @@ with pestaña_buscador:
         "sal",
         "pimienta"
     ]
+    def normalizar_ingrediente_receta(ingrediente):
+        ingrediente = ingrediente.lower().strip()
+
+        for palabra, equivalente in equivalencias.items():
+            ingrediente = ingrediente.replace(palabra, equivalente)
+
+        return ingrediente
     def extraer_alimentos(ingrediente):
         texto = normalizar_ingrediente_receta(ingrediente)
         alimentos_encontrados = []
