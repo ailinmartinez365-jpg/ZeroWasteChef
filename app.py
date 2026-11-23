@@ -44,12 +44,11 @@ filtro_nivel = st.selectbox(
 ingredientes_usuario = []
 
 if entrada:
-
-ingredientes_usuario = [  
-    ingrediente.strip().lower()  
-    for ingrediente in entrada.split(",")  
-    if ingrediente.strip()  
-]
+    ingredientes_usuario = [
+        ingrediente.strip().lower()
+        for ingrediente in entrada.split(",")
+        if ingrediente.strip()
+    ]
 
 resultados = []
 
