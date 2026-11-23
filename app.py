@@ -269,13 +269,9 @@ with pestaña_buscador:
 # CONTENIDO PROVISIONAL DE LAS OTRAS PESTAÑAS
 with pestaña_menu:
     st.subheader("Menú")
-    st.info("Aquí organizaremos las categorías de recetas.")
 
-with pestaña_familia:
-    st.subheader("Familia")
-    st.info("Aquí aparecerán las recetas para compartir en familia.")
-
-with pestaña_temporada:
-    st.subheader("Temporada")
-    st.info("Aquí aparecerán las recetas de cada temporada.")
-                                    
+    categoria = st.radio(
+        "Selecciona una categoría:",
+        ["Comida", "Postres", "Extras", "Bebidas"],
+        horizontal=True
+    )
