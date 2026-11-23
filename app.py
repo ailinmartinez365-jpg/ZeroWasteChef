@@ -661,123 +661,48 @@ with pestaña_menu:
     
 # SECCIÓN FAMILIA
 with pestaña_familia:
-    st.subheader("Familia")
+
+    st.subheader("Recetas para compartir")
+
     categoria_familia = st.radio(
         "Selecciona una categoría:",
         ["En familia", "Niños", "Lonche"],
-        horizontal=True
+        horizontal=True,
+        key="categoria_familia"
     )
-    recetas_familia_filtradas = []
 
-    for receta in familia:
-        if receta["categoria"] == categoria_familia:
-            recetas_familia_filtradas.append(receta)
-    
-    if recetas_familia_filtradas:
-        st.subheader("Recetas disponibles")
+    recetas_familia_filtradas = [
+        receta for receta in familia
+        if receta.get("categoria") == categoria_familia
+        or receta.get("subcategoria") == categoria_familia
+    ]
 
-    else:
-        st.info("Todavía no hay recetas en esta categoría.")
-    
-    columnas = st.columns(3)
+    st.divider()
 
-    for posicion, receta in enumerate(recetas_familia_filtradas):
-
-        with columnas[posicion % 3]:
-
-            with st.container(border=True):
-
-                ruta_imagen = os.path.join(
-                    os.path.dirname(__file__),
-                    receta["imagen"]
-                )
-
-                if os.path.exists(ruta_imagen):
-                    st.image(
-                        ruta_imagen,
-                        use_container_width=True
-                    )
-                else:
-                    st.info("Imagen próximamente")
-
-                st.subheader(receta["nombre"])
-
-                st.write(receta["tiempo"], "minutos")
-                st.write("Nivel:", receta["nivel"])
-                if st.button(
-                    "Ver receta",
-                    key="familia_" + receta["nombre"]
-                ):
-
-                    st.subheader(receta["nombre"])
-
-                    st.write("### Ingredientes")
-
-                    for ingrediente in receta["ingredientes"]:
-                        st.write("•", ingrediente)
-
-                    st.write("### Preparación")
-
-                    for numero, instruccion in enumerate(
-                        receta["instrucciones"],
-                        start=1
-                    ):
-                        st.write(
-                            str(numero) + ".",
-                            instruccion
-                        )
-# SECCIÓN TEMPORADA
+    mostrar_carruseles_por_nivel(
+        recetas_familia_filtradas,
+        f"familia_{categoria_familia}"
+    )
 with pestaña_temporada:
-    st.subheader("Temporada")
-    categoria_temporada = st.radio(
+
+    st.subheader("Recetas de temporada")
+
+    temporada_seleccionada = st.radio(
         "Selecciona una temporada:",
         ["Primavera", "Verano", "Otoño", "Invierno"],
-        horizontal=True
+        horizontal=True,
+        key="temporada_seleccionada"
     )
-    recetas_temporada_filtradas = []
 
-    for receta in temporada:
-        if receta["categoria"] == categoria_temporada:
-            recetas_temporada_filtradas.append(receta)
-    if recetas_temporada_filtradas:
-        st.subheader("Recetas disponibles")
+    recetas_temporada_filtradas = [
+        receta for receta in temporada
+        if receta.get("categoria") == temporada_seleccionada
+        or receta.get("subcategoria") == temporada_seleccionada
+    ]
 
-        columnas = st.columns(3)
+    st.divider()
 
-        for posicion, receta in enumerate(recetas_temporada_filtradas):
-            with columnas[posicion % 3]:
-                with st.container(border=True):
-
-                    ruta_imagen = os.path.join(
-                        os.path.dirname(__file__),
-                        receta["imagen"]
-                    )
-
-                    if os.path.exists(ruta_imagen):
-                        st.image(ruta_imagen, use_container_width=True)
-                    else:
-                        st.info("Imagen próximamente")
-
-                    st.subheader(receta["nombre"])
-                    st.write(receta["tiempo"], "minutos")
-                    st.write("Nivel:", receta["nivel"])
-
-                    if st.button(
-                        "Ver receta",
-                        key="temporada_" + receta["nombre"]
-                    ):
-                        st.subheader(receta["nombre"])
-
-                        st.write("### Ingredientes")
-                        for ingrediente in receta["ingredientes"]:
-                            st.write("•", ingrediente)
-
-                        st.write("### Preparación")
-                        for numero, instruccion in enumerate(
-                            receta["instrucciones"],
-                            start=1
-                        ):
-                            st.write(str(numero) + ".", instruccion)
-
-    else:
-        st.info("Todavía no hay recetas en esta temporada.")
+    mostrar_carruseles_por_nivel(
+        recetas_temporada_filtradas,
+        f"temporada_{temporada_seleccionada}"
+    )
