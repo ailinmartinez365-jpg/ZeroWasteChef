@@ -65,7 +65,18 @@ with pestaña_buscador:
             if ingrediente:
                 ingrediente = equivalencias.get(ingrediente, ingrediente)
                 ingredientes_usuario.append(ingrediente)
+    def normalizar_ingrediente_receta(ingrediente):
+        ingrediente = ingrediente.lower().strip()
 
+        for palabra, equivalente in equivalencias.items():
+            ingrediente = ingrediente.replace(palabra, equivalente)
+
+        return ingrediente
+    st.write(
+        normalizar_ingrediente_receta(
+            "  JITOMATES  "
+        )
+    )
     # BUSCAR RECETAS
     resultados = []
 
