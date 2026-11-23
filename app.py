@@ -106,6 +106,9 @@ with pestaña_buscador:
     st.write(extraer_alimentos("Papel para hornear"))
     def obtener_ingredientes_normalizados(receta):
         ingredientes_normalizados = []
+    st.write(
+        obtener_ingredientes_normalizados(temporada[1])
+        )
 
         for ingrediente in receta["ingredientes"]:
             alimentos = extraer_alimentos(ingrediente)
