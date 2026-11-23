@@ -2,6 +2,7 @@
 import streamlit as st
 from recetas import recetas
 from recetas_familia import familia
+from recetas_temporada import temporada
 import os
 
 # CONFIGURACIÓN DE LA PÁGINA
@@ -416,3 +417,17 @@ with pestaña_familia:
                             str(numero) + ".",
                             instruccion
                         )
+# SECCIÓN TEMPORADA
+with pestaña_temporada:
+    st.subheader("Temporada")
+    categoria_temporada = st.radio(
+        "Selecciona una temporada:",
+        ["Primavera", "Verano", "Otoño", "Invierno"],
+        horizontal=True
+    )
+    recetas_temporada_filtradas = []
+
+    for receta in temporada:
+        if receta["categoria"] == categoria_temporada:
+            recetas_temporada_filtradas.append(receta)
+    st.write("Recetas encontradas:", len(recetas_temporada_filtradas))
