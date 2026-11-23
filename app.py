@@ -158,17 +158,6 @@ def mostrar_carruseles_por_nivel(lista_recetas, seccion):
 
         st.divider()
         
-# CONFIGURACIÓN DE LA PÁGINA
-st.set_page_config(
-    page_title="Chef Cero Residuos",
-    page_icon="🍃",
-    layout="wide"
-)
-
-# ENCABEZADO
-st.title("Chef Cero Residuos")
-st.write("Convierte lo que tienes en lo que puedes cocinar.")
-
 # NAVEGACIÓN
 pestaña_menu, pestaña_buscador, pestaña_familia, pestaña_temporada = st.tabs([
     "Menú",
