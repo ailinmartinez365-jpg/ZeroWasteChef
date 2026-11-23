@@ -46,14 +46,25 @@ with pestaña_buscador:
     )
 
     # NORMALIZAR INGREDIENTES
+    equivalencias = {
+        "jitomate": "tomate",
+        "jitomates": "tomate",
+        "tomates": "tomate",
+        "papas": "papa",
+        "patata": "papa",
+        "patatas": "papa",
+        "grenetina": "gelatina",
+        "gelatina sin sabor": "gelatina"
+    }
     ingredientes_usuario = []
 
     if entrada:
-        ingredientes_usuario = [
-            ingrediente.strip().lower()
-            for ingrediente in entrada.split(",")
-            if ingrediente.strip()
-        ]
+        for ingrediente in entrada.split(","):
+            ingrediente = ingrediente.strip().lower()
+
+            if ingrediente:
+                ingrediente = equivalencias.get(ingrediente, ingrediente)
+                ingredientes_usuario.append(ingrediente)
 
     # BUSCAR RECETAS
     resultados = []
