@@ -293,55 +293,44 @@ with pestaña_menu:
     else:
         subcategoria = None
 
-    if categoria == "Postres" or categoria == "Bebidas":
-        recetas_filtradas = []
+    columnas = st.columns(3)
 
-        for receta in recetas:
-            if receta["categoria"] == categoria:
-                recetas_filtradas.append(receta)
+    for posicion, receta in enumerate(recetas_filtradas):
 
-        st.subheader("Recetas disponibles")
+        with columnas[posicion % 3]:
 
-        columnas = st.columns(3)
+            with st.container(border=True):
 
-        for posicion, receta in enumerate(recetas_filtradas):
+                ruta_imagen = os.path.join(
+                    os.path.dirname(__file__),
+                    receta["imagen"]
+                )
 
-            with columnas[posicion % 3]:
+                st.image(
+                     ruta_imagen,
+                     use_container_width=True
+                )
 
-             
-        with st.container(border=True):
-
-            ruta_imagen = os.path.join(
-                os.path.dirname(__file__),
-                receta["imagen"]
-            )
-
-            st.image(
-                ruta_imagen,
-                use_container_width=True
-            )
-
-            st.subheader(receta["nombre"])
-
-            st.write(receta["tiempo"], "minutos")
-
-            st.write("Nivel:", receta["nivel"])
-
-            if st.button(
-                "Ver receta",
-                key="menu_" + receta["nombre"]
-            ):
                 st.subheader(receta["nombre"])
 
-                st.write("### Ingredientes")
+                st.write(receta["tiempo"], "minutos")
+                st.write("Nivel:", receta["nivel"])
 
-                for ingrediente in receta["ingredientes"]:
-                    st.write("•", ingrediente)
-
-                st.write("### Preparación")
-
-                for numero, instruccion in enumerate(
-                    receta["instrucciones"],
-                    start=1
+                if st.button(
+                    "Ver receta",
+                    key="menu_" + receta["nombre"]
                 ):
-                    st.write(str(numero) + ".", instruccion
+                    st.subheader(receta["nombre"])
+
+                    st.write("### Ingredientes")
+
+                    for ingrediente in receta["ingredientes"]:
+                        st.write("•", ingrediente)
+
+                    st.write("### Preparación")
+
+                    for numero, instruccion in enumerate(
+                        receta["instrucciones"],
+                        start=1
+                    ):
+                        st.write(str(numero) + ".", instruccion)
