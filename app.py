@@ -1,18 +1,25 @@
 
 import streamlit as st
-from recetas import recetas
-from recetas_familia import familia
-from recetas_temporada import temporada
 import os
-if ruta_portada:
-    st.image(
-        ruta_portada,
-        use_container_width=True
-    )
+
+import recetas as modulo_recetas
+import recetas_familia
+import recetas_temporada
+
+recetas = modulo_recetas.recetas
+familia = recetas_familia.familia
+temporada = recetas_temporada.temporada
+
+# CONFIGURACIÓN DE LA PÁGINA
+st.set_page_config(
+    page_title="Chef Cero Residuos",
+    page_icon="🍃",
+    layout="wide"
+)
+
 # RUTAS DE IMÁGENES
 CARPETA_PROYECTO = os.path.dirname(__file__)
 
-# Buscar la portada
 nombres_portada = [
     "portada.jpg",
     "portada.JPG",
@@ -31,11 +38,14 @@ for nombre in nombres_portada:
         ruta_portada = posible_ruta
         break
 
-# Banner
 ruta_banner = os.path.join(CARPETA_PROYECTO, "banner.png")
 
-URL_BANNER = "https://lh3.googleusercontent.com/d/1000066152.png"
-
+if ruta_portada:
+    st.image(
+        ruta_portada,
+        use_container_width=True
+    )
+    
 # NIVELES DE DIFICULTAD
 niveles = [
     "Principiante",
