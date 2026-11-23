@@ -4,6 +4,11 @@ from recetas import recetas
 from recetas_familia import familia
 from recetas_temporada import temporada
 import os
+if ruta_portada:
+    st.image(
+        ruta_portada,
+        use_container_width=True
+    )
 # RUTAS DE IMÁGENES
 CARPETA_PROYECTO = os.path.dirname(__file__)
 
