@@ -115,6 +115,9 @@ with pestaña_buscador:
                     ingredientes_normalizados.append(alimento)
 
         return ingredientes_normalizados
+    st.write(
+        obtener_ingredientes_normalizados(temporada[1])
+        )
     ingredientes_usuario = []
 
     if entrada:
