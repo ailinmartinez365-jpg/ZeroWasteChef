@@ -299,3 +299,5 @@ with pestaña_menu:
         for receta in recetas:
             if receta["categoria"] == categoria:
                 recetas_filtradas.append(receta)
+            
+    st.write("Recetas encontradas:", len(recetas_filtradas))
