@@ -352,8 +352,8 @@ with pestaña_menu:
 # SECCIÓN FAMILIA
 with pestaña_familia:
     st.subheader("Familia")
-        categoria_familia = st.radio(
+    categoria_familia = st.radio(
         "Selecciona una categoría:",
         ["En familia", "Niños", "Lonche"],
         horizontal=True
-        )
+    )
