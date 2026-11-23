@@ -349,3 +349,6 @@ with pestaña_menu:
 
     else:
         st.info("Todavía no hay recetas en esta categoría.")
+# SECCIÓN FAMILIA
+with pestaña_familia:
+    st.subheader("Familia")
