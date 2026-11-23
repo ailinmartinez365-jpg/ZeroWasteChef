@@ -26,7 +26,7 @@ pestaña_menu, pestaña_buscador, pestaña_familia, pestaña_temporada = st.tabs
 
 # BUSCADOR
 with pestaña_buscador:
-        todas_las_recetas = recetas + familia + temporada
+    todas_las_recetas = recetas + familia + temporada
 
     st.subheader("¿Qué ingredientes tienes?")
 
