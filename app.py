@@ -10,6 +10,57 @@ recetas = modulo_recetas.recetas
 familia = recetas_familia.familia
 temporada = recetas_temporada.temporada
 
+
+# ESTILOS VISUALES DE KITCHEN HELP
+st.markdown("""
+<style>
+
+/* Fondo principal */
+.stApp {
+    background-color: #FFF8EA;
+    color: #4A2920;
+}
+
+/* Botones */
+.stButton > button {
+    background-color: #C65332;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.stButton > button:hover {
+    background-color: #4A2920;
+    color: white;
+    border: none;
+}
+
+/* Pestañas */
+.stTabs [data-baseweb="tab"] {
+    color: #4A2920;
+    font-weight: 600;
+}
+
+.stTabs [aria-selected="true"] {
+    color: #C65332;
+}
+
+/* Tarjetas */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #FFFFFF;
+    border-color: #E8D5C5;
+    border-radius: 12px;
+}
+
+/* Texto */
+h1, h2, h3, p, label {
+    color: #4A2920;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # ENCABEZADO PRINCIPAL
 ruta_banner = os.path.join(
     os.path.dirname(__file__),
