@@ -85,6 +85,18 @@ with pestaña_buscador:
         "sal",
         "pimienta"
     ]
+    def extraer_alimentos(ingrediente):
+        texto = normalizar_ingrediente_receta(ingrediente)
+        alimentos_encontrados = []
+
+        for alimento in alimentos_reconocidos:
+            if alimento in texto:
+                alimentos_encontrados.append(alimento)
+
+        return alimentos_encontrados
+    st.write(extraer_alimentos("200 gramos de mantequilla a temperatura ambiente"))
+    st.write(extraer_alimentos("2 tomates cortados en cubos"))
+    st.write(extraer_alimentos("Papel para hornear"))
     ingredientes_usuario = []
 
     if entrada:
