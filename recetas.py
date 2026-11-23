@@ -428,7 +428,7 @@ recetas = [
         "nombre": "FLAUTAS DORADAS DE PAPA",
         "imagen": "imagenes/Flautas_de_papa.png",
         "ingredientes": [
-            "2 Papas cocidas y hechas puré"
+            "2 Papas cocidas y hechas puré",
             "1/2 Cucharadita de sal con ajo en polvo",
             "8 Tortillas de maíz",
             "Aceite en aerosol",
@@ -436,7 +436,7 @@ recetas = [
             "1/2 Paquete Queso panela rallado (100 g)",
             "1 Lata de Media Crema"
         ],
-        "tiempo": 35 min,
+        "tiempo": 35,
         "nivel": "Explorador",
         "instrucciones": [
             "En un bowl o tazón mezclar las papas y la sal con ajo hasta integrar por completo, rellena las tortillas con un poco de la preparación anterior, enrolla y reserva.",
