@@ -292,7 +292,16 @@ with pestaña_menu:
 
     else:
         subcategoria = None
+        recetas_filtradas = []
 
+    for receta in recetas:
+        if receta["categoria"] == categoria:
+
+            if subcategoria is None:
+                recetas_filtradas.append(receta)
+
+            elif receta["subcategoria"] == subcategoria:
+                recetas_filtradas.append(receta)
     columnas = st.columns(3)
 
     for posicion, receta in enumerate(recetas_filtradas):
@@ -334,3 +343,4 @@ with pestaña_menu:
                         start=1
                     ):
                         st.write(str(numero) + ".", instruccion)
+                    
