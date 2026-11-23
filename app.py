@@ -1,6 +1,7 @@
 
 import streamlit as st
 from recetas import recetas
+from recetas_familia import familia
 import os
 
 # CONFIGURACIÓN DE LA PÁGINA
