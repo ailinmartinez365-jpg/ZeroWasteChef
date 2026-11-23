@@ -394,3 +394,25 @@ with pestaña_familia:
 
                 st.write(receta["tiempo"], "minutos")
                 st.write("Nivel:", receta["nivel"])
+                if st.button(
+                    "Ver receta",
+                    key="familia_" + receta["nombre"]
+                ):
+
+                    st.subheader(receta["nombre"])
+
+                    st.write("### Ingredientes")
+
+                    for ingrediente in receta["ingredientes"]:
+                        st.write("•", ingrediente)
+
+                    st.write("### Preparación")
+
+                    for numero, instruccion in enumerate(
+                        receta["instrucciones"],
+                        start=1
+                    ):
+                        st.write(
+                            str(numero) + ".",
+                            instruccion
+                        )
