@@ -5,6 +5,115 @@ from recetas_familia import familia
 from recetas_temporada import temporada
 import os
 
+
+# NIVELES DE DIFICULTAD
+niveles = [
+    "Principiante",
+    "Explorador",
+    "Intermedio",
+    "Experto"
+]
+
+# MOSTRAR RECETAS EN CARRUSELES
+def mostrar_carruseles_por_nivel(lista_recetas, seccion):
+
+    descripciones = {
+        "Principiante": "Recetas rápidas y sencillas",
+        "Explorador": "Descubre nuevas combinaciones",
+        "Intermedio": "Recetas para desarrollar tus habilidades",
+        "Experto": "Preparaciones para poner a prueba tu experiencia"
+    }
+
+    for nivel in niveles:
+
+        recetas_nivel = [
+            receta for receta in lista_recetas
+            if receta.get("nivel") == nivel
+        ]
+
+        st.markdown(f"### {nivel}")
+        st.caption(descripciones[nivel])
+
+        if not recetas_nivel:
+            st.info("Todavía no hay recetas en este nivel.")
+            continue
+
+        # CONFIGURAR POSICIÓN DEL CARRUSEL
+        clave = f"carrusel_{seccion}_{nivel}"
+
+        if clave not in st.session_state:
+            st.session_state[clave] = 0
+
+        inicio = st.session_state[clave]
+
+        # BOTONES Y TARJETAS
+        anterior, centro, siguiente = st.columns([0.5, 6, 0.5])
+
+        with anterior:
+            if inicio > 0:
+                if st.button("‹", key=f"{clave}_anterior"):
+                    st.session_state[clave] = max(0, inicio - 3)
+                    st.rerun()
+
+        with siguiente:
+            if inicio + 3 < len(recetas_nivel):
+                if st.button("›", key=f"{clave}_siguiente"):
+                    st.session_state[clave] = inicio + 3
+                    st.rerun()
+
+        with centro:
+
+            columnas = st.columns(3)
+
+            for posicion, receta in enumerate(
+                recetas_nivel[inicio:inicio + 3]
+            ):
+
+                with columnas[posicion]:
+
+                    with st.container(border=True):
+
+                        imagen = receta.get("imagen")
+
+                        if imagen:
+                            ruta_imagen = os.path.join(
+                                os.path.dirname(__file__),
+                                imagen
+                            )
+
+                            if os.path.exists(ruta_imagen):
+                                st.image(
+                                    ruta_imagen,
+                                    use_container_width=True
+                                )
+                            else:
+                                st.info("Imagen próximamente")
+                        else:
+                            st.info("Imagen próximamente")
+
+                        st.markdown(f"**{receta['nombre']}**")
+
+                        st.caption(
+                            f"{receta.get('tiempo', 'No especificado')} minutos"
+                        )
+
+                        with st.expander("Ver receta"):
+
+                            st.write("**Ingredientes**")
+
+                            for ingrediente in receta["ingredientes"]:
+                                st.write(f"- {ingrediente}")
+
+                            st.write("**Preparación**")
+
+                            for numero, instruccion in enumerate(
+                                receta["instrucciones"],
+                                start=1
+                            ):
+                                st.write(f"{numero}. {instruccion}")
+
+        st.divider()
+        
 # CONFIGURACIÓN DE LA PÁGINA
 st.set_page_config(
     page_title="Chef Cero Residuos",
@@ -501,7 +610,9 @@ with pestaña_buscador:
         st.info("Escribe algunos ingredientes para comenzar.")
 
 # CONTENIDO PROVISIONAL DE LAS OTRAS PESTAÑAS
+
 with pestaña_menu:
+
     st.subheader("Menú")
 
     categoria = st.radio(
@@ -529,6 +640,7 @@ with pestaña_menu:
     recetas_filtradas = []
 
     for receta in recetas:
+
         if receta["categoria"] == categoria:
 
             if subcategoria is None:
@@ -537,51 +649,13 @@ with pestaña_menu:
             elif receta.get("subcategoria", "") == subcategoria:
                 recetas_filtradas.append(receta)
 
-    if recetas_filtradas:
-        st.subheader("Recetas disponibles")
+    st.divider()
 
-        columnas = st.columns(3)
-
-        for posicion, receta in enumerate(recetas_filtradas):
-            with columnas[posicion % 3]:
-                with st.container(border=True):
-
-                    ruta_imagen = os.path.join(
-                        os.path.dirname(__file__),
-                        receta["imagen"]
-                    )
-
-                    if os.path.exists(ruta_imagen):
-                        st.image(
-                            ruta_imagen,
-                            use_container_width=True
-                        )
-                    else:
-                        st.info("Imagen próximamente")
-
-                    st.subheader(receta["nombre"])
-                    st.write(receta["tiempo"], "minutos")
-                    st.write("Nivel:", receta["nivel"])
-
-                    if st.button(
-                        "Ver receta",
-                        key="menu_" + receta["nombre"]
-                    ):
-                        st.subheader(receta["nombre"])
-
-                        st.write("### Ingredientes")
-                        for ingrediente in receta["ingredientes"]:
-                            st.write("•", ingrediente)
-
-                        st.write("### Preparación")
-                        for numero, instruccion in enumerate(
-                            receta["instrucciones"],
-                            start=1
-                        ):
-                            st.write(str(numero) + ".", instruccion)
-
-    else:
-        st.info("Todavía no hay recetas en esta categoría.")
+    mostrar_carruseles_por_nivel(
+        recetas_filtradas,
+        "menu"
+    )
+    
 # SECCIÓN FAMILIA
 with pestaña_familia:
     st.subheader("Familia")
