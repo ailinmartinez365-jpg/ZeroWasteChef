@@ -97,7 +97,7 @@ with pestaña_buscador:
         alimentos_encontrados = []
 
         for alimento in alimentos_reconocidos:
-            if alimento in texto:
+            if alimento in texto.split():
                 alimentos_encontrados.append(alimento)
 
         return alimentos_encontrados
