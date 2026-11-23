@@ -99,16 +99,13 @@ with pestaña_buscador:
         for alimento in alimentos_reconocidos:
             if alimento in texto.split():
                 alimentos_encontrados.append(alimento)
-
+      
         return alimentos_encontrados
     st.write(extraer_alimentos("200 gramos de mantequilla a temperatura ambiente"))
     st.write(extraer_alimentos("2 tomates cortados en cubos"))
     st.write(extraer_alimentos("Papel para hornear"))
     def obtener_ingredientes_normalizados(receta):
         ingredientes_normalizados = []
-    st.write(
-        obtener_ingredientes_normalizados(temporada[1])
-        )
 
         for ingrediente in receta["ingredientes"]:
             alimentos = extraer_alimentos(ingrediente)
