@@ -56,7 +56,7 @@ with pestaña_buscador:
         "grenetina": "gelatina",
         "gelatina sin sabor": "gelatina"
     }
-        alimentos_reconocidos = [
+    alimentos_reconocidos = [
         "mantequilla",
         "azúcar",
         "harina",
