@@ -104,6 +104,17 @@ with pestaña_buscador:
     st.write(extraer_alimentos("200 gramos de mantequilla a temperatura ambiente"))
     st.write(extraer_alimentos("2 tomates cortados en cubos"))
     st.write(extraer_alimentos("Papel para hornear"))
+    def obtener_ingredientes_normalizados(receta):
+        ingredientes_normalizados = []
+
+        for ingrediente in receta["ingredientes"]:
+            alimentos = extraer_alimentos(ingrediente)
+
+            for alimento in alimentos:
+                if alimento not in ingredientes_normalizados:
+                    ingredientes_normalizados.append(alimento)
+
+        return ingredientes_normalizados
     ingredientes_usuario = []
 
     if entrada:
