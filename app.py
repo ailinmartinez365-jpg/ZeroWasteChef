@@ -12,10 +12,23 @@ temporada = recetas_temporada.temporada
 
 # CONFIGURACIÓN DE LA PÁGINA
 st.set_page_config(
-    page_title="Chef Cero Residuos",
+    page_title="Kitchen Help",
     page_icon="🍃",
     layout="wide"
 )
+# ENCABEZADO PRINCIPAL
+ruta_banner = os.path.join(
+    os.path.dirname(__file__),
+    "banner.png"
+)
+
+if os.path.exists(ruta_banner):
+    st.image(
+        ruta_banner,
+        use_container_width=True
+    )
+else:
+    st.warning("No se encontró la imagen banner.png")
 # CONTROL DE PANTALLAS
 if "entrar_app" not in st.session_state:
     st.session_state.entrar_app = False
