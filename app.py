@@ -362,3 +362,4 @@ with pestaña_familia:
     for receta in familia:
         if receta["categoria"] == categoria_familia:
             recetas_familia_filtradas.append(receta)
+    st.write("Recetas encontradas:", len(recetas_familia_filtradas))
